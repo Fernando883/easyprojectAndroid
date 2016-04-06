@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/new_project"
+            android:icon="@drawable/ic_new"
+            android:title="@string/new_project" />
+
+        <item
+            android:id="@+id/my_projects"
+            android:icon="@drawable/ic_project"
+            android:title="@string/my_projects" />
+        <item
+            android:id="@+id/my_tasks"
+            android:icon="@drawable/ic_task"
+            android:title="@string/my_tasks" />
+
+    </group>
+
+    <item android:title="@string/options">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+</menu>
