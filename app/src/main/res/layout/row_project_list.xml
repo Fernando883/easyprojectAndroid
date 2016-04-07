@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/projectName"
-        android:textColor=""
+        android:textColor="#000"
         android:textSize="16dp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
