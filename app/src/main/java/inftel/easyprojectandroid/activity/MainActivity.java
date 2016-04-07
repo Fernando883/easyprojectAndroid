@@ -1,5 +1,8 @@
-package inftel.easyprojectandroid;
+package inftel.easyprojectandroid.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,8 +17,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
+import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.model.Usuario;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Usuario user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +101,34 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.my_tasks) {
             Toast.makeText(this, getString(R.string.my_tasks), Toast.LENGTH_LONG).show();
         } else if (id == R.id.logout) {
-            Toast.makeText(this, getString(R.string.logout), Toast.LENGTH_LONG).show();
+
+            user = null;
+
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
+            editor.putString("email", "");
+            editor.putString("username", "");
+            editor.commit();
+
+            signOut();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(Usuario.getInstance().getGoogleApiClient()).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        Intent intent = new Intent(MainActivity.this, Login.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
     }
 }

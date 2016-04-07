@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="inftel.easyprojectandroid.activity.NewProjectActivity"
-    tools:showIn="@layout/activity_new_project">
+    tools:showIn="@layout/fragment_new_project">
 
     <LinearLayout
         android:layout_width="match_parent"
