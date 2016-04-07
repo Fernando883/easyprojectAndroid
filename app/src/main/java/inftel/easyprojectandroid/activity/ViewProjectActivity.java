@@ -54,10 +54,10 @@ public class ViewProjectActivity extends AppCompatActivity {
         //custom the view
         mTabHost.setCurrentTab(1);
         mTabHost.setDrawingCacheBackgroundColor(getColor(R.color.primary));
-        /*
+
         mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(getColor(R.color.blue));
         mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(getColor(R.color.yellow));
-        mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(getColor(R.color.green));*/
+        mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(getColor(R.color.green));
 
         //FloatingActionButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
