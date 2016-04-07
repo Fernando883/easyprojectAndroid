@@ -15,11 +15,26 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_new_project">NewProjectActivity</string>
+    <string name="titleNewProject">New project</string>
+    <string name="save">Save</string>
 
     <!-- content_new_project -->
     <string name="project_name">Project name</string>
     <string name="project_description">Project description</string>
+    <string name="members">Project members</string>
     <string name="title_activity_view_project">ViewProjectActivity</string>
 
+    <!-- content_new_task -->
+    <string name="task_name">Task name</string>
+    <string name="task_description">Task description</string>
+    <string name="task_duration">Task duration</string>
+    <string-array name="status_arrays">
+        <item></item>
+    </string-array>
+
+
+
+
     <string name="title_activity_login">Login</string>
+    <string name="title_activity_new_task">New Task</string>
 </resources>

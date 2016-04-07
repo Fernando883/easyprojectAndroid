@@ -26,7 +26,7 @@ public class Get extends AsyncTask <String, Void, StringBuffer>{
             return loginUser(urls[0]);
 
         } catch (IOException e) {
-            Log.d("Login", "Unable to retrieve web page. URL may be invalid.");
+            Log.d("LoginActivity", "Unable to retrieve web page. URL may be invalid.");
             return null;
         }
     }

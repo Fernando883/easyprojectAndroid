@@ -21,7 +21,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.model.Usuario;
 
-public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
     private GoogleSignInOptions gso;
     private int RC_SIGN_IN = 1;
@@ -92,7 +92,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void handleSignInResult(GoogleSignInResult result) {
 
-        Log.d("Login", "handleSignInResult:" + result.isSuccess());
+        Log.d("LoginActivity", "handleSignInResult:" + result.isSuccess());
 
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             user.setNombreU(acct.getDisplayName());
             goMainActivity(user, true);
         } else {
-            Log.d("Login", "NameSignInResult Error");
+            Log.d("LoginActivity", "NameSignInResult Error");
         }
     }
 
