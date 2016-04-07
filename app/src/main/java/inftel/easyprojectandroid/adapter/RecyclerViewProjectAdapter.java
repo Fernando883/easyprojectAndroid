@@ -30,7 +30,7 @@ public class RecyclerViewProjectAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.iconProjectNumUsers.setImageResource(R.drawable.icon_user);
-        holder.projectNumUsers.setText(projectList.get(position).getNumUsers());
+        holder.projectNumUsers.setText(String.valueOf(projectList.get(position).getNumUsers()));
         holder.projectName.setText(projectList.get(position).getNombreP());
         holder.projectDescription.setText(projectList.get(position).getDescripcion());
     }
