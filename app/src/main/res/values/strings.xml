@@ -20,4 +20,12 @@
     <string name="project_description">Project description</string>
     <string name="title_activity_view_project">ViewProjectActivity</string>
 
+    <!--ViewprojectActivity-->
+    <string name="to_do">To do</string>
+    <string name="doing">Doing</string>
+    <string name="done">Done</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
