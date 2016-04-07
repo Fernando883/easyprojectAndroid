@@ -14,5 +14,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_new_project">NewProjectActivity</string>
+
+    <!-- content_new_project -->
+    <string name="project_name">Project name</string>
+    <string name="project_description">Project description</string>
+    <string name="title_activity_view_project">ViewProjectActivity</string>
+
     <string name="title_activity_login">Login</string>
 </resources>
