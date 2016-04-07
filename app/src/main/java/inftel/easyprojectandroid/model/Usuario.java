@@ -8,6 +8,17 @@ public class Usuario {
     private String email;
     private String nombreU;
 
+    private static Usuario userInstance = null;
+
+    private Usuario(){};
+
+    public static Usuario getInstance() {
+        if(userInstance == null) {
+            userInstance = new Usuario();
+        }
+        return userInstance;
+    }
+
     public Long getIdUsuario() {
         return idUsuario;
     }
