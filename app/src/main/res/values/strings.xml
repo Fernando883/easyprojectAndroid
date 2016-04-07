@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">EasyProjectAndroid</string>
     <string name="action_settings">Settings</string>
+
+    <!--  Res->menu-> Left menu-->
+    <string name="new_project">New project</string>
+    <string name="my_projects">My projects</string>
+    <string name="my_tasks">My tasks</string>
+    <string name="logout">Log out</string>
+    <string name="options">Options</string>
+
+    <!-- drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
