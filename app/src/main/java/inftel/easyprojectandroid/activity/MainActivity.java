@@ -1,10 +1,9 @@
-package inftel.easyprojectandroid;
+package inftel.easyprojectandroid.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.fragment.ProjectListFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,6 +44,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Por defecto, agregamos el fragmento de carga
+        //LoadingFragment loadingFragment = new LoadingFragment();
+        //getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
+
+        ProjectListFragment projectListFragment = new ProjectListFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, projectListFragment).commit();
+
+
     }
 
     @Override

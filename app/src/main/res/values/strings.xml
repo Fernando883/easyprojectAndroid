@@ -20,4 +20,8 @@
     <string name="project_description">Project description</string>
     <string name="title_activity_view_project">ViewProjectActivity</string>
 
+    <!-- Server DATA -->
+    <string name="server_ip">http://192.168.1.1:8080</string>
+    <string name="server_path">/visitmerest/webresources/ejbentities</string>
+
 </resources>
