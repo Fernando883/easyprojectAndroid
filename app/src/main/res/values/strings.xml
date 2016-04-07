@@ -29,7 +29,7 @@
     <string name="task_description">Task description</string>
     <string name="task_duration">Task duration</string>
     <string-array name="status_arrays">
-        <item></item>
+
     </string-array>
 
 
