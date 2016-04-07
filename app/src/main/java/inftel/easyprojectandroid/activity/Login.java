@@ -23,7 +23,6 @@ import inftel.easyprojectandroid.model.Usuario;
 
 public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
-    private GoogleApiClient mGoogleApiClient;
     private GoogleSignInOptions gso;
     private int RC_SIGN_IN = 1;
     private SharedPreferences sharedPref;
@@ -52,13 +51,18 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
             // Build a GoogleApiClient with access to the Google Sign-In API and the
             // options specified by gso.
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .enableAutoManage(this, this)
+            Usuario.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
+                    .build());
             //Set the listener button signIn
             findViewById(R.id.sign_in_button).setOnClickListener(this);
         }
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Usuario.getInstance().getGoogleApiClient().connect();
     }
 
     @Override
@@ -71,7 +75,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(Usuario.getInstance().getGoogleApiClient() );
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
