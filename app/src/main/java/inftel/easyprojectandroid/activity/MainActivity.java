@@ -12,24 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import inftel.easyprojectandroid.R;
-import inftel.easyprojectandroid.fragment.ProjectListFragment;
-
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.util.List;
+
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.fragment.ProjectListFragment;
+import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.Usuario;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ServiceListener {
 
     private Usuario user;
 
@@ -142,5 +143,15 @@ public class MainActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 });
+    }
+
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+        
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
+
     }
 }

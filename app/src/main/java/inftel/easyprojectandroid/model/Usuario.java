@@ -15,7 +15,7 @@ public class Usuario extends Application {
 
     private static Usuario userInstance = null;
 
-    private Usuario(){};
+    public Usuario(){};
 
     public static Usuario getInstance() {
         if(userInstance == null) {
