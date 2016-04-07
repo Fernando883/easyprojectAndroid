@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_id": "easyproyect-1237",
+    "project_number": "757738411234",
+    "name": "EasyProyect"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757738411234:android:dbe7ec086a7aacbd",
+        "client_id": "android:inftel.easyprojectandroid",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "inftel.easyprojectandroid",
+          "certificate_hash": []
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757738411234-1k70ls84qjg7fvclribebaeh60qei8mr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "inftel.easyprojectandroid",
+            "certificate_hash": "D39E1AFE5D56438261480BC36133F8318477FE42"
+          }
+        },
+        {
+          "client_id": "757738411234-1uicf7meaf318nu9hn74jcd3a1nic6r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 2
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}
