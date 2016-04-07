@@ -1,5 +1,8 @@
 package inftel.easyprojectandroid.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by csalas on 6/4/16.
  */
@@ -9,6 +12,9 @@ public class Proyecto {
     private String descripcion;
     private String chat;
     private Usuario director;
+
+    // Propios de la APP
+    private int numUsers;
 
     public Proyecto() {
 
@@ -52,5 +58,21 @@ public class Proyecto {
 
     public void setDirector(Usuario director) {
         this.director = director;
+    }
+
+    public int getNumUsers() {
+        return numUsers;
+    }
+
+    public void setNumUsers(int numUsers) {
+        this.numUsers = numUsers;
+    }
+
+    public static Proyecto fromJSON(String response) throws JSONException {
+        Proyecto project = new Proyecto();
+        JSONObject jsonObject = new JSONObject(response);
+
+
+        return project;
     }
 }
