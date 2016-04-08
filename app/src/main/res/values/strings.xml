@@ -28,13 +28,31 @@
     <string name="task_name">Task name</string>
     <string name="task_description">Task description</string>
     <string name="task_duration">Task duration</string>
+    <string name="Taskmembers">Task members</string>
     <string-array name="status_arrays">
-
+        <item>@string/to_do</item>
+        <item>@string/doing</item>
+        <item>@string/done</item>
     </string-array>
 
 
 
 
+    <!--ViewprojectActivity-->
+    <string name="to_do">To do</string>
+    <string name="doing">Doing</string>
+    <string name="done">Done</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Login-->
     <string name="title_activity_login">Login</string>
     <string name="title_activity_new_task">New Task</string>
+    <string name="about">Manage your projects easily</string>
+
+    <!-- Server DATA -->
+    <string name="server_ip">http://192.168.1.137:8080</string>
+    <string name="server_path">/WEB-INF/webresources/</string>
+
 </resources>

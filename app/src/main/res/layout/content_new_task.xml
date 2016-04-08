@@ -55,11 +55,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:inputType="textMultiLine"
+                android:inputType="numberDecimal"
                 android:hint="@string/task_duration" />
         </android.support.design.widget.TextInputLayout>
 
-
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/status_spinner">
+        </Spinner>
 
 
         <MultiAutoCompleteTextView
@@ -71,7 +75,7 @@
             android:layout_below="@+id/autoCompleteTextView2"
             android:layout_alignLeft="@+id/autoCompleteTextView2"
             android:layout_alignStart="@+id/autoCompleteTextView2"
-            android:hint="@string/members" />
+            android:hint="@string/Taskmembers" />
 
         <LinearLayout
             android:layout_width="match_parent"

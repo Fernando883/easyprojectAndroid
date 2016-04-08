@@ -7,15 +7,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 /**
  * Created by csalas on 6/4/16.
  */
-public class Usuario extends Application {
-    private GoogleApiClient mGoogleApiClient;
+public class Usuario {
     private Long idUsuario;
     private String email;
     private String nombreU;
 
+    public Usuario(){};
+
     private static Usuario userInstance = null;
 
-    private Usuario(){};
 
     public static Usuario getInstance() {
         if(userInstance == null) {
@@ -24,9 +24,6 @@ public class Usuario extends Application {
         return userInstance;
     }
 
-    public GoogleApiClient getGoogleApiClient() { return mGoogleApiClient; }
-
-    public void setGoogleApiClient(GoogleApiClient client) { this.mGoogleApiClient = client; }
 
     public Long getIdUsuario() {
         return idUsuario;

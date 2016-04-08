@@ -5,27 +5,33 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.util.List;
+
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.fragment.ProjectListFragment;
+import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Usuario;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ServiceListener {
 
     private Usuario user;
 
@@ -55,6 +61,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Por defecto, agregamos el fragmento de carga
+        //LoadingFragment loadingFragment = new LoadingFragment();
+        //getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
+
+        ProjectListFragment projectListFragment = new ProjectListFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, projectListFragment).commit();
+
+
     }
 
     @Override
@@ -122,7 +137,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void signOut() {
-        Auth.GoogleSignInApi.signOut(Usuario.getInstance().getGoogleApiClient()).setResultCallback(
+        Auth.GoogleSignInApi.signOut(EasyProjectApp.getInstance().getGoogleApiClient()).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
@@ -131,5 +146,15 @@ public class MainActivity extends AppCompatActivity
                         startActivity(intent);
                     }
                 });
+    }
+
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
+
     }
 }
