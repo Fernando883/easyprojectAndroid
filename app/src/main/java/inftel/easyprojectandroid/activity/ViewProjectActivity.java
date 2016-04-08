@@ -6,11 +6,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
+
+import java.util.List;
+
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.TaskListFragment;
+import inftel.easyprojectandroid.interfaces.ServiceListener;
 
-public class ViewProjectActivity extends AppCompatActivity {
+public class ViewProjectActivity extends AppCompatActivity implements ServiceListener {
 
     private FragmentTabHost mTabHost;
     public static final int TODO = 1;
@@ -58,6 +63,15 @@ public class ViewProjectActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
+
+    }
 }
 
 
