@@ -15,6 +15,7 @@ import inftel.easyprojectandroid.http.HttpTask;
 import inftel.easyprojectandroid.interfaces.ResponseListener;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.Proyecto;
+import inftel.easyprojectandroid.model.Usuario;
 
 /**
  * Created by csalas on 7/4/16.
@@ -37,11 +38,33 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getProjects").execute(httpRequest);
     }
 
+    public void getUsersEmail(){
+        String url = SERVER_IP + SERVER_PATH + "entity.usuario/findAll";
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getUsersEmail").execute(httpRequest);
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
         Log.e("RESPONSE", response.second);
         if (response.first.equals("getProjects"))
             parseProjectList(response.second);
+        else if (response.first.equals("getUsers"))
+            parseUsersEmailList(response.second);
+    }
+
+    private void parseUsersEmailList(String response){
+        ArrayList<String> userEmailList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                String email = jsonArray.getString(i);
+                userEmailList.add(email);
+            }
+            listener.onListResponse(new Pair("userEmailList", userEmailList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
