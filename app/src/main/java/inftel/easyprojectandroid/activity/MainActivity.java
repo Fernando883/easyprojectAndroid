@@ -22,17 +22,22 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.fragment.LoadingFragment;
 import inftel.easyprojectandroid.fragment.ProjectListFragment;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
+import inftel.easyprojectandroid.service.ProjectService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ServiceListener {
 
     private Usuario user;
+    private ProjectService projectService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +65,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // Por defecto, agregamos el fragmento de carga
-        //LoadingFragment loadingFragment = new LoadingFragment();
-        //getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
+        LoadingFragment loadingFragment = new LoadingFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
 
-        ProjectListFragment projectListFragment = new ProjectListFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, projectListFragment).commit();
-
-
+        projectService = new ProjectService(this, this);
+        projectService.getProjects("1354");
     }
 
     @Override
@@ -133,6 +136,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
+        if (response.first.equals("getProjects"))
+            showProjectListFragment((ArrayList<Proyecto>)response.second);
+
+    }
+
     private void signOut() {
         Auth.GoogleSignInApi.signOut(Usuario.getInstance().getGoogleApiClient()).setResultCallback(
                 new ResultCallback<Status>() {
@@ -145,13 +160,11 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
-    @Override
-    public void onObjectResponse(Pair<String, ?> response) {
-
+    private void showProjectListFragment(ArrayList<Proyecto> projectList) {
+        ProjectListFragment projectListFragment = new ProjectListFragment();
+        projectListFragment.setProjectList(projectList);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, projectListFragment).commit();
     }
 
-    @Override
-    public void onListResponse(Pair<String, List<?>> response) {
 
-    }
 }

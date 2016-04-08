@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.adapter.RecyclerViewProjectAdapter;
 import inftel.easyprojectandroid.model.Proyecto;
-import inftel.easyprojectandroid.model.Usuario;
 
 /**
  * Created by csalas on 7/4/16.
@@ -33,10 +32,6 @@ public class ProjectListFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_project_list, container, false);
 
-        // Aquí tenemos que tener los datos recuperados
-        projectList = new ArrayList<Proyecto>();
-        addExampleData();
-
         recyclerView = (RecyclerView) view.findViewById(R.id.projectRecyclerView);
         adapter = new RecyclerViewProjectAdapter(projectList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -44,12 +39,14 @@ public class ProjectListFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        //adapter.notifyDataSetChanged();
-
         return view;
     }
 
-    public void addExampleData() {
+    public void setProjectList(ArrayList<Proyecto> projectList) {
+        this.projectList = projectList;
+    }
+
+    /*public void addExampleData() {
         Proyecto p = new Proyecto();
         p.setNombreP("TeleRiego");
         p.setDescripcion("TeleRiego");
@@ -69,5 +66,5 @@ public class ProjectListFragment extends Fragment {
         projectList.add(p);
         projectList.add(p2);
 
-    }
+    }*/
 }
