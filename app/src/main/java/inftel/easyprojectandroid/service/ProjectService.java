@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -45,6 +46,13 @@ public class ProjectService implements ResponseListener {
         System.out.println(url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUserEmailList").execute(httpRequest);
+    }
+
+    public void setNewProject(JSONObject jsonObject){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto?";
+        System.out.println(url);
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, jsonObject);
+        new HttpTask(this,"setNewProject").execute(httpRequest);
     }
 
     @Override
