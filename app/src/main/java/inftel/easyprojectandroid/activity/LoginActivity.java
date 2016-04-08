@@ -17,9 +17,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Usuario;
 
-public class Login extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
     private GoogleSignInOptions gso;
     private int RC_SIGN_IN = 1;
@@ -49,7 +50,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
             // Build a GoogleApiClient with access to the Google Sign-In API and the
             // options specified by gso.
-            Usuario.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
+            EasyProjectApp.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
                     .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .build());
             //Set the listener button signIn
@@ -60,7 +61,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     @Override
     protected void onStart(){
         super.onStart();
-        Usuario.getInstance().getGoogleApiClient().connect();
+        EasyProjectApp.getInstance().getGoogleApiClient().connect();
     }
 
     @Override
@@ -73,7 +74,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     }
 
     private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(Usuario.getInstance().getGoogleApiClient() );
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(EasyProjectApp.getInstance().getGoogleApiClient() );
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -90,7 +91,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
 
     private void handleSignInResult(GoogleSignInResult result) {
 
-        Log.d("Login", "handleSignInResult:" + result.isSuccess());
+        Log.d("LoginActivity", "handleSignInResult:" + result.isSuccess());
 
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
@@ -100,7 +101,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
             user.setNombreU(acct.getDisplayName());
             goMainActivity(user, true);
         } else {
-            Log.d("Login", "NameSignInResult Error");
+            Log.d("LoginActivity", "NameSignInResult Error");
         }
     }
 
