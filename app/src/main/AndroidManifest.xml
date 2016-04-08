@@ -38,6 +38,9 @@
             android:name=".activity.ViewProjectActivity"
             android:label="@string/title_activity_view_project"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="inftel.easyprojectandroid.activity.MainActivity" />
         </activity>
     </application>
 
