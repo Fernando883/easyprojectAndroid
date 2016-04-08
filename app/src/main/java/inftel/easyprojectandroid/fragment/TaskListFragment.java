@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.List;
 
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.activity.ViewProjectActivity;
@@ -24,7 +25,7 @@ import inftel.easyprojectandroid.model.Tarea;
 public class TaskListFragment extends Fragment {
 
     private View view;
-    private ArrayList<Tarea> taskList;
+    private ArrayList<Tarea> taskList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerViewTaskAdapter adapter;
 
@@ -39,16 +40,11 @@ public class TaskListFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-        Bundle arguments = getArguments();
-        int tab = arguments.getInt("Tab");
 
-        if (tab == ViewProjectActivity.DOING) {
-           loadDoingTasks();
-        } else if (tab == ViewProjectActivity.DONE) {
-            loadDoneTasks();
-        } else if (tab == ViewProjectActivity.TODO) {
-            loadTodoTasks();
-        }
+        //Bundle arguments = getArguments();
+        //int tab = arguments.getInt("Tab");
+
+        loadTasks();
         return view;
     }
 
@@ -56,23 +52,7 @@ public class TaskListFragment extends Fragment {
         this.taskList = taskList;
     }
 
-    public void loadDoingTasks () {
-
-        /*taskList = new ArrayList<>();
-        Tarea t1 = new Tarea();
-        t1.setDescripcion("Esta es la descripción de la tarea 1");
-        t1.setEstado("doing");
-        t1.setNombre("Tarea número 1");
-        t1.setTiempo(new BigInteger("50"));
-        taskList.add(t1);
-
-        Tarea t2 = new Tarea();
-        t2.setDescripcion("Esta es la descripción de la tarea 2");
-        t2.setEstado("doing");
-        t2.setNombre("Tarea número 2");
-        t2.setTiempo(new BigInteger("70"));
-        taskList.add(t2);*/
-
+    public void loadTasks () {
         recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
         adapter = new RecyclerViewTaskAdapter(taskList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -82,12 +62,5 @@ public class TaskListFragment extends Fragment {
 
     }
 
-    public void loadTodoTasks() {
-
-    }
-
-    public void loadDoneTasks(){
-
-    }
 
 }

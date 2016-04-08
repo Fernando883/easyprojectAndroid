@@ -77,7 +77,13 @@ public class Tarea {
         Tarea task = new Tarea();
 
         JSONObject jsonObject = new JSONObject(response);
-        System.out.println(jsonObject);
+
+        task.setTiempo(new BigInteger(jsonObject.getString("tiempo")));
+        task.setNombre(jsonObject.getString("nombre"));
+        task.setEstado(jsonObject.getString("estado"));
+        task.setDescripcion(jsonObject.getString("descripcion"));
+        task.setIdTarea(jsonObject.getLong("idTarea"));
+
         return task;
     }
 }

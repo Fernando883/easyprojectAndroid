@@ -34,7 +34,7 @@ public class RecyclerViewTaskAdapter extends RecyclerView.Adapter<RecyclerViewTa
         holder.iconTaskHours.setImageResource(R.drawable.ic_clock);
         holder.hourTasks.setText(String.valueOf(taskList.get(position).getTiempo().intValue()));
         holder.taskName.setText(taskList.get(position).getNombre());
-        holder.taskMembers.setText("Fulanito, menganito");
+        holder.taskMembers.setText("");
     }
 
     @Override
