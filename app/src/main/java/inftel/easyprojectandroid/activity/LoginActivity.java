@@ -46,25 +46,23 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         String email = sharedPref.getString("email", "");
         String username = sharedPref.getString("nombreU", "");
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        EasyProjectApp.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build());
+
         if (!email.equals("")){
             Usuario user = EasyProjectApp.getInstance().getUser();
             user.setEmail(email);
             user.setNombreU(username);
             goMainActivity(user, false);
         }else {
-            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build();
-
-            // Build a GoogleApiClient with access to the Google Sign-In API and the
-            // options specified by gso.
-            EasyProjectApp.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build());
-
-            userService = new UserService(this, this);
-
-            //Set the listener button signIn
+            
             findViewById(R.id.sign_in_button).setOnClickListener(this);
         }
     }
