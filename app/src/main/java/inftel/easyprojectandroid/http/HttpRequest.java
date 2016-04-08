@@ -81,6 +81,8 @@ public class HttpRequest {
 
         try {
             connection.setDoOutput(true);
+            connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+            connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
             connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
@@ -89,13 +91,22 @@ public class HttpRequest {
             dStream.close();
 
             connection.getResponseCode();
+            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
-        // return response.toString();
+        //return "";
+        System.out.println("RESPONSEPOST:" + response);
+         return response.toString();
     }
 
     private String put() {
