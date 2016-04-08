@@ -1,6 +1,5 @@
 package inftel.easyprojectandroid.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 
 import inftel.easyprojectandroid.R;
 
-public class NewTaskActivity extends Activity implements AdapterView.OnItemSelectedListener {
+public class NewTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     MultiAutoCompleteTextView text1;
     String[] languages={"Android ","java","IOS","SQL","JDBC","Web services"};
@@ -25,8 +24,8 @@ public class NewTaskActivity extends Activity implements AdapterView.OnItemSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         text1=(MultiAutoCompleteTextView)findViewById(R.id.multiAutoCompleteTextView2);
 
@@ -36,18 +35,20 @@ public class NewTaskActivity extends Activity implements AdapterView.OnItemSelec
         text1.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
         Spinner spinner = (Spinner) findViewById(R.id.status_spinner);
-        ArrayAdapter adapterSpinner = ArrayAdapter.createFromResource(this,R.array.status_arrays,android.R.layout.simple_spinner_item);
-        spinner.setAdapter(adapterSpinner);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.status_arrays, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter1);
+        spinner.setOnItemSelectedListener(this);
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        TextView myText = (TextView) view;
+        Toast.makeText(this,"You Selected " + myText.getText(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        System.out.println("Ana esta posicion es ");
     }
 }
