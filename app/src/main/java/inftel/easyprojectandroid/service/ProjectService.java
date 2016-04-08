@@ -7,6 +7,7 @@ import android.util.Pair;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
@@ -40,9 +41,10 @@ public class ProjectService implements ResponseListener {
     }
 
     public void getUsersEmail(){
-        String url = SERVER_IP + SERVER_PATH + "entity.usuario/findAll";
+        String url = SERVER_IP + SERVER_PATH + "entity.usuario/getUsersEmail";
+        System.out.println(url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
-        new HttpTask(this,"getUsersEmail").execute(httpRequest);
+        new HttpTask(this,"getUserEmailList").execute(httpRequest);
     }
 
     @Override
@@ -50,11 +52,14 @@ public class ProjectService implements ResponseListener {
         Log.e("RESPONSE", response.second);
         if (response.first.equals("getProjects"))
             parseProjectList(response.second);
-        else if (response.first.equals("getUsers"))
+        else if (response.first.equals("getUserEmailList")){
             parseUsersEmailList(response.second);
+        }
+
     }
 
     private void parseUsersEmailList(String response){
+        System.out.println("HOLA ");
         ArrayList<String> userEmailList = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(response);
@@ -62,7 +67,7 @@ public class ProjectService implements ResponseListener {
                 String email = jsonArray.getString(i);
                 userEmailList.add(email);
             }
-            listener.onListResponse(new Pair("userEmailList", userEmailList));
+            listener.onListResponse(new Pair("getUserEmailList", userEmailList));
         } catch (JSONException e) {
             e.printStackTrace();
         }

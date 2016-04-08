@@ -16,6 +16,7 @@ import inftel.easyprojectandroid.R;
 
 public class NewTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private
     MultiAutoCompleteTextView text1;
     String[] languages={"Android ","java","IOS","SQL","JDBC","Web services"};
 
