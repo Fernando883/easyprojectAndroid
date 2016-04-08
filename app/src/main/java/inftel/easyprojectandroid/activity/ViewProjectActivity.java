@@ -2,11 +2,11 @@ package inftel.easyprojectandroid.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.TaskListFragment;
 
@@ -16,6 +16,7 @@ public class ViewProjectActivity extends AppCompatActivity {
     public static final int TODO = 1;
     public static final int DOING = 2;
     public static final int DONE = 3;
+    private Long idProject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class ViewProjectActivity extends AppCompatActivity {
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        idProject = getIntent().getLongExtra("idProject", 0);
 
         //TabHost
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);

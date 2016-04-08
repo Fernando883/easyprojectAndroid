@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         projectService = new ProjectService(this, this);
-        projectService.getProjects("1354");
+        projectService.getProjects("3");
         // Por defecto, agregamos el fragmento de carga
         LoadingFragment loadingFragment = new LoadingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();

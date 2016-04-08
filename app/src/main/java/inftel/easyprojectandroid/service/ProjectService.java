@@ -1,7 +1,6 @@
 package inftel.easyprojectandroid.service;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.Pair;
 
 import org.json.JSONArray;
@@ -33,14 +32,12 @@ public class ProjectService implements ResponseListener {
 
     public void getProjects(String idUser) {
         String url = SERVER_IP+SERVER_PATH+"entity.proyecto/findProjectByIdUser/"+idUser;
-        Log.e("URL", url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getProjects").execute(httpRequest);
     }
 
     @Override
     public void onResponse(Pair<String, String> response) {
-        Log.e("RESPONSE", response.second);
         if (response.first.equals("getProjects"))
             parseProjectList(response.second);
     }
