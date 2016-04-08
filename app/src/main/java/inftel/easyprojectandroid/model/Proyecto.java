@@ -71,8 +71,12 @@ public class Proyecto {
     public static Proyecto fromJSON(String response) throws JSONException {
         Proyecto project = new Proyecto();
         JSONObject jsonObject = new JSONObject(response);
-
-
+        project.setNombreP(jsonObject.getString("nombreP"));
+        project.setDescripcion(jsonObject.getString("descripcion"));
+        project.setIdProyect(jsonObject.getLong("idProyect"));
+        project.setNumUsers(1); // Cambiar los datos devueltos por el JSON
         return project;
     }
+
+
 }

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,18 +21,21 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.fragment.LoadingFragment;
 import inftel.easyprojectandroid.fragment.ProjectListFragment;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
-import inftel.easyprojectandroid.model.Usuario;
+import inftel.easyprojectandroid.model.Proyecto;
+import inftel.easyprojectandroid.service.ProjectService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ServiceListener {
 
-    private Usuario user;
+    private ProjectService projectService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +64,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        projectService = new ProjectService(this, this);
+        projectService.getProjects("1354");
         // Por defecto, agregamos el fragmento de carga
-        //LoadingFragment loadingFragment = new LoadingFragment();
-        //getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
-
-        ProjectListFragment projectListFragment = new ProjectListFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, projectListFragment).commit();
-
+        LoadingFragment loadingFragment = new LoadingFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
 
     }
 
@@ -118,8 +118,6 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, getString(R.string.my_tasks), Toast.LENGTH_LONG).show();
         } else if (id == R.id.logout) {
 
-            user = null;
-
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -136,6 +134,20 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
+        if (response.first.equals("getProjects"))
+            showProjectListFragment((ArrayList<Proyecto>) response.second);
+
+    }
+
     private void signOut() {
         Auth.GoogleSignInApi.signOut(EasyProjectApp.getInstance().getGoogleApiClient()).setResultCallback(
                 new ResultCallback<Status>() {
@@ -148,13 +160,9 @@ public class MainActivity extends AppCompatActivity
                 });
     }
 
-    @Override
-    public void onObjectResponse(Pair<String, ?> response) {
-
-    }
-
-    @Override
-    public void onListResponse(Pair<String, List<?>> response) {
-
+    private void showProjectListFragment(ArrayList<Proyecto> projectList) {
+        ProjectListFragment projectListFragment = new ProjectListFragment();
+        projectListFragment.setProjectList(projectList);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, projectListFragment).commit();
     }
 }
