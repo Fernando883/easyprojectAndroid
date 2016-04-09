@@ -114,7 +114,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Usuario user = new Usuario();
             user.setEmail(acct.getEmail());
             user.setNombreU(acct.getDisplayName());
-            user.setImgUrl(acct.getPhotoUrl().toString());
+            if (acct.getPhotoUrl() != null)
+                user.setImgUrl(acct.getPhotoUrl().toString());
+            else
+                user.setImgUrl(null);
             EasyProjectApp.getInstance().setUser(user);
             userService.postUser(user);
 

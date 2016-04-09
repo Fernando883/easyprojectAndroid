@@ -92,7 +92,7 @@ public class HttpRequest {
             dStream.close();
 
             connection.getResponseCode();
-            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
+            System.out.println("CODERESPONSE = " + String.valueOf(connection.getResponseCode()));
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
@@ -106,7 +106,7 @@ public class HttpRequest {
             e.printStackTrace();
         }
         //return "";
-        System.out.println("RESPONSEPOST:" + response);
+        System.out.println("RESPONSEPOST = " + response);
          return response.toString();
     }
 
