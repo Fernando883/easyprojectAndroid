@@ -55,4 +55,8 @@
     <string name="server_ip">http://192.168.1.112:8080</string>
     <string name="server_path">/EasyProject_RestFul/webresources/</string>
 
+    <!--edit project-->
+    <string name="edit">Edit</string>
+    <string name="newmembers">Add new project members</string>
+
 </resources>
