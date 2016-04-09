@@ -49,4 +49,13 @@ public class Usuario {
         user.setNombreU(jsonObject.getString("nombreU"));
         return user;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", email='" + email + '\'' +
+                ", nombreU='" + nombreU + '\'' +
+                '}';
+    }
 }
