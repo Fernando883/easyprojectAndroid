@@ -1,5 +1,9 @@
 package inftel.easyprojectandroid.model;
 
+import android.app.Application;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,8 +15,7 @@ public class Usuario {
     private String email;
     private String nombreU;
 
-    // Propio de la APP
-    private String imgUrl;
+    public Usuario(){};
 
     public Usuario(){
         idUsuario = 0l;
