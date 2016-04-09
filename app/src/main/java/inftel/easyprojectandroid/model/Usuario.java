@@ -14,8 +14,8 @@ public class Usuario {
     private Long idUsuario;
     private String email;
     private String nombreU;
+    String imgUrl;
 
-    public Usuario(){};
 
     public Usuario(){
         idUsuario = 0l;

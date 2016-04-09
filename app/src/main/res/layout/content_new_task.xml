@@ -91,6 +91,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save"
         android:id="@+id/button"
+        android:onClick="saveTask"
         android:background="@color/primary"
         android:layout_gravity=""
         android:textColor="#ffffff"

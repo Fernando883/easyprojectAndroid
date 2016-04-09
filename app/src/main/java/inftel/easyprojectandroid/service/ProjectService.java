@@ -61,16 +61,39 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
     }
 
+    public void getUsersEmailProject(String idProjet){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailProject/"+idProjet;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getUsersEmailProject").execute(httpRequest);
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
-        if (response.first.equals("getProjects"))
+        if (response.first.equals("getProjects")) {
             parseProjectList(response.second);
-        else if (response.first.equals("getUserEmailList")){
+            System.out.println("ANA PRUEBA");
+        } else if (response.first.equals("getUserEmailList")){
             parseUsersEmailList(response.second);
         } else if (response.first.equals("getUsersEmailNonProject")) {
             parseUsersEmailNonProject(response.second);
+        } else if (response.first.equals("getUsersEmailProject")) {
+            parseUsersEmailProject(response.second);
         }
 
+    }
+
+    private void parseUsersEmailProject(String response){
+        ArrayList<String> userEmailList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                String email = jsonArray.getString(i);
+                userEmailList.add(email);
+            }
+            listener.onListResponse(new Pair("getUsersEmailProject", userEmailList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseUsersEmailNonProject(String response){
