@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by csalas on 6/4/16.
  */
@@ -13,17 +16,6 @@ public class Usuario {
     private String nombreU;
 
     public Usuario(){};
-
-    private static Usuario userInstance = null;
-
-
-    public static Usuario getInstance() {
-        if(userInstance == null) {
-            userInstance = new Usuario();
-        }
-        return userInstance;
-    }
-
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -47,5 +39,14 @@ public class Usuario {
 
     public void setNombreU(String nombreU) {
         this.nombreU = nombreU;
+    }
+
+    public static Usuario fromJSON(String response) throws JSONException {
+        Usuario user = new Usuario();
+        JSONObject jsonObject = new JSONObject(response);
+        user.setEmail(jsonObject.getString("email"));
+        user.setIdUsuario(jsonObject.getLong("idUsuario"));
+        user.setNombreU(jsonObject.getString("nombreU"));
+        return user;
     }
 }

@@ -1,5 +1,8 @@
 package inftel.easyprojectandroid.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -55,5 +58,12 @@ public class Comentario {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public static Comentario fromJSON(String response) throws JSONException {
+        Comentario comment = new Comentario();
+        JSONObject jsonObject = new JSONObject(response);
+
+        return comment;
     }
 }

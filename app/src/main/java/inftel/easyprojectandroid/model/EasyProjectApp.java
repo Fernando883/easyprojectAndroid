@@ -10,7 +10,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class EasyProjectApp extends Application {
     private GoogleApiClient mGoogleApiClient;
     private static EasyProjectApp mInstance;
-    private Usuario user;
 
     @Override
     public void onCreate() {
@@ -26,11 +25,11 @@ public class EasyProjectApp extends Application {
 
     public void setGoogleApiClient(GoogleApiClient client) { this.mGoogleApiClient = client; }
 
-    public void setUser(Usuario u) {
-        this.user = u;
+    public Usuario getUser() {
+        return user;
     }
 
-    public Usuario getUsuario() {
-        return user;
+    public void setUser(Usuario user) {
+        this.user = user;
     }
 }

@@ -31,7 +31,8 @@
         <activity
             android:name=".activity.ViewProjectActivity"
             android:label="@string/title_activity_view_project"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".activity.NewProjectActivity"
             android:label="@string/titleNewProject"

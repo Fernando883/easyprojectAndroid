@@ -2,13 +2,21 @@ package inftel.easyprojectandroid.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.TaskListFragment;
+import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.Tarea;
+import inftel.easyprojectandroid.service.TaskService;
 
 public class ViewProjectActivity extends AppCompatActivity {
 
@@ -26,7 +34,6 @@ public class ViewProjectActivity extends AppCompatActivity {
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        idProject = getIntent().getLongExtra("idProject", 0);
 
         //TabHost
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);

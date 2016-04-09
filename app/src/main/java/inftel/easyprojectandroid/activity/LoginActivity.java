@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 
 import com.google.android.gms.auth.api.Auth;
@@ -16,15 +17,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.List;
+
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Usuario;
+import inftel.easyprojectandroid.service.UserService;
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener, ServiceListener {
 
     private GoogleSignInOptions gso;
     private int RC_SIGN_IN = 1;
     private SharedPreferences sharedPref;
+
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +45,24 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         sharedPref =  getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String email = sharedPref.getString("email", "");
         String username = sharedPref.getString("nombreU", "");
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        EasyProjectApp.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build());
+
         if (!email.equals("")){
-            Usuario user = Usuario.getInstance();
+            Usuario user = EasyProjectApp.getInstance().getUser();
             user.setEmail(email);
             user.setNombreU(username);
             goMainActivity(user, false);
         }else {
-            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build();
-
-            // Build a GoogleApiClient with access to the Google Sign-In API and the
-            // options specified by gso.
-            EasyProjectApp.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build());
-            //Set the listener button signIn
+            
             findViewById(R.id.sign_in_button).setOnClickListener(this);
         }
     }
@@ -96,9 +105,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Usuario user = Usuario.getInstance();
+            Usuario user = EasyProjectApp.getInstance().getUser();
             user.setEmail(acct.getEmail());
             user.setNombreU(acct.getDisplayName());
+            userService.postUser(user);
+
             goMainActivity(user, true);
         } else {
             Log.d("LoginActivity", "NameSignInResult Error");
@@ -127,6 +138,21 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+
+        if (response.first.equals("postUser")){
+            //(Usuario)response.second
+            System.out.println("EmailUser" + EasyProjectApp.getInstance().getUser().getEmail());
+        }
+
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
 
     }
 }

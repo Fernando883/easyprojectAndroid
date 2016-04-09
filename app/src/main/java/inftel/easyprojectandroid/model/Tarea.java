@@ -1,5 +1,8 @@
 package inftel.easyprojectandroid.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.math.BigInteger;
 
 /**
@@ -68,5 +71,13 @@ public class Tarea {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public static Tarea fromJSON(String response) throws JSONException {
+        Tarea task = new Tarea();
+
+        JSONObject jsonObject = new JSONObject(response);
+        System.out.println(jsonObject);
+        return task;
     }
 }

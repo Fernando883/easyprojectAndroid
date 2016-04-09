@@ -75,7 +75,8 @@
         android:layout_gravity=""
         android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/linearLayout" />
+        android:layout_alignStart="@+id/linearLayout"
+        android:onClick="save"/>
 
 
 </RelativeLayout>

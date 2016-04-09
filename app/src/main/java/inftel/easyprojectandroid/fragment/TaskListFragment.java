@@ -36,11 +36,12 @@ public class TaskListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
         Bundle arguments = getArguments();
-
         int tab = arguments.getInt("Tab");
+
         if (tab == ViewProjectActivity.DOING) {
            loadDoingTasks();
         } else if (tab == ViewProjectActivity.DONE) {
@@ -51,10 +52,13 @@ public class TaskListFragment extends Fragment {
         return view;
     }
 
+    public void setTaskList(ArrayList<Tarea> taskList) {
+        this.taskList = taskList;
+    }
 
     public void loadDoingTasks () {
 
-        taskList = new ArrayList<>();
+        /*taskList = new ArrayList<>();
         Tarea t1 = new Tarea();
         t1.setDescripcion("Esta es la descripción de la tarea 1");
         t1.setEstado("doing");
@@ -67,7 +71,7 @@ public class TaskListFragment extends Fragment {
         t2.setEstado("doing");
         t2.setNombre("Tarea número 2");
         t2.setTiempo(new BigInteger("70"));
-        taskList.add(t2);
+        taskList.add(t2);*/
 
         recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
         adapter = new RecyclerViewTaskAdapter(taskList);
