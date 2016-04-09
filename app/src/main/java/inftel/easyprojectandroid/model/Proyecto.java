@@ -3,6 +3,8 @@ package inftel.easyprojectandroid.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collection;
+
 /**
  * Created by csalas on 6/4/16.
  */
@@ -12,12 +14,21 @@ public class Proyecto {
     private String descripcion;
     private String chat;
     private Usuario director;
+    private Collection<Usuario> usuarioCollection;
 
     // Propios de la APP
     private int numUsers;
 
     public Proyecto() {
 
+    }
+
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     public Long getIdProyect() {

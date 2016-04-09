@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.model.Tarea;
+import inftel.easyprojectandroid.model.Usuario;
 
 
 /**
@@ -32,9 +33,13 @@ public class RecyclerViewTaskAdapter extends RecyclerView.Adapter<RecyclerViewTa
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.iconTaskHours.setImageResource(R.drawable.ic_clock);
-        holder.hourTasks.setText(String.valueOf(taskList.get(position).getTiempo().intValue()));
+        holder.hourTasks.setText(String.valueOf(taskList.get(position).getTiempo().intValue() / 60));
         holder.taskName.setText(taskList.get(position).getNombre());
-        holder.taskMembers.setText("");
+
+        for (Usuario user: taskList.get(position).getUsuarioCollection()) {
+            holder.taskMembers.append(user.getNombreU() + "\n");
+        }
+
     }
 
     @Override

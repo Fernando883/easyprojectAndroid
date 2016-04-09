@@ -51,7 +51,7 @@
 
     <!-- Server DATA -->
     <string name="server_ip">http://192.168.1.113:8080</string>
-    <string name="server_path">/EasyProject_RestFul/webresources/</string>
+    <string name="server_path">/WEB-INF/webresources/</string>
 
     <!--edit project-->
     <string name="edit">Edit</string>

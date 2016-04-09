@@ -33,6 +33,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.NewProjectActivity"
@@ -46,12 +47,12 @@
         <activity
             android:name=".activity.NewTaskActivity"
             android:label="@string/title_activity_new_task"
+            android:parentActivityName=".activity.ViewProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".activity.EditProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-
 
         </activity>
     </application>

@@ -20,21 +20,19 @@
         <TextView
             android:id="@+id/taskName"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="#000"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_weight="8"
-            android:text="prueba"
         />
 
         <TextView
             android:id="@+id/hourTasks"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:textSize="20dp"
-            android:layout_height="match_parent"
-            android:text="1"/>
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/iconhourTasks"
@@ -49,7 +47,6 @@
         android:id="@+id/taskMembers"
         android:layout_below="@id/linearTask"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Esto son los usuarios que participan en usa tarea"/>
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

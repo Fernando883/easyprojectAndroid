@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,9 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Pair;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TabHost;
 
@@ -36,7 +40,7 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
 
         //get task by user and project
         taskService = new TaskService(this, this);
-        taskService.getTasks("2", "604");
+        taskService.getTasks("10", "770");
 
         //TabHost
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
@@ -61,8 +65,16 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
             @Override
             public void onClick(View view) {
                 //call
+                goToNewTaskActivity();
+
             }
         });
+    }
+
+    public void goToNewTaskActivity () {
+        Intent intent = new Intent(this, NewTaskActivity.class);
+        startActivity(intent);
+
     }
 
     @Override
@@ -79,6 +91,25 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
             updateTab(doingTasks);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.viewprojectmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_info:
+                //delete
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     @Override
     public void onTabChanged(String tabId) {
