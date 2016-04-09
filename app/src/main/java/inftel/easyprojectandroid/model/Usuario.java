@@ -14,8 +14,9 @@ public class Usuario {
     private Long idUsuario;
     private String email;
     private String nombreU;
-    String imgUrl;
 
+    // Propia de la APP
+    private String imgUrl;
 
     public Usuario(){
         idUsuario = 0l;

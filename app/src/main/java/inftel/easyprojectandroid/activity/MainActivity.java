@@ -77,7 +77,10 @@ public class MainActivity extends AppCompatActivity
         textViewUserEmail.setText(currentUser.getEmail());
 
         try {
-            Picasso.with(this).load(currentUser.getImgUrl()).into(profileImage);
+            if (currentUser.getImgUrl() != null)
+                Picasso.with(this).load(currentUser.getImgUrl()).into(profileImage);
+            else
+                profileImage.setImageResource(R.drawable.woman);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

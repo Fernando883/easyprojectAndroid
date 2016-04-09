@@ -94,20 +94,20 @@ public class HttpRequest {
             connection.getResponseCode();
             System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
 
-            /*BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
             while ((line = br.readLine()) != null) {
                 response.append(line);
-            }*/
+            }
 
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "";
-        //System.out.println("RESPONSEPOST:" + response);
-         //return response.toString();
+        //return "";
+        System.out.println("RESPONSEPOST:" + response);
+         return response.toString();
     }
 
     private String put() {
