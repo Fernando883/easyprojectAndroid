@@ -15,11 +15,14 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,7 @@ import inftel.easyprojectandroid.fragment.ProjectListFragment;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
+import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
 
 public class MainActivity extends AppCompatActivity
@@ -63,9 +67,23 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView textViewUserName = (TextView) headerView.findViewById(R.id.textViewUsername);
+        TextView textViewUserEmail = (TextView) headerView.findViewById(R.id.textViewEmail);
+        ImageView profileImage = (ImageView) headerView.findViewById(R.id.imageViewUser);
+
+        Usuario currentUser = EasyProjectApp.getInstance().getUser();
+        textViewUserName.setText(currentUser.getNombreU());
+        textViewUserEmail.setText(currentUser.getEmail());
+
+        try {
+            Picasso.with(this).load(currentUser.getImgUrl()).into(profileImage);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
         projectService = new ProjectService(this, this);
-        projectService.getProjects("3");
+        projectService.getProjects(String.valueOf(currentUser.getIdUsuario()));
         // Por defecto, agregamos el fragmento de carga
         LoadingFragment loadingFragment = new LoadingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
@@ -122,7 +140,9 @@ public class MainActivity extends AppCompatActivity
             SharedPreferences.Editor editor = sharedPref.edit();
 
             editor.putString("email", "");
-            editor.putString("username", "");
+            editor.putString("nombreU", "");
+            editor.putString("imgUrl", "");
+            editor.putLong("idUsuario", 0);
             editor.commit();
 
             signOut();

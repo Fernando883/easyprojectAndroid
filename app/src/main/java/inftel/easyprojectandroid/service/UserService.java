@@ -7,13 +7,12 @@ import android.util.Pair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.http.HttpRequest;
 import inftel.easyprojectandroid.http.HttpTask;
 import inftel.easyprojectandroid.interfaces.ResponseListener;
-import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
-import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
 
 /**
@@ -39,6 +38,7 @@ public class UserService implements ResponseListener {
         try {
             userJson.put("email", user.getEmail());
             userJson.put("nombreU", user.getNombreU());
+            Log.e("userJSON", userJson.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -56,12 +56,13 @@ public class UserService implements ResponseListener {
 
 
     private void parseUser(String response) {
-
         try {
-            EasyProjectApp.getInstance().setUser(Usuario.fromJSON(response));
-            listener.onObjectResponse(new Pair("postUser", EasyProjectApp.getInstance().getUser()));
+            JSONObject jsonObject = new JSONObject(response);
+            EasyProjectApp.getInstance().getUser().setIdUsuario(jsonObject.getLong("idUsuario"));
+            listener.onObjectResponse(new Pair("postUser", jsonObject.getLong("idUsuario")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 }

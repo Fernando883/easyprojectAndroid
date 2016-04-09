@@ -1,9 +1,5 @@
 package inftel.easyprojectandroid.model;
 
-import android.app.Application;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +11,15 @@ public class Usuario {
     private String email;
     private String nombreU;
 
-    public Usuario(){};
+    // Propio de la APP
+    private String imgUrl;
+
+    public Usuario(){
+        idUsuario = 0l;
+        email = "";
+        nombreU = "";
+        imgUrl = "";
+    };
 
     public Long getIdUsuario() {
         return idUsuario;
@@ -41,6 +45,14 @@ public class Usuario {
         this.nombreU = nombreU;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public static Usuario fromJSON(String response) throws JSONException {
         Usuario user = new Usuario();
         JSONObject jsonObject = new JSONObject(response);
@@ -48,5 +60,15 @@ public class Usuario {
         user.setIdUsuario(jsonObject.getLong("idUsuario"));
         user.setNombreU(jsonObject.getString("nombreU"));
         return user;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", email='" + email + '\'' +
+                ", nombreU='" + nombreU + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
     }
 }

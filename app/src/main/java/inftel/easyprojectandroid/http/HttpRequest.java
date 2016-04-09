@@ -80,6 +80,7 @@ public class HttpRequest {
         StringBuilder response = new StringBuilder();
 
         try {
+            connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
             connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");

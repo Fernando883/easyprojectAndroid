@@ -39,12 +39,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        userService = new UserService(this, this);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         sharedPref =  getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String email = sharedPref.getString("email", "");
         String username = sharedPref.getString("nombreU", "");
+        String imgUrl = sharedPref.getString("imgUrl", "");
+        Long idUsuario = sharedPref.getLong("idUsuario", 0l);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -57,9 +60,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .build());
 
         if (!email.equals("")){
-            Usuario user = EasyProjectApp.getInstance().getUser();
+            Usuario user = new Usuario();
+            user.setIdUsuario(idUsuario);
             user.setEmail(email);
             user.setNombreU(username);
+            user.setImgUrl(imgUrl);
+            EasyProjectApp.getInstance().setUser(user);
             goMainActivity(user, false);
         }else {
             
@@ -105,12 +111,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Usuario user = EasyProjectApp.getInstance().getUser();
+            Usuario user = new Usuario();
             user.setEmail(acct.getEmail());
             user.setNombreU(acct.getDisplayName());
+            user.setImgUrl(acct.getPhotoUrl().toString());
+            EasyProjectApp.getInstance().setUser(user);
             userService.postUser(user);
 
-            goMainActivity(user, true);
         } else {
             Log.d("LoginActivity", "NameSignInResult Error");
         }
@@ -123,14 +130,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             SharedPreferences.Editor editor = sharedPref.edit();
 
             editor.putString("email", user.getEmail());
-            editor.putString("username", user.getNombreU());
+            editor.putString("nombreU", user.getNombreU());
+            editor.putString("imgUrl", user.getImgUrl());
+            editor.putLong("idUsuario", user.getIdUsuario());
             editor.commit();
 
         }
 
         Intent loginIntent = new Intent(this, MainActivity.class);
         startActivity(loginIntent);
-        finish();
+        //finish();
 
     }
 
@@ -143,10 +152,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onObjectResponse(Pair<String, ?> response) {
-
+        Usuario user = EasyProjectApp.getInstance().getUser();
         if (response.first.equals("postUser")){
-            //(Usuario)response.second
-            System.out.println("EmailUser" + EasyProjectApp.getInstance().getUser().getEmail());
+            user.setIdUsuario((Long) response.second);
+            goMainActivity(user, true);
         }
 
     }
