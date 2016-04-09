@@ -57,6 +57,12 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"setNewProject").execute(httpRequest);
     }
 
+    public void getUsersEmailNonProject(String idProjet){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
         Log.e("RESPONSE", response.second);
@@ -64,8 +70,24 @@ public class ProjectService implements ResponseListener {
             parseProjectList(response.second);
         else if (response.first.equals("getUserEmailList")){
             parseUsersEmailList(response.second);
+        } else if (response.first.equals("getUsersEmailNonProject")) {
+            parseUsersEmailNonProject(response.second);
         }
 
+    }
+
+    private void parseUsersEmailNonProject(String response){
+        ArrayList<String> userEmailList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                String email = jsonArray.getString(i);
+                userEmailList.add(email);
+            }
+            listener.onListResponse(new Pair("getUsersEmailNonProject", userEmailList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseUsersEmailList(String response){

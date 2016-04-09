@@ -1,9 +1,13 @@
 package inftel.easyprojectandroid.model;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by csalas on 6/4/16.
@@ -16,6 +20,7 @@ public class Tarea {
     private String descripcion;
     private Proyecto idProyecto;
     private Usuario idUsuario;
+    private ArrayList<Usuario> usuarioCollection;
 
     public Long getIdTarea() {
         return idTarea;
@@ -73,11 +78,47 @@ public class Tarea {
         this.idUsuario = idUsuario;
     }
 
-    public static Tarea fromJSON(String response) throws JSONException {
-        Tarea task = new Tarea();
+    public ArrayList<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
 
-        JSONObject jsonObject = new JSONObject(response);
-        System.out.println(jsonObject);
+    public void setUsuarioCollection(ArrayList<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
+
+    public static Tarea fromJSON(String response) throws JSONException {
+
+        Gson gson = new Gson();
+        Tarea task = gson.fromJson(response, Tarea.class);
+
+        System.out.println("LLEGA AQUI");
+        System.out.println("TAREITA:" + task);
+
+        /*JSONObject jsonObject = new JSONObject(response);
+
+        task.setTiempo(new BigInteger(jsonObject.getString("tiempo")));
+        task.setNombre(jsonObject.getString("nombre"));
+        task.setEstado(jsonObject.getString("estado"));
+        task.setDescripcion(jsonObject.getString("descripcion"));
+        task.setIdTarea(jsonObject.getLong("idTarea"));*/
+
         return task;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Tarea{" +
+                "idTarea=" + idTarea +
+                ", nombre='" + nombre + '\'' +
+                ", tiempo=" + tiempo +
+                ", estado='" + estado + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", idProyecto=" + idProyecto +
+                ", idUsuario=" + idUsuario +
+                ", usuarioCollection=" + usuarioCollection +
+                '}';
     }
 }
