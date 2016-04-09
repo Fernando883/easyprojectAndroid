@@ -17,6 +17,13 @@ public class Usuario {
 
     public Usuario(){};
 
+    public Usuario(){
+        idUsuario = 0l;
+        email = "";
+        nombreU = "";
+        imgUrl = "";
+    };
+
     public Long getIdUsuario() {
         return idUsuario;
     }
@@ -41,6 +48,14 @@ public class Usuario {
         this.nombreU = nombreU;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public static Usuario fromJSON(String response) throws JSONException {
         Usuario user = new Usuario();
         JSONObject jsonObject = new JSONObject(response);
@@ -56,6 +71,7 @@ public class Usuario {
                 "idUsuario=" + idUsuario +
                 ", email='" + email + '\'' +
                 ", nombreU='" + nombreU + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }
 }

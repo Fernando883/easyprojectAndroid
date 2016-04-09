@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,13 +13,15 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.activity.ViewProjectActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewProjectAdapter;
 import inftel.easyprojectandroid.model.Proyecto;
+import inftel.easyprojectandroid.util.RecyclerItemClickListener;
 
 /**
  * Created by csalas on 7/4/16.
  */
-public class ProjectListFragment extends Fragment {
+public class ProjectListFragment extends Fragment implements RecyclerItemClickListener.OnItemClickListener {
     private View view;
     private ArrayList<Proyecto> projectList;
     private RecyclerView recyclerView;
@@ -38,12 +41,20 @@ public class ProjectListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), this));
 
         return view;
     }
 
     public void setProjectList(ArrayList<Proyecto> projectList) {
         this.projectList = projectList;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Intent intent = new Intent(getContext(), ViewProjectActivity.class);
+        intent.putExtra("idProject", projectList.get(position).getIdProyect());
+        startActivity(intent);
     }
 
     /*public void addExampleData() {
