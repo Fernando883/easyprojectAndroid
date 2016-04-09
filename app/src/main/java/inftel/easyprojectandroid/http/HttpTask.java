@@ -25,7 +25,6 @@ public class HttpTask extends AsyncTask<HttpRequest, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        System.out.println(response);
         if (listener != null) {
             Pair<String, String> resp = new Pair<>(method, response);
             listener.onResponse(resp);

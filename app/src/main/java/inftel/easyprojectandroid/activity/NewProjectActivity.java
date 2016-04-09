@@ -21,6 +21,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
     AutoCompleteTextView text;
     MultiAutoCompleteTextView text1;
     ArrayList<String> emails = new ArrayList<String>();
+    ArrayList<Usuario> CollectionUsers = new ArrayList<>();
 
     EditText projectName;
     EditText projectDescription;
@@ -78,47 +80,19 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
             director.setIdUsuario(3L);
             director.setEmail("fernandogalanperez883@gmail.com");
 
-
-            Usuario user = new Usuario();
-            director.setNombreU("Ana");
-            director.setIdUsuario(10L);
-            director.setEmail("ana.93.hg@gmail.com");
-
             Proyecto newProject = new Proyecto();
             newProject.setNombreP(projectName.getText().toString());
             newProject.setDescripcion(projectDescription.getText().toString());
             newProject.setDirector(director);
-            ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-            usuarios.add(user);
-
-            newProject.setUsuarioCollection(usuarios);
 
 
-
-            /*
-            JSONObject newProject = new JSONObject();
-            newProject.put("nombreP",projectName.getText());
-            newProject.put("descripcion", projectDescription.getText());
-
-            JSONObject jsonUser = new JSONObject();
-            jsonUser.put("email","fernandogalanperez883@gmail.com");
-            jsonUser.put("idUsuario",2);
-            jsonUser.put("nombreU", "Fernando Galán");
-
-            JSONArray usuarioCollection = new JSONArray();
-            JSONObject jsonUser1 = new JSONObject();
-            jsonUser.put("email","easyproyectjsf@gmail.com");
-            jsonUser.put("idUsuario",3);
-            jsonUser.put("nombreU", "Easyproyect p");
-            usuarioCollection.put(1,jsonUser1);
-
-            newProject.put("usuarioCollection",usuarioCollection);
-            newProject.put("director",jsonUser);
-            */
             Gson trad = new Gson();
 
             projectService = new ProjectService(this, this);
             JSONObject jsonObject = new JSONObject(trad.toJson(newProject));
+            jsonObject.put("listEmails", text1.getText().toString() + director.getEmail());
+            System.out.println("Enviando ... " + jsonObject);
+
             projectService.setNewProject(jsonObject);
 
 
@@ -128,6 +102,7 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
         }
     }
 
+
     @Override
     public void onObjectResponse(Pair<String, ?> response) {
 
@@ -135,11 +110,11 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
 
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
-        if (response.first.equals("getUserEmailList"))
-
+        if (response.first.equals("getUserEmailList")){
             for(Object email: response.second){
                 emails.add((String) email);
             }
+        }
 
     }
 

@@ -52,7 +52,7 @@
     <string name="about">Manage your projects easily</string>
 
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.183.81:8080</string>
-    <string name="server_path">/EasyProject_RestFul/webresources/</string>
+    <string name="server_ip">http://192.168.1.108:8080</string>
+    <string name="server_path">/WEB-INF/webresources/</string>
 
 </resources>

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.util.Pair;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,8 +51,8 @@ public class ProjectService implements ResponseListener {
     }
 
     public void setNewProject(JSONObject jsonObject){
+        System.out.println("Realizar Post proyecto");
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto?";
-        System.out.println(url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, jsonObject);
         new HttpTask(this,"setNewProject").execute(httpRequest);
     }
@@ -96,4 +98,5 @@ public class ProjectService implements ResponseListener {
             e.printStackTrace();
         }
     }
+
 }
