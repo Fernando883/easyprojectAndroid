@@ -41,6 +41,14 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getProjects").execute(httpRequest);
     }
 
+    public void getProject (String idProject) {
+
+        String url = SERVER_IP+SERVER_PATH+"entity.proyecto/findInfoProject/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getProject").execute(httpRequest);
+
+    }
+
     public void getUsersEmail(){
         String url = SERVER_IP + SERVER_PATH + "entity.usuario/getUsersEmail";
         System.out.println(url);
@@ -57,6 +65,7 @@ public class ProjectService implements ResponseListener {
 
     public void getUsersEmailNonProject(String idProjet){
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
+        System.out.println("URLita" + url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
     }
@@ -78,7 +87,16 @@ public class ProjectService implements ResponseListener {
             parseUsersEmailNonProject(response.second);
         } else if (response.first.equals("getUsersEmailProject")) {
             parseUsersEmailProject(response.second);
+        } else if (response.first.equals("getProject")) {
+            parseProject(response.second);
         }
+
+    }
+
+    private void parseProject (String response) {
+        Gson converter = new Gson();
+        Proyecto p = converter.fromJson(response, Proyecto.class);
+        listener.onObjectResponse(new Pair("getProject", p));
 
     }
 

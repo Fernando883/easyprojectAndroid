@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.EditProjectActivity"
+    tools:context=".activity.InfoProjectActivity"
     tools:showIn="@layout/activity_edit__project">
 
     <LinearLayout
@@ -70,7 +70,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/members"/>
+            android:text="@string/project_members"/>
 
         <CheckBox android:id="@+id/checkbox_meat"
             android:layout_width="wrap_content"
@@ -83,8 +83,6 @@
             android:text="cheese" />
 
     </LinearLayout>
-
-
 
     <Button
         android:layout_width="match_parent"

@@ -21,7 +21,7 @@
     <!-- content_new_project -->
     <string name="project_name">Project name</string>
     <string name="project_description">Project description</string>
-    <string name="members">Project members</string>
+    <string name="project_members">Project members</string>
     <string name="title_activity_view_project">ViewProjectActivity</string>
 
     <!-- content_new_task -->
@@ -56,5 +56,13 @@
     <!--edit project-->
     <string name="edit">Edit</string>
     <string name="newmembers">Add new project members</string>
+
+    <!--menu info project -->
+    <string name="action_editProject">Edit project</string>
+    <string name="action_deleteProject">Delete project</string>
+    <string name="action_visualizeProject">Project details</string>
+
+    <!-- info project details -->
+    <string name="numTasks">Tasks number: </string>
 
 </resources>
