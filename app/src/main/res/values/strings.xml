@@ -56,6 +56,7 @@
     <!--edit project-->
     <string name="edit">Edit</string>
     <string name="newmembers">Add new project members</string>
+    <string name="deletemembers">Remove project members</string>
 
     <!--menu info project -->
     <string name="action_editProject">Edit project</string>
@@ -64,5 +65,14 @@
 
     <!-- info project details -->
     <string name="numTasks">Tasks number: </string>
+
+
+    <string name="confirmation">Confirmation</string>
+    <string name="accept">Yes</string>
+    <string name="cancel">No</string>
+
+    <!-- com/example/inftel07/myapplication(JAVA) -> ViewProduct -->
+    <string name="emailClient">Choose an application to send the e-mail</string>
+    <string name="questionDelete">Do you really want to delete</string>
 
 </resources>
