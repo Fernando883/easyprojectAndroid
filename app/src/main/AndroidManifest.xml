@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="inftel.easyprojectandroid">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".model.EasyProjectApp"
         android:allowBackup="true"
@@ -43,6 +41,7 @@
             android:label="@string/title_activity_new_task"
             android:parentActivityName=".activity.ViewProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+            </activity>
         <activity
             android:name=".activity.EditProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -55,6 +54,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            ></activity>
+        <activity
+            android:name=".activity.infoTaskActivity"
+            android:label="@string/title_activity_info_task"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".activity.InfoProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
     </application>

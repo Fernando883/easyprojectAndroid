@@ -1,5 +1,9 @@
 package inftel.easyprojectandroid.model;
 
+import android.app.Application;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

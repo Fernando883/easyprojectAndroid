@@ -92,7 +92,7 @@ public class HttpRequest {
             dStream.close();
 
             connection.getResponseCode();
-            System.out.println("CODERESPONSE = " + String.valueOf(connection.getResponseCode()));
+            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
@@ -106,13 +106,35 @@ public class HttpRequest {
             e.printStackTrace();
         }
         //return "";
-        System.out.println("RESPONSEPOST = " + response);
+        System.out.println("RESPONSEPOST:" + response);
          return response.toString();
     }
 
     private String put() {
 
+        StringBuilder response = new StringBuilder();
+
+        try {
+            connection.setRequestMethod("PUT");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+            connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
+            connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
+
+            DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
+            dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
+            dStream.flush(); // Flushes the data output stream.
+            dStream.close();
+
+            connection.getResponseCode();
+            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "";
+
     }
 
 }

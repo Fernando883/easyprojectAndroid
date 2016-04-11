@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,18 @@ public class TaskService implements ResponseListener {
         String url = SERVER_IP+SERVER_PATH+"entity.tarea/findTasksinProjectByIdUser/"+idUser+"/"+idProject;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getTasks").execute(httpRequest);
+    }
+
+    public void getInfoTask(String idUser, String idProject) {
+        String url = SERVER_IP+SERVER_PATH+"entity.tarea/findTasksinProjectByIdUser/"+idUser+"/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getTasks").execute(httpRequest);
+    }
+
+    public void postTask(JSONObject taskJson) {
+        String url = SERVER_IP+SERVER_PATH+"entity.tarea/";
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, taskJson);
+        new HttpTask(this,"postTask").execute(httpRequest);
     }
 
     @Override
