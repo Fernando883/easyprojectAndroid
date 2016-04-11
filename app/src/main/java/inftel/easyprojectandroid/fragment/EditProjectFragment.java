@@ -146,6 +146,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
             JSONObject jsonObject = new JSONObject(trad.toJson(project));
 
             jsonObject.put("listAddEmails", textAutocomplete.getText().toString());
+            emailstoRemove = adapter.getRemoveUserList();
             jsonObject.put("listRemoveEmails", emailstoRemove);
 
             System.out.println("Enviando ... " + jsonObject);
