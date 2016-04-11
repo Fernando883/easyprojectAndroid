@@ -86,11 +86,11 @@ public class ProjectService implements ResponseListener {
         if (response.first.equals("getProjects")) {
             parseProjectList(response.second);
         } else if (response.first.equals("getUserEmailList")){
-            parseUsersEmailList(response.second);
+            parseEmails(response.second, "getUserEmailList");
         } else if (response.first.equals("getUsersEmailNonProject")) {
-            parseUsersEmailNonProject(response.second);
+            parseEmails(response.second, "getUsersEmailNonProject");
         } else if (response.first.equals("getUsersEmailProject")) {
-            parseUsersEmailProject(response.second);
+            parseEmails(response.second, "getUsersEmailProject");
         } else if (response.first.equals("getProject")) {
             parseProject(response.second);
         } else if (response.first.equals("getUsersProject")) {
@@ -122,21 +122,8 @@ public class ProjectService implements ResponseListener {
 
     }
 
-    private void parseUsersEmailProject(String response){
-        ArrayList<String> userEmailList = new ArrayList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(response);
-            for(int i=0; i<jsonArray.length(); i++) {
-                String email = jsonArray.getString(i);
-                userEmailList.add(email);
-            }
-            listener.onListResponse(new Pair("getUsersEmailProject", userEmailList));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+    private void parseEmails (String response, String method) {
 
-    private void parseUsersEmailNonProject(String response){
         ArrayList<String> userEmailList = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(response);
@@ -144,25 +131,11 @@ public class ProjectService implements ResponseListener {
                 String email = jsonArray.getString(i);
                 userEmailList.add(email);
             }
-            listener.onListResponse(new Pair("getUsersEmailNonProject", userEmailList));
+            listener.onListResponse(new Pair(method, userEmailList));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
 
-    private void parseUsersEmailList(String response){
-        System.out.println("HOLA ");
-        ArrayList<String> userEmailList = new ArrayList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(response);
-            for(int i=0; i<jsonArray.length(); i++) {
-                String email = jsonArray.getString(i);
-                userEmailList.add(email);
-            }
-            listener.onListResponse(new Pair("getUserEmailList", userEmailList));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
 

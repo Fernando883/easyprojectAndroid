@@ -37,6 +37,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="inftel.easyprojectandroid.activity.MainActivity" />
+
         </activity>
         <activity
             android:name=".activity.NewTaskActivity"
@@ -56,6 +57,7 @@
         <activity
             android:name=".activity.InfoProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" >
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
