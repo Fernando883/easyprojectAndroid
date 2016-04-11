@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,6 +33,15 @@ public class RecyclerViewEditProjectAdapter extends RecyclerView.Adapter<Recycle
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.userName.setText(userList.get(position).getNombreU());
+
+
+        holder.chkSelected.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CheckBox cb = (CheckBox) v;
+
+                Toast.makeText(v.getContext(), "Clicked on Checkbox:", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -41,9 +52,11 @@ public class RecyclerViewEditProjectAdapter extends RecyclerView.Adapter<Recycle
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView userName;
+        CheckBox chkSelected;
         public ViewHolder(View v){
             super(v);
             userName = (TextView) v.findViewById(R.id.checkbox);
+            chkSelected = (CheckBox) v.findViewById(R.id.checkbox);
         }
 
     }

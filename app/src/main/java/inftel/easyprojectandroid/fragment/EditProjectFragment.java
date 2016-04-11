@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
@@ -70,9 +71,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
         projectName = (EditText) view.findViewById(R.id.input_editnameProject);
         projectDescription = (EditText) view.findViewById(R.id.input_editprojectDescription);
-
-        //CheckBox checkbox=(CheckBox)view.findViewById(R.id.checkbox);
-        //checkbox.setOnCheckedChangeListener(this);
 
         Button button = (Button) view.findViewById(R.id.buttonEditProject);
         button.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +188,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
     }
 
 
