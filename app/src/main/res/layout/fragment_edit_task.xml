@@ -85,15 +85,13 @@
             android:text="@string/task_members"
             android:layout_marginTop="5dp"/>
 
-        <CheckBox android:id="@+id/checkbox_meat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="fernando_883@hotmail.es"
-            android:layout_marginTop="@dimen/activity_vertical_margin"/>
-        <CheckBox android:id="@+id/checkbox_cheese"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="pepito@hotmail.es" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/info_margin"
+            android:id="@+id/taskEditRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none" />
 
     </LinearLayout>
 

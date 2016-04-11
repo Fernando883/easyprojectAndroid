@@ -13,7 +13,7 @@ import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.EditTaskFragment;
 import inftel.easyprojectandroid.fragment.ViewTaskDetailsFragment;
 
-public class infoTask extends AppCompatActivity {
+public class infoTaskActivity extends AppCompatActivity {
 
     private boolean isEdit = false;
 
