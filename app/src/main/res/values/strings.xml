@@ -10,6 +10,11 @@
     <string name="options">Options</string>
     <string name="preference_file_key">SharedPreferences</string>
 
+    <!--  menu info task-->
+    <string name="action_visualizeTask">View</string>
+    <string name="action_editTask">Edit</string>
+    <string name="action_deleteTask">Delete</string>
+
     <!-- drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -50,11 +55,19 @@
     <string name="about">Manage your projects easily</string>
 
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.0.15:8080</string>
+    <string name="server_ip">http://192.168.1.105:8080</string>
     <string name="server_path">/EasyProject_RestFul/webresources/</string>
 
     <!--edit project-->
     <string name="edit">Edit</string>
     <string name="newmembers">Add new project members</string>
+
+    <!--edit task-->
+    <string name="title_activity_info_task">infoTask</string>
+    <string name="task_members">Task members</string>
+    <string name="task_status">Task status</string>
+    <string name="newmemberstask">Add new task members</string>
+
+
 
 </resources>
