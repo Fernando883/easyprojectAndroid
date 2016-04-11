@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.dialog.ConfirmDialog;
 import inftel.easyprojectandroid.fragment.EditTaskFragment;
 import inftel.easyprojectandroid.fragment.ViewTaskDetailsFragment;
 
@@ -51,6 +53,18 @@ public class infoTaskActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.infotaskcontent, editTaskFragment).commit();
                 break;
                 //delete
+
+            case R.id.action_deleteTask:
+
+                Bundle task = new Bundle();
+                task.putString("itemDelete", "esta Tarea");
+
+                FragmentManager fragmentManager = getFragmentManager();
+                ConfirmDialog deleteProject = new ConfirmDialog();
+                deleteProject.setArguments(task);
+                deleteProject.show(fragmentManager, "fragmentManager");
+
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

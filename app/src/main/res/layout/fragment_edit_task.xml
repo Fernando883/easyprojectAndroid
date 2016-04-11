@@ -102,6 +102,7 @@
         android:id="@+id/buttonEdit"
         android:background="@color/primary"
         android:layout_gravity=""
+        android:onClick="edit"
         android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/linearLayoutEdit" />

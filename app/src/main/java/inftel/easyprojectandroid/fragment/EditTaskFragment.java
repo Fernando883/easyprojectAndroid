@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     private ArrayList<Usuario> listUsersProject = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerViewEditProjectAdapter adapter;
+    private EditText taskDuration;
 
     ArrayList<String> emails = new ArrayList<String>();
 
@@ -54,14 +56,21 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         listUsersProject.add(user1);
 
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailNonProject("948");
+        projectService.getUsersEmailProject("948");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_task,container,false);
+
         loadCheckBoxContent();
         return view;
+    }
+
+    public void edit(){
+        taskDuration = (EditText) view.findViewById(R.id.input_layout_nameTask);
+
+
     }
 
     @Override
@@ -79,7 +88,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
 
-        if (response.first.equals("getUsersEmailNonProject")){
+        if (response.first.equals("getUsersEmailProject")){
             for(Object email: response.second){
                 emails.add((String) email);
                 loadAutoCompleteContent();
