@@ -26,7 +26,7 @@
     <!-- content_new_project -->
     <string name="project_name">Project name</string>
     <string name="project_description">Project description</string>
-    <string name="members">Project members</string>
+    <string name="project_members">Project members</string>
     <string name="title_activity_view_project">ViewProjectActivity</string>
 
     <!-- content_new_task -->
@@ -61,6 +61,24 @@
     <!--edit project-->
     <string name="edit">Edit</string>
     <string name="newmembers">Add new project members</string>
+    <string name="deletemembers">Remove project members</string>
+
+    <!--menu info project -->
+    <string name="action_editProject">Edit project</string>
+    <string name="action_deleteProject">Delete project</string>
+    <string name="action_visualizeProject">Project details</string>
+
+    <!-- info project details -->
+    <string name="numTasks">Tasks number: </string>
+
+
+    <string name="confirmation">Confirmation</string>
+    <string name="accept">Yes</string>
+    <string name="cancel">No</string>
+
+    <!-- com/example/inftel07/myapplication(JAVA) -> ViewProduct -->
+    <string name="emailClient">Choose an application to send the e-mail</string>
+    <string name="questionDelete">Do you really want to delete</string>
 
     <!--edit task-->
     <string name="title_activity_info_task">infoTask</string>

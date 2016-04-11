@@ -18,6 +18,7 @@ public class Proyecto {
 
     // Propios de la APP
     private int numUsers;
+    private int numTasks;
 
     public Proyecto() {
 
@@ -79,6 +80,14 @@ public class Proyecto {
         this.numUsers = numUsers;
     }
 
+    public int getNumTasks() {
+        return numTasks;
+    }
+
+    public void setNumTasks(int numTasks) {
+        this.numTasks = numTasks;
+    }
+
     public static Proyecto fromJSON(String response) throws JSONException {
         Proyecto project = new Proyecto();
         JSONObject jsonObject = new JSONObject(response);
@@ -89,5 +98,17 @@ public class Proyecto {
         return project;
     }
 
-
+    @Override
+    public String toString() {
+        return "Proyecto{" +
+                "idProyect=" + idProyect +
+                ", nombreP='" + nombreP + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", chat='" + chat + '\'' +
+                ", director=" + director +
+                ", usuarioCollection=" + usuarioCollection +
+                ", numUsers=" + numUsers +
+                ", numTasks=" + numTasks +
+                '}';
+    }
 }

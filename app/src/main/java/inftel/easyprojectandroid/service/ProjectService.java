@@ -41,6 +41,13 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getProjects").execute(httpRequest);
     }
 
+    public void getProject (String idProject) {
+        String url = SERVER_IP+SERVER_PATH+"entity.proyecto/findInfoProject/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getProject").execute(httpRequest);
+
+    }
+
     public void getUsersEmail(){
         String url = SERVER_IP + SERVER_PATH + "entity.usuario/getUsersEmail";
         System.out.println(url);
@@ -57,6 +64,7 @@ public class ProjectService implements ResponseListener {
 
     public void getUsersEmailNonProject(String idProjet){
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
+        System.out.println("URLita" + url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
     }
@@ -67,18 +75,50 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getUsersEmailProject").execute(httpRequest);
     }
 
+    public void getUsersProject(String idProjet){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersProject/"+idProjet;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getUsersProject").execute(httpRequest);
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
         if (response.first.equals("getProjects")) {
             parseProjectList(response.second);
-            System.out.println("ANA PRUEBA");
         } else if (response.first.equals("getUserEmailList")){
             parseUsersEmailList(response.second);
         } else if (response.first.equals("getUsersEmailNonProject")) {
             parseUsersEmailNonProject(response.second);
         } else if (response.first.equals("getUsersEmailProject")) {
             parseUsersEmailProject(response.second);
+        } else if (response.first.equals("getProject")) {
+            parseProject(response.second);
+        } else if (response.first.equals("getUsersProject")) {
+            parseUsers(response.second);
         }
+
+    }
+
+    private void parseUsers(String response){
+        ArrayList<Usuario> usersList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                Usuario u = Usuario.fromJSON(jsonArray.getString(i));
+                usersList.add(u);
+            }
+
+            listener.onListResponse(new Pair("getUsersProject", usersList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void parseProject (String response) {
+        Gson converter = new Gson();
+        Proyecto p = converter.fromJson(response, Proyecto.class);
+        listener.onObjectResponse(new Pair("getProject", p));
 
     }
 
