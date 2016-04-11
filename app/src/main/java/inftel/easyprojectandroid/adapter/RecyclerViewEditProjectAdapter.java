@@ -21,6 +21,7 @@ import inftel.easyprojectandroid.model.Usuario;
 public class RecyclerViewEditProjectAdapter extends RecyclerView.Adapter<RecyclerViewEditProjectAdapter.ViewHolder> {
 
     private ArrayList<Usuario> userList;
+    private ArrayList<Usuario> removeUserList;
     public RecyclerViewEditProjectAdapter(ArrayList<Usuario> userList) { this.userList = userList; }
 
     @Override
@@ -33,15 +34,21 @@ public class RecyclerViewEditProjectAdapter extends RecyclerView.Adapter<Recycle
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.userName.setText(userList.get(position).getNombreU());
-
+        final int pos = position;
 
         holder.chkSelected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
-
-                Toast.makeText(v.getContext(), "Clicked on Checkbox:", Toast.LENGTH_LONG).show();
+                if (cb.isChecked()) {
+                    removeUserList.add(userList.get(pos));
+                }
+                Toast.makeText(v.getContext() , "Clicked on Checkbox:" + userList.get(pos).getNombreU(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public ArrayList<Usuario> getRemoveUserList() {
+        return removeUserList;
     }
 
     @Override
