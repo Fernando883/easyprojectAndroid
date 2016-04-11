@@ -10,8 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +35,7 @@ import inftel.easyprojectandroid.service.ProjectService;
 /**
  * Created by anotauntanto on 9/4/16.
  */
-public class EditProjectFragment extends Fragment implements ServiceListener{
+public class EditProjectFragment extends Fragment implements ServiceListener, android.widget.CompoundButton.OnCheckedChangeListener{
 
     private View view;
     private ProjectService projectService;
@@ -36,6 +45,10 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
     private RecyclerView recyclerView;
     private RecyclerViewEditProjectAdapter adapter;
     private Proyecto project;
+    private List<String> emailstoRemove = new ArrayList<>();
+
+    EditText projectName;
+    EditText projectDescription;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,13 +68,35 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
 
         view = inflater.inflate(R.layout.fragment_editproject, container, false);
 
+        projectName = (EditText) view.findViewById(R.id.input_editnameProject);
+        projectDescription = (EditText) view.findViewById(R.id.input_editprojectDescription);
+
+        //CheckBox checkbox=(CheckBox)view.findViewById(R.id.checkbox);
+        //checkbox.setOnCheckedChangeListener(this);
+
+        Button button = (Button) view.findViewById(R.id.buttonEditProject);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit(v);
+            }
+        });
+
         return view;
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        System.out.println("Entra aquí");
+
+
     }
 
     @Override
     public void onObjectResponse(Pair<String, ?> response) {
 
-        if (response.first.equals("getProject")){
+        if (response.first.equals("getProject")) {
             project = (Proyecto) response.second;
             System.out.println("getProject");
             loadContentProject();
@@ -72,8 +107,8 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
 
-        if (response.first.equals("getUsersEmailNonProject")){
-            for(Object email: response.second){
+        if (response.first.equals("getUsersEmailNonProject")) {
+            for (Object email : response.second) {
                 emails.add((String) email);
 
             }
@@ -81,7 +116,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
 
         } else if (response.first.equals("getUsersProject")) {
 
-            for(Object user: response.second){
+            for (Object user : response.second) {
                 listUsersProject.add((Usuario) user);
             }
             loadCheckBoxContent();
@@ -90,7 +125,41 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
 
     }
 
-    public void loadContentProject () {
+    public void edit(View view) {
+
+        project = new Proyecto();
+
+
+        project.setNombreP(projectName.getText().toString());
+        project.setDescripcion(projectDescription.getText().toString());
+
+        try {
+
+            //Sería el usuario almacenado en appEasyProject
+            Usuario director = new Usuario();
+            director.setNombreU("Fernando Galán");
+            director.setIdUsuario(3L);
+            director.setEmail("fernandogalanperez883@gmail.com");
+            project.setDirector(director);
+
+
+            Gson trad = new Gson();
+
+            JSONObject jsonObject = new JSONObject(trad.toJson(project));
+
+            jsonObject.put("listAddEmails", textAutocomplete.getText().toString());
+            jsonObject.put("listRemoveEmails", emailstoRemove);
+
+            System.out.println("Enviando ... " + jsonObject);
+
+            //projectService.setNewProject(jsonObject);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadContentProject() {
 
         //projectName
         android.support.design.widget.TextInputLayout projectName = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editNameProject);
@@ -103,18 +172,17 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
         projectDescription.setHint(project.getDescripcion());
 
 
-
     }
 
-    public void loadAutoCompleteContent () {
-        textAutocomplete=(MultiAutoCompleteTextView)getActivity().findViewById(R.id.editMultiAutoComplete);
+    public void loadAutoCompleteContent() {
+        textAutocomplete = (MultiAutoCompleteTextView) getActivity().findViewById(R.id.editMultiAutoComplete);
         ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, emails);
         textAutocomplete.setAdapter(adapter);
         textAutocomplete.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
     }
 
-    public void loadCheckBoxContent(){
+    public void loadCheckBoxContent() {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.projectEditRecyclerView);
         adapter = new RecyclerViewEditProjectAdapter(listUsersProject);

@@ -94,9 +94,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/edit"
-        android:id="@+id/buttonEdit"
+        android:onClick="edit"
+        android:id="@+id/buttonEditProject"
         android:background="@color/primary"
-        android:layout_gravity=""
         android:textColor="#ffffff"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/linearLayoutEdit" />
