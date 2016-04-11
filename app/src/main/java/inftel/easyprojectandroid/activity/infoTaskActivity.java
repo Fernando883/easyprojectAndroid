@@ -51,7 +51,7 @@ public class infoTaskActivity extends AppCompatActivity {
                 break;
                 //delete
 
-            case R.id.action_deleteTask:
+            case R.id.action_delete:
 
                 Bundle task = new Bundle();
                 task.putString("itemDelete", "esta Tarea");
