@@ -38,6 +38,12 @@ public class TaskService implements ResponseListener {
         new HttpTask(this,"getTasks").execute(httpRequest);
     }
 
+    public void getInfoTask(String idUser, String idProject) {
+        String url = SERVER_IP+SERVER_PATH+"entity.tarea/findTasksinProjectByIdUser/"+idUser+"/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getTasks").execute(httpRequest);
+    }
+
     public void postTask(JSONObject taskJson) {
         String url = SERVER_IP+SERVER_PATH+"entity.tarea/";
         HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, taskJson);
