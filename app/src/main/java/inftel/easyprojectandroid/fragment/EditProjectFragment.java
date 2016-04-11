@@ -7,15 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -53,6 +52,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         projectService = new ProjectService(getActivity(), this);
         projectService.getUsersEmailNonProject("948");
@@ -190,6 +190,14 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+
+    }
+
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_edit).setVisible(false);
+        menu.findItem(R.id.action_visualize).setVisible(true);
 
     }
 }

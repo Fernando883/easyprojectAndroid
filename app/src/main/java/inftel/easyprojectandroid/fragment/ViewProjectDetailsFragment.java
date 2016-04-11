@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
         projectService = new ProjectService(getActivity(), this);
         projectService.getProject("948");
 
@@ -85,6 +88,12 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
         TextView projectDirector = (TextView) view.findViewById(R.id.projectDirectorInfo);
         projectDirector.setText(project.getDirector().getNombreU());
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.findItem(R.id.action_edit).setVisible(true);
+        menu.findItem(R.id.action_visualize).setVisible(false);
     }
 }
 

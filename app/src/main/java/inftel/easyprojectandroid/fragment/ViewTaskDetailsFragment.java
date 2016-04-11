@@ -32,8 +32,8 @@ public class ViewTaskDetailsFragment extends Fragment {
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.findItem(R.id.action_editTask).setVisible(true);
-        menu.findItem(R.id.action_visualizeTask).setVisible(false);
+        menu.findItem(R.id.action_edit).setVisible(true);
+        menu.findItem(R.id.action_visualize).setVisible(false);
     }
 
 }

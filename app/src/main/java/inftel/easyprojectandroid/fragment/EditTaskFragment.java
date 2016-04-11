@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -66,8 +65,8 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_editTask).setVisible(false);
-        menu.findItem(R.id.action_visualizeTask).setVisible(true);
+        menu.findItem(R.id.action_edit).setVisible(false);
+        menu.findItem(R.id.action_visualize).setVisible(true);
 
     }
 

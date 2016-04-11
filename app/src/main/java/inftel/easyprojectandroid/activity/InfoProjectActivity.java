@@ -34,7 +34,7 @@ public class InfoProjectActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.editprojectmenu, menu);
+        inflater.inflate(R.menu.info_menu, menu);
         return true;
     }
 
@@ -43,19 +43,19 @@ public class InfoProjectActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
 
-            case R.id.action_visualizeProject:
+            case R.id.action_visualize:
                 //delete
                 ViewProjectDetailsFragment viewProjectDetailsFragment = new ViewProjectDetailsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, viewProjectDetailsFragment).commit();
                 break;
 
-            case R.id.action_editProject:
+            case R.id.action_edit:
 
                 EditProjectFragment editProjectFragment = new EditProjectFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, editProjectFragment).commit();
                 break;
 
-            case R.id.action_deleteProject:
+            case R.id.action_delete:
 
                 Bundle project = new Bundle();
                 project.putString("itemDelete", "este proyecto");

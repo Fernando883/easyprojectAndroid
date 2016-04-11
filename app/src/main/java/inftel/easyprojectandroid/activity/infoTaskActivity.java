@@ -1,13 +1,10 @@
 package inftel.easyprojectandroid.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.EditTaskFragment;
@@ -31,7 +28,7 @@ public class infoTaskActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.info_task_menu, menu);
+        getMenuInflater().inflate(R.menu.info_menu, menu);
         return true;
     }
 
@@ -40,13 +37,13 @@ public class infoTaskActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
 
-            case R.id.action_visualizeTask:
+            case R.id.action_visualize:
                 //delete
                 ViewTaskDetailsFragment viewTaskDetailsFragment = new ViewTaskDetailsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.infotaskcontent, viewTaskDetailsFragment).commit();
                 break;
 
-            case R.id.action_editTask:
+            case R.id.action_edit:
                 EditTaskFragment editTaskFragment = new EditTaskFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.infotaskcontent, editTaskFragment).commit();
                 break;
