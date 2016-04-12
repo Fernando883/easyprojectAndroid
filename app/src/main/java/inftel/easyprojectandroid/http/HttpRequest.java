@@ -17,6 +17,7 @@ public class HttpRequest {
     public static int GET = 0;
     public static int POST = 1;
     public static int PUT = 2;
+    public static int DELETE = 3;
 
     private JSONObject json;
     private int method;
@@ -46,6 +47,9 @@ public class HttpRequest {
             }
             if (method == PUT) {
                 return put();
+            }
+            if (method == DELETE) {
+                return delete();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,7 +119,30 @@ public class HttpRequest {
         StringBuilder response = new StringBuilder();
 
         try {
+
+            connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
+            connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
             connection.setRequestMethod("PUT");
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return response.toString();
+
+    }
+
+    private String delete() {
+
+        StringBuilder response = new StringBuilder();
+
+        try {
+            connection.setRequestMethod("DELETE");
             connection.setDoOutput(true);
             connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
             connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");

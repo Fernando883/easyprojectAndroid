@@ -45,7 +45,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     private RecyclerView recyclerView;
     private RecyclerViewEditProjectAdapter adapter;
     private Proyecto project;
-    private List<String> emailstoRemove = new ArrayList<>();
 
     EditText projectName;
     EditText projectDescription;
@@ -56,9 +55,9 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         setHasOptionsMenu(true);
 
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailNonProject("948");
-        projectService.getUsersProject("948");
-        projectService.getProject("948");
+        projectService.getUsersEmailNonProject("1426");
+        projectService.getUsersProject("1426");
+        projectService.getProjectDetails("1426");
 
 
     }
@@ -94,9 +93,9 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     @Override
     public void onObjectResponse(Pair<String, ?> response) {
 
-        if (response.first.equals("getProject")) {
+        if (response.first.equals("getProjectDetails")) {
             project = (Proyecto) response.second;
-            System.out.println("getProject");
+            System.out.println("getProjectDetails");
             loadContentProject();
         }
 
@@ -135,9 +134,9 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
             //Sería el usuario almacenado en appEasyProject
             Usuario director = new Usuario();
-            director.setNombreU("Fernando Galán");
-            director.setIdUsuario(3L);
-            director.setEmail("fernandogalanperez883@gmail.com");
+            director.setNombreU("Ana Herrera García");
+            director.setIdUsuario(10L);
+            director.setEmail("ana.93.hg@gmail.com");
             project.setDirector(director);
 
 
@@ -145,13 +144,14 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
             JSONObject jsonObject = new JSONObject(trad.toJson(project));
 
+            String editString = adapter.getRemoveUserList().toString();
+            String emailsRemove = editString.substring(1, editString.lastIndexOf(']'));
             jsonObject.put("listAddEmails", textAutocomplete.getText().toString());
-            emailstoRemove = adapter.getRemoveUserList();
-            jsonObject.put("listRemoveEmails", emailstoRemove);
+            jsonObject.put("listRemoveEmails", emailsRemove);
 
             System.out.println("Enviando ... " + jsonObject);
 
-            //projectService.setNewProject(jsonObject);
+            projectService.putProject("948",jsonObject);
 
         } catch (JSONException e) {
             e.printStackTrace();

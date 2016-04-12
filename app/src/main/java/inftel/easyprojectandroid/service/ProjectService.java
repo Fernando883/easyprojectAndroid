@@ -41,10 +41,10 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getProjects").execute(httpRequest);
     }
 
-    public void getProject (String idProject) {
-        String url = SERVER_IP+SERVER_PATH+"entity.proyecto/findInfoProject/"+idProject;
+    public void getProjectDetails (String idProject) {
+        String url = SERVER_IP+SERVER_PATH+"entity.proyecto/getProjectDetails/"+idProject;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
-        new HttpTask(this,"getProject").execute(httpRequest);
+        new HttpTask(this,"getProjectDetails").execute(httpRequest);
 
     }
 
@@ -56,29 +56,42 @@ public class ProjectService implements ResponseListener {
     }
 
     public void setNewProject(JSONObject jsonObject){
-        System.out.println("Realizar Post proyecto");
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto?";
         HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, jsonObject);
         new HttpTask(this,"setNewProject").execute(httpRequest);
     }
 
-    public void getUsersEmailNonProject(String idProjet){
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
+    public void getUsersEmailNonProject(String idProject){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProject;
         System.out.println("URLita" + url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
     }
 
-    public void getUsersEmailProject(String idProjet){
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailProject/"+idProjet;
+    public void getUsersEmailProject(String idProject){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailProject/"+idProject;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailProject").execute(httpRequest);
     }
 
-    public void getUsersProject(String idProjet){
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersProject/"+idProjet;
+    public void getUsersProject(String idProject){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersProject/"+idProject;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersProject").execute(httpRequest);
+    }
+
+    public void putProject (String idProject, JSONObject jsonObject) {
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/editProject/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.PUT,url, jsonObject);
+        new HttpTask(this,"putProject").execute(httpRequest);
+
+    }
+
+    public void deleteProject (String idProject) {
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.DELETE,url, null);
+        new HttpTask(this,"deleteProject").execute(httpRequest);
+
     }
 
     @Override
@@ -91,7 +104,7 @@ public class ProjectService implements ResponseListener {
             parseEmails(response.second, "getUsersEmailNonProject");
         } else if (response.first.equals("getUsersEmailProject")) {
             parseEmails(response.second, "getUsersEmailProject");
-        } else if (response.first.equals("getProject")) {
+        } else if (response.first.equals("getProjectDetails")) {
             parseProject(response.second);
         } else if (response.first.equals("getUsersProject")) {
             parseUsers(response.second);
@@ -118,7 +131,7 @@ public class ProjectService implements ResponseListener {
     private void parseProject (String response) {
         Gson converter = new Gson();
         Proyecto p = converter.fromJson(response, Proyecto.class);
-        listener.onObjectResponse(new Pair("getProject", p));
+        listener.onObjectResponse(new Pair("getProjectDetails", p));
 
     }
 

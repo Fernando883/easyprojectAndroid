@@ -33,7 +33,7 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
 
         setHasOptionsMenu(true);
         projectService = new ProjectService(getActivity(), this);
-        projectService.getProject("948");
+        projectService.getProjectDetails("948");
 
     }
 
@@ -50,7 +50,7 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
     @Override
     public void onObjectResponse(Pair<String, ?> response) {
 
-        if (response.first.equals("getProject")){
+        if (response.first.equals("getProjectDetails")){
             project = (Proyecto) response.second;
             loadContent();
         }

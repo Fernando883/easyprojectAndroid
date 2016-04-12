@@ -50,6 +50,13 @@ public class TaskService implements ResponseListener {
         new HttpTask(this,"postTask").execute(httpRequest);
     }
 
+    public void deleteTask (String idTask) {
+        String url = SERVER_IP + SERVER_PATH + "entity.task/"+idTask;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.DELETE,url, null);
+        new HttpTask(this,"deleteTask").execute(httpRequest);
+
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
         Log.e("RESPONSE", response.second);
