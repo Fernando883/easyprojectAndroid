@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -11,6 +12,7 @@ import android.util.Pair;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.activity.MainActivity;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.service.ProjectService;
 import inftel.easyprojectandroid.service.TaskService;
@@ -22,6 +24,7 @@ public class ConfirmDialog extends DialogFragment implements ServiceListener {
 
     private String itemDelete;
     private int type;
+    private String nameItem;
     public static final int project = 1;
     public static final int task = 2;
 
@@ -40,12 +43,13 @@ public class ConfirmDialog extends DialogFragment implements ServiceListener {
         Bundle arguments = getArguments();
         itemDelete = arguments.getString("itemDelete");
         type = arguments.getInt("type");
+        nameItem = arguments.getString("nameItem");
 
 
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
 
-        builder.setMessage(getString(R.string.questionDelete) +  " " + itemDelete + "?")
+        builder.setMessage(getString(R.string.questionDelete) +  " " + nameItem + "?")
                 .setTitle(getString(R.string.confirmation))
                 .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -55,6 +59,8 @@ public class ConfirmDialog extends DialogFragment implements ServiceListener {
                         } else if (type == task) {
                             deleteTask(itemDelete);
                         }
+                        Intent goToMainActivity = new Intent (getActivity(), MainActivity.class);
+                        startActivity(goToMainActivity);
                         dialog.cancel();
                     }
                 })

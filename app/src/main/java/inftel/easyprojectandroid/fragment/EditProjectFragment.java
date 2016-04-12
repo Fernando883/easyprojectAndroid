@@ -54,7 +54,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     private RecyclerViewEditProjectAdapter adapter;
     private Proyecto project;
 
-    EditText projectName;
     EditText projectDescription;
 
     @Override
@@ -83,7 +82,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
         view = inflater.inflate(R.layout.fragment_editproject, container, false);
 
-        projectName = (EditText) view.findViewById(R.id.input_editnameProject);
         projectDescription = (EditText) view.findViewById(R.id.input_editprojectDescription);
 
         Button button = (Button) view.findViewById(R.id.buttonEditProject);
@@ -140,9 +138,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     public void edit(View view) {
 
         project = new Proyecto();
-
-
-        project.setNombreP(projectName.getText().toString());
         project.setDescripcion(projectDescription.getText().toString());
 
         try {
@@ -163,6 +158,8 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
             projectService.putProject(idProject,jsonObject);
             Intent toViewProject = new Intent (getActivity(), ViewProjectActivity.class);
+            toViewProject.putExtra("idProject", new Long(idProject));
+            toViewProject.putExtra("proyectName", proyectName);
             startActivity(toViewProject);
 
         } catch (JSONException e) {
@@ -171,11 +168,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     }
 
     public void loadContentProject() {
-
-        //projectName
-        android.support.design.widget.TextInputLayout projectName = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editNameProject);
-        projectName.setHintAnimationEnabled(true);
-        projectName.setHint(proyectName);
 
         //projectDescripcion
         android.support.design.widget.TextInputLayout projectDescription = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editprojectDescription);

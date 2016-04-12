@@ -21,25 +21,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/project_name"
-            android:textStyle="bold"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_editNameProject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/info_margin">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/input_editnameProject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true" />
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:text="@string/project_description"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/info_margin"/>
