@@ -32,6 +32,7 @@
             android:name=".activity.ViewProjectActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_view_project"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NewProjectActivity"
