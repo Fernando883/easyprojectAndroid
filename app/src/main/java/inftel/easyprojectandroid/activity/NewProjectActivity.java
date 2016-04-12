@@ -3,6 +3,7 @@ package inftel.easyprojectandroid.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -39,6 +40,7 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
     MultiAutoCompleteTextView text1;
     ArrayList<String> emails = new ArrayList<String>();
     ArrayList<Usuario> CollectionUsers = new ArrayList<>();
+    Usuario director = EasyProjectApp.getInstance().getUser();
 
     EditText projectName;
     EditText projectDescription;
@@ -58,7 +60,7 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
         projectService.getUsersEmail();
 
         text1=(MultiAutoCompleteTextView)findViewById(R.id.multiAutoCompleteTextView1);
-
+        //emails.remove(director.getEmail());
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line, emails);
 
 
@@ -77,8 +79,6 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
 
         try {
 
-            Usuario director = EasyProjectApp.getInstance().getUser();
-
 
             Proyecto newProject = new Proyecto();
             newProject.setNombreP(projectName.getText().toString());
@@ -90,10 +90,26 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
 
             projectService = new ProjectService(this, this);
             JSONObject jsonObject = new JSONObject(trad.toJson(newProject));
-            jsonObject.put("listEmails", text1.getText().toString() + director.getEmail());
+            String EmailNewProject = text1.getText().toString() + director.getEmail();
+            jsonObject.put("listEmails", EmailNewProject);
             System.out.println("Enviando ... " + jsonObject);
 
             projectService.setNewProject(jsonObject);
+
+            List<String> ArrayEmailNewProject = Arrays.asList(EmailNewProject.split("\\s*,\\s*"));
+            String subject = projectName.getText().toString();
+            String message = "Has sido añadido al proyecto: " + projectName.getText().toString() + ". El director del proyecto es: " + director.getNombreU();
+
+            for(String email: ArrayEmailNewProject){
+                JSONObject jsonEmailNewProject = new JSONObject();
+                jsonEmailNewProject.put("destiny",email);
+                jsonEmailNewProject.put("subject",subject);
+                jsonEmailNewProject.put("message",message);
+                projectService.sendEmailNewProject(jsonEmailNewProject);
+            }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
 
 
 
@@ -112,7 +128,10 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
     public void onListResponse(Pair<String, List<?>> response) {
         if (response.first.equals("getUserEmailList")){
             for(Object email: response.second){
-                emails.add((String) email);
+                if(!email.equals(director.getEmail())){
+                    System.out.println("Diferente el email es " + email);
+                    emails.add((String) email);
+                }
             }
         }
 
