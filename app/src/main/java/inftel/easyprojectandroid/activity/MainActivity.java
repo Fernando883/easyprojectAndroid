@@ -132,7 +132,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.new_project) {
-            Toast.makeText(this, getString(R.string.new_project), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, NewProjectActivity.class);
+            startActivity(intent);
         } else if (id == R.id.my_projects) {
             Toast.makeText(this, getString(R.string.my_projects), Toast.LENGTH_LONG).show();
         } else if (id == R.id.my_tasks) {

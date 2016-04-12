@@ -61,6 +61,8 @@ public class infoTaskActivity extends AppCompatActivity {
                 deleteProject.setArguments(task);
                 deleteProject.show(fragmentManager, "fragmentManager");
 
+
+
                 break;
         }
         return super.onOptionsItemSelected(item);

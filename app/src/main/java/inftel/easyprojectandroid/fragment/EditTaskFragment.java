@@ -54,7 +54,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     private List<String> emailstoRemove = new ArrayList<>();
     private RadioGroup radioSexGroup;
     private String status;
-    Usuario director = EasyProjectApp.getInstance().getUser();
+    Usuario user = EasyProjectApp.getInstance().getUser();
 
 
 
@@ -68,10 +68,10 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         setHasOptionsMenu(true);
 
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailProject("1535");
+        projectService.getUsersEmailProject("1720");
 
         taskService = new TaskService(getActivity(),this);
-        taskService.getUsersTask("1499");
+        taskService.getUsersTask("1657");
 
         //projectService.getUsersProject("1535");
     }
@@ -120,23 +120,29 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         Tarea task = new Tarea();
 
         BigInteger tiempo = new BigInteger(taskDuration.getText().toString());
-
+        tiempo = tiempo.multiply(new BigInteger("60"));
+        System.out.println("EL TIEMPO ES " + tiempo);
 
         task.setTiempo(tiempo);
-        task.setDescripcion("Prueba definitiva");
+        task.setDescripcion("Prueba Editar Tareas Martes");
         task.setEstado(status);
 
         Proyecto pro = new Proyecto();
-        pro.setDescripcion("Prueba definitiva");
-        pro.setIdProyect(1535L);
-        pro.setNombreP("Proyecto Prueba Editar Tareas Definitivo");
+        pro.setDescripcion("Prueba Editar Tareas Martes");
+        pro.setIdProyect(1720L);
+        pro.setNombreP("Prueba Editar Tareas Martes");
+
+        Usuario director = new Usuario();
+        director.setNombreU("Fernando Galán");
+        director.setEmail("fernandogalanperez883@gmail.com");
+        director.setIdUsuario(2L);
 
         pro.setDirector(director);
 
-        task.setIdTarea(1489L);
+        task.setIdTarea(1657L);
         task.setIdProyecto(pro);
 
-        task.setIdUsuario(director);
+        task.setIdUsuario(user);
 
         Gson trad = new Gson();
 
@@ -149,7 +155,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
 
             System.out.println("Enviando ... " + jsonObject);
 
-            taskService.setEditTask("1380", jsonObject);
+            taskService.setEditTask("1657", jsonObject);
 
         } catch (JSONException e) {
             e.printStackTrace();
