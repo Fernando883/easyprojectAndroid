@@ -90,7 +90,9 @@ public class InfoProjectActivity extends AppCompatActivity {
             case R.id.action_delete:
 
                 Bundle project = new Bundle();
-                project.putString("itemDelete", "este proyecto");
+                project.putString("itemDelete", idProject);
+                project.putInt("type", ConfirmDialog.project);
+                project.putString("nameItem", proyectName);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 ConfirmDialog deleteProject = new ConfirmDialog();

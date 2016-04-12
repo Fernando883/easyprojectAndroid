@@ -55,7 +55,6 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         //get task by user and project
         taskService = new TaskService(this, this);
         //taskService.getTasks("10", "948");
-        taskService.getTasks(idUsuario, idProject);
 
         //TabHost
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
@@ -86,6 +85,14 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         });
     }
 
+    @Override
+    protected void onStart () {
+        super.onStart();
+        idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
+        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+        proyectName = getIntent().getStringExtra("proyectName");
+        taskService.getTasks(idUsuario, idProject);
+    }
 
     public void goToNewTaskActivity () {
         Intent intent = new Intent(this, NewTaskActivity.class);

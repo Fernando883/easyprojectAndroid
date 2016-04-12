@@ -101,8 +101,8 @@ public class ProjectService implements ResponseListener {
     }
 
     public void deleteProject (String idProject) {
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/"+idProject;
-        HttpRequest httpRequest = new HttpRequest(HttpRequest.DELETE,url, null);
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/deleteProject/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"deleteProject").execute(httpRequest);
 
     }
