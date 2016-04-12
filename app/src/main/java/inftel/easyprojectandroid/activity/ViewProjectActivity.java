@@ -36,6 +36,7 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("ViewProjectActivity", "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_project);
 
@@ -57,8 +58,6 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         toolbar.setTitle(proyectName);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
 
         //get task by user and project
         taskService = new TaskService(this, this);
@@ -93,6 +92,20 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
             }
         });
     }
+
+    protected void onStart() {
+        super.onStart();
+        Log.e("ViewProjectActivity", "onStart");
+        Log.e("idProject", idProject);
+    }
+
+    /*public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        savedInstanceState.putString("idProject", idProject);
+        savedInstanceState.putString("proyectName", proyectName);
+        savedInstanceState.putInt("proyectNumUsers", proyectNumUsers);
+
+    }*/
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -139,7 +152,6 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
                 intent.putExtra("idProject", idProject);
                 intent.putExtra("proyectName", proyectName);
                 intent.putExtra("proyectNumUsers", proyectNumUsers);
-                Log.e("idProject", idProject);
                 startActivity(intent);
                 break;
             case R.id.action_chat:
