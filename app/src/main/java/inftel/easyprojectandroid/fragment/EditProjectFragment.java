@@ -30,6 +30,7 @@ import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.activity.ViewProjectActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
@@ -38,6 +39,11 @@ import inftel.easyprojectandroid.service.ProjectService;
  * Created by anotauntanto on 9/4/16.
  */
 public class EditProjectFragment extends Fragment implements ServiceListener, android.widget.CompoundButton.OnCheckedChangeListener{
+
+    private String idProject;
+    private String idUsuario;
+    private int proyectNumUsers;
+    private String proyectName;
 
     private View view;
     private ProjectService projectService;
@@ -56,10 +62,17 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        // Recuperamos parámetros
+        idProject = getArguments().getString("idProject");
+        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+        proyectNumUsers = getArguments().getInt("proyectNumUsers");
+        proyectName = getArguments().getString("proyectName");
+
+
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailNonProject("1426");
-        projectService.getUsersProject("1426");
-        projectService.getProjectDetails("1426");
+        projectService.getUsersEmailNonProject(idProject);
+        projectService.getUsersProject(idProject);
+        projectService.getProjectDetails(idProject);
 
 
     }
@@ -167,7 +180,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         //projectName
         android.support.design.widget.TextInputLayout projectName = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editNameProject);
         projectName.setHintAnimationEnabled(true);
-        projectName.setHint(project.getNombreP());
+        projectName.setHint(proyectName);
 
         //projectDescripcion
         android.support.design.widget.TextInputLayout projectDescription = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editprojectDescription);

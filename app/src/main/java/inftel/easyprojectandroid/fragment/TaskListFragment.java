@@ -40,10 +40,6 @@ public class TaskListFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-
-        //Bundle arguments = getArguments();
-        //int tab = arguments.getInt("Tab");
-
         loadTasks();
         setRetainInstance(true);
         return view;
