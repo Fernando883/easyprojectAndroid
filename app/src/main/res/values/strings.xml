@@ -10,6 +10,11 @@
     <string name="options">Options</string>
     <string name="preference_file_key">SharedPreferences</string>
 
+    <!--  menu info task-->
+    <string name="action_visualizeTask">View</string>
+    <string name="action_editTask">Edit</string>
+    <string name="action_deleteTask">Delete</string>
+
     <!-- drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -21,7 +26,7 @@
     <!-- content_new_project -->
     <string name="project_name">Project name</string>
     <string name="project_description">Project description</string>
-    <string name="members">Project members</string>
+    <string name="project_members">Project members</string>
     <string name="title_activity_view_project">ViewProjectActivity</string>
 
     <!-- content_new_task -->
@@ -40,6 +45,7 @@
     <string name="to_do">to do</string>
     <string name="doing">doing</string>
     <string name="done">done</string>
+    <string name="ic_action_chat">Chat</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -50,9 +56,9 @@
     <string name="about">Manage your projects easily</string>
 
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.1.112:8080</string>
+    <string name="server_ip">http://192.168.1.139:8080</string>
     <string name="server_path">/EasyProject_RestFull/webresources/</string>
-    <string name="websocket">ws://192.168.1.112:8080/EasyProject-war/actions/</string>
+    <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
 
     <!--edit project-->
     <string name="edit">Edit</string>
@@ -81,10 +87,12 @@
     <string name="task_members">Task members</string>
     <string name="task_status">Task status</string>
     <string name="newmemberstask">Add new task members</string>
-    
-    <string name="title_activity_chat">ChatActivity</string>
+
+
 
     <!-- ChatActivity -->
+    <string name="title_activity_chat">ChatActivity</string>
     <string name="write_message">Write a message...</string>
+
 
 </resources>

@@ -27,6 +27,7 @@ import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.ChatFragment;
 import inftel.easyprojectandroid.fragment.LoadingFragment;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Message;
 import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
@@ -49,16 +50,15 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
         setSupportActionBar(toolbar);
         textMessage = (EditText) findViewById(R.id.textMessage);
         textMessage.setOnEditorActionListener(manageMessage());
-        //currentUser = EasyProjectApp.getInstance().getUser();
-        currentUser = new Usuario();
+
+        /*currentUser = new Usuario();
         currentUser.setIdUsuario(1354l);
         currentUser.setNombreU("Carlos Salas");
         currentUser.setEmail("carlos.salas@gmail.com");
-        currentUser.setImgUrl("");
+        currentUser.setImgUrl("");*/
 
-
-        //projectID = getIntent().getStringExtra("projectID");
-        projectID = "1157";
+        currentUser = EasyProjectApp.getInstance().getUser();
+        projectID = getIntent().getStringExtra("idProject");
 
         // Fragmento de carga
         LoadingFragment loadingFragment = new LoadingFragment();

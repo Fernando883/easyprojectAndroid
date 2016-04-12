@@ -3,7 +3,6 @@ package inftel.easyprojectandroid.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +19,7 @@ import java.util.List;
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.fragment.TaskListFragment;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Tarea;
 import inftel.easyprojectandroid.service.TaskService;
 
@@ -28,6 +28,8 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
     private FragmentTabHost mTabHost;
     private TaskService taskService;
     private List<Tarea> listTask;
+    private String idProject;
+    private String idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,14 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Recuperamos parámetros
+        idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
+        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+
         //get task by user and project
         taskService = new TaskService(this, this);
-        taskService.getTasks("10", "948");
+        //taskService.getTasks("10", "948");
+        taskService.getTasks(idUsuario, idProject);
 
         //TabHost
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);
@@ -105,6 +112,10 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         switch (item.getItemId()) {
             case R.id.action_info:
                 //delete
+            case R.id.action_chat:
+                Intent intent = new Intent(this, ChatActivity.class);
+                intent.putExtra("idProject", idProject);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
