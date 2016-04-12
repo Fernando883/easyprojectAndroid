@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
@@ -41,10 +42,10 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getProjects").execute(httpRequest);
     }
 
-    public void getProject (String idProject) {
-        String url = SERVER_IP+SERVER_PATH+"entity.proyecto/findInfoProject/"+idProject;
+    public void getProjectDetails (String idProject) {
+        String url = SERVER_IP+SERVER_PATH+"entity.proyecto/getProjectDetails/"+idProject;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
-        new HttpTask(this,"getProject").execute(httpRequest);
+        new HttpTask(this,"getProjectDetails").execute(httpRequest);
 
     }
 
@@ -56,7 +57,6 @@ public class ProjectService implements ResponseListener {
     }
 
     public void setNewProject(JSONObject jsonObject){
-        System.out.println("Realizar Post proyecto");
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto?";
         HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, jsonObject);
         new HttpTask(this,"setNewProject").execute(httpRequest);
@@ -93,6 +93,20 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"getUsersProject").execute(httpRequest);
     }
 
+    public void putProject (String idProject, JSONObject jsonObject) {
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/editProject/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.PUT,url, jsonObject);
+        new HttpTask(this,"putProject").execute(httpRequest);
+
+    }
+
+    public void deleteProject (String idProject) {
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.DELETE,url, null);
+        new HttpTask(this,"deleteProject").execute(httpRequest);
+
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
         if (response.first.equals("getProjects")) {
@@ -103,13 +117,14 @@ public class ProjectService implements ResponseListener {
             parseEmails(response.second, "getUsersEmailNonProject");
         } else if (response.first.equals("getUsersEmailProject")) {
             parseEmails(response.second, "getUsersEmailProject");
-        } else if (response.first.equals("getProject")) {
+        } else if (response.first.equals("getProjectDetails")) {
             parseProject(response.second);
         } else if (response.first.equals("getUsersProject")) {
             parseUsers(response.second);
         } else if (response.first.equals("getChatFromProject")) {
             parseChatProject(response.second);
         }
+
     }
 
     private void parseUsers(String response){
@@ -131,7 +146,7 @@ public class ProjectService implements ResponseListener {
     private void parseProject (String response) {
         Gson converter = new Gson();
         Proyecto p = converter.fromJson(response, Proyecto.class);
-        listener.onObjectResponse(new Pair("getProject", p));
+        listener.onObjectResponse(new Pair("getProjectDetails", p));
 
     }
 

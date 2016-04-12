@@ -55,6 +55,7 @@ public class ProjectListFragment extends Fragment implements RecyclerItemClickLi
         Intent intent = new Intent(getContext(), ViewProjectActivity.class);
         intent.putExtra("idProject", projectList.get(position).getIdProyect());
         intent.putExtra("proyectName", projectList.get(position).getNombreP());
+        intent.putExtra("proyectNumUsers", projectList.get(position).getNumUsers());
         startActivity(intent);
     }
 
