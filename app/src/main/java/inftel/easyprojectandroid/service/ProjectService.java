@@ -9,7 +9,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
@@ -17,6 +16,7 @@ import inftel.easyprojectandroid.http.HttpRequest;
 import inftel.easyprojectandroid.http.HttpTask;
 import inftel.easyprojectandroid.interfaces.ResponseListener;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.Message;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
 
@@ -64,9 +64,14 @@ public class ProjectService implements ResponseListener {
 
     public void getUsersEmailNonProject(String idProjet){
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
-        System.out.println("URLita" + url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
+    }
+
+    public void getChatFromProject(String idProject) {
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getProjectChat/" + idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET, url, null);
+        new HttpTask(this, "getChatFromProject").execute(httpRequest);
     }
 
     public void getUsersEmailProject(String idProjet){
@@ -95,8 +100,9 @@ public class ProjectService implements ResponseListener {
             parseProject(response.second);
         } else if (response.first.equals("getUsersProject")) {
             parseUsers(response.second);
+        } else if (response.first.equals("getChatFromProject")) {
+            parseChatProject(response.second);
         }
-
     }
 
     private void parseUsers(String response){
@@ -152,6 +158,21 @@ public class ProjectService implements ResponseListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void parseChatProject(String response) {
+        ArrayList<Message> messageList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                Message m = Message.fromJSON(jsonArray.getString(i));
+                messageList.add(m);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        listener.onListResponse(new Pair("getChatFromProject", messageList));
     }
 
 }
