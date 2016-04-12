@@ -148,12 +148,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         try {
 
             //Sería el usuario almacenado en appEasyProject
-            Usuario director = new Usuario();
-            director.setNombreU("Ana Herrera García");
-            director.setIdUsuario(10L);
-            director.setEmail("ana.93.hg@gmail.com");
-            project.setDirector(director);
-
+            project.setDirector(EasyProjectApp.getInstance().getUser());
 
             Gson trad = new Gson();
 
@@ -166,7 +161,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
             System.out.println("Enviando ... " + jsonObject);
 
-            projectService.putProject("948",jsonObject);
+            projectService.putProject(idProject,jsonObject);
             Intent toViewProject = new Intent (getActivity(), ViewProjectActivity.class);
             startActivity(toViewProject);
 
