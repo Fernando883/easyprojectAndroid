@@ -42,16 +42,9 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
 
         // Recuperamos parámetros
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        if (savedInstanceState == null) {
-            idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
-            proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
-            proyectName = getIntent().getStringExtra("proyectName");
-        } else {
-            idProject = savedInstanceState.getString("idProject");
-            proyectNumUsers = savedInstanceState.getInt("proyectNumUsers", 0);
-            proyectName = savedInstanceState.getString("proyectName");
-
-        }
+        idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
+        proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
+        proyectName = getIntent().getStringExtra("proyectName");
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,26 +86,6 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         });
     }
 
-    protected void onStart() {
-        super.onStart();
-        Log.e("ViewProjectActivity", "onStart");
-        Log.e("idProject", idProject);
-    }
-
-    /*public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        savedInstanceState.putString("idProject", idProject);
-        savedInstanceState.putString("proyectName", proyectName);
-        savedInstanceState.putInt("proyectNumUsers", proyectNumUsers);
-
-    }*/
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString("idProject", idProject);
-        savedInstanceState.putString("proyectName", proyectName);
-        savedInstanceState.putInt("proyectNumUsers", proyectNumUsers);
-    }
 
     public void goToNewTaskActivity () {
         Intent intent = new Intent(this, NewTaskActivity.class);

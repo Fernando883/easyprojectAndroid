@@ -45,6 +45,7 @@ public class InfoProjectActivity extends AppCompatActivity {
         toolbar.setTitle(proyectName);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         //LoadingFragment loadingFragment = new LoadingFragment();
