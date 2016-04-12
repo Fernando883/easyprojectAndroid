@@ -17,6 +17,7 @@ import inftel.easyprojectandroid.http.HttpRequest;
 import inftel.easyprojectandroid.http.HttpTask;
 import inftel.easyprojectandroid.interfaces.ResponseListener;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.Message;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
 
@@ -61,21 +62,26 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"setNewProject").execute(httpRequest);
     }
 
-    public void getUsersEmailNonProject(String idProject){
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProject;
-        System.out.println("URLita" + url);
+    public void getUsersEmailNonProject(String idProjet){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
     }
 
-    public void getUsersEmailProject(String idProject){
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailProject/"+idProject;
+    public void getChatFromProject(String idProject) {
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getProjectChat/" + idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET, url, null);
+        new HttpTask(this, "getChatFromProject").execute(httpRequest);
+    }
+
+    public void getUsersEmailProject(String idProjet){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailProject/"+idProjet;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailProject").execute(httpRequest);
     }
 
-    public void getUsersProject(String idProject){
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersProject/"+idProject;
+    public void getUsersProject(String idProjet){
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersProject/"+idProjet;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersProject").execute(httpRequest);
     }
@@ -104,10 +110,12 @@ public class ProjectService implements ResponseListener {
             parseEmails(response.second, "getUsersEmailNonProject");
         } else if (response.first.equals("getUsersEmailProject")) {
             parseEmails(response.second, "getUsersEmailProject");
-        } else if (response.first.equals("getProjectDetails")) {
+        } else if (response.first.equals("getProject")) {
             parseProject(response.second);
         } else if (response.first.equals("getUsersProject")) {
             parseUsers(response.second);
+        } else if (response.first.equals("getChatFromProject")) {
+            parseChatProject(response.second);
         }
 
     }
@@ -131,7 +139,7 @@ public class ProjectService implements ResponseListener {
     private void parseProject (String response) {
         Gson converter = new Gson();
         Proyecto p = converter.fromJson(response, Proyecto.class);
-        listener.onObjectResponse(new Pair("getProjectDetails", p));
+        listener.onObjectResponse(new Pair("getProject", p));
 
     }
 
@@ -165,6 +173,21 @@ public class ProjectService implements ResponseListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void parseChatProject(String response) {
+        ArrayList<Message> messageList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                Message m = Message.fromJSON(jsonArray.getString(i));
+                messageList.add(m);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        listener.onListResponse(new Pair("getChatFromProject", messageList));
     }
 
 }

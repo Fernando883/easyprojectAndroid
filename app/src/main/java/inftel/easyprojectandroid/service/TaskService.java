@@ -34,6 +34,7 @@ public class TaskService implements ResponseListener {
 
     public void getTasks(String idUser, String idProject) {
         String url = SERVER_IP+SERVER_PATH+"entity.tarea/findTasksinProjectByIdUser/"+idUser+"/"+idProject;
+        Log.e("getTasks", url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getTasks").execute(httpRequest);
     }

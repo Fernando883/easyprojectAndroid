@@ -31,6 +31,8 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.NewProjectActivity"
             android:label="@string/titleNewProject"
@@ -50,6 +52,11 @@
             android:name=".activity.EditProjectActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
+            android:name=".activity.ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/AppTheme.NoActionBar">
+            ></activity>
+        <activity
             android:name=".activity.infoTaskActivity"
             android:label="@string/title_activity_info_task"
             android:theme="@style/AppTheme.NoActionBar">
@@ -66,7 +73,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

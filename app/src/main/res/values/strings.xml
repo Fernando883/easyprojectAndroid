@@ -45,6 +45,7 @@
     <string name="to_do">to do</string>
     <string name="doing">doing</string>
     <string name="done">done</string>
+    <string name="ic_action_chat">Chat</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -55,8 +56,9 @@
     <string name="about">Manage your projects easily</string>
 
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.1.114:8080</string>
-    <string name="server_path">/EasyProject_RestFul/webresources/</string>
+    <string name="server_ip">http://192.168.1.139:8080</string>
+    <string name="server_path">/EasyProject_RestFull/webresources/</string>
+    <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
 
     <!--edit project-->
     <string name="edit">Edit</string>
@@ -86,6 +88,11 @@
     <string name="task_status">Task status</string>
     <string name="newmemberstask">Add new task members</string>
 
+
+
+    <!-- ChatActivity -->
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="write_message">Write a message...</string>
 
 
 </resources>
