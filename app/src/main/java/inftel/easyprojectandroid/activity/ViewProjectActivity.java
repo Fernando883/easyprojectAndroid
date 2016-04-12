@@ -30,21 +30,27 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
     private List<Tarea> listTask;
     private String idProject;
     private String idUsuario;
+    private String proyectName;
+    private int proyectNumUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_project);
 
-        //Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getIntent().getStringExtra("proyectName"));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         // Recuperamos parámetros
         idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+        proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
+        proyectName = getIntent().getStringExtra("proyectName");
+
+        //Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(proyectName);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         //get task by user and project
         taskService = new TaskService(this, this);
@@ -110,13 +116,18 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_info:
+                intent = new Intent(this, InfoProjectActivity.class);
+                intent.putExtra("idProject", idProject);
+                intent.putExtra("proyectName", proyectName);
+                intent.putExtra("proyectNumUsers", proyectNumUsers);
+                startActivity(intent);
                 break;
-                //delete
             case R.id.action_chat:
-                Intent intent = new Intent(this, ChatActivity.class);
+                intent = new Intent(this, ChatActivity.class);
                 intent.putExtra("idProject", idProject);
                 startActivity(intent);
                 break;

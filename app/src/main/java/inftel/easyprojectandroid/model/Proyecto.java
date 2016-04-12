@@ -94,7 +94,7 @@ public class Proyecto {
         project.setNombreP(jsonObject.getString("nombreP"));
         project.setDescripcion(jsonObject.getString("descripcion"));
         project.setIdProyect(jsonObject.getLong("idProyect"));
-        project.setNumUsers(1); // Cambiar los datos devueltos por el JSON
+        project.setNumUsers(jsonObject.getInt("numUsers"));
         return project;
     }
 
