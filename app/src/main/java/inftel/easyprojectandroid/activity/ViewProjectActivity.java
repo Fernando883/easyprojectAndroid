@@ -38,7 +38,9 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getIntent().getStringExtra("proyectName"));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Recuperamos parámetros
         idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
@@ -111,14 +113,17 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_info:
+                break;
                 //delete
             case R.id.action_chat:
                 Intent intent = new Intent(this, ChatActivity.class);
                 intent.putExtra("idProject", idProject);
                 startActivity(intent);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
 
