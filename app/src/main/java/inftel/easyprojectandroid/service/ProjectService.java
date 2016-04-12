@@ -62,6 +62,13 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"setNewProject").execute(httpRequest);
     }
 
+    public void sendEmailNewProject(JSONObject jsonObject){
+        System.out.println("Realizar Post proyecto");
+        String url = SERVER_IP + SERVER_PATH + "entity.usuario/sendEmailCreate";
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, jsonObject);
+        new HttpTask(this,"sendEmailNewProject").execute(httpRequest);
+    }
+
     public void getUsersEmailNonProject(String idProjet){
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);

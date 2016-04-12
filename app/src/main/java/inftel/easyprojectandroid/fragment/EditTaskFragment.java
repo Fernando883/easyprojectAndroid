@@ -31,6 +31,7 @@ import java.util.List;
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Tarea;
 import inftel.easyprojectandroid.model.Usuario;
@@ -53,6 +54,8 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     private List<String> emailstoRemove = new ArrayList<>();
     private RadioGroup radioSexGroup;
     private String status;
+    Usuario director = EasyProjectApp.getInstance().getUser();
+
 
 
 
@@ -128,11 +131,6 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         pro.setIdProyect(1535L);
         pro.setNombreP("Proyecto Prueba Editar Tareas Definitivo");
 
-        //Sería el usuario almacenado en appEasyProject
-        Usuario director = new Usuario();
-        director.setNombreU("Fernando Galán");
-        director.setIdUsuario(2L);
-        director.setEmail("fernandogalanperez883@gmail.com");
         pro.setDirector(director);
 
         task.setIdTarea(1489L);
