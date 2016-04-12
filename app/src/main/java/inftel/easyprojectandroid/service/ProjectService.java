@@ -64,7 +64,6 @@ public class ProjectService implements ResponseListener {
 
     public void getUsersEmailNonProject(String idProjet){
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
-        System.out.println("URLita" + url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailNonProject").execute(httpRequest);
     }
