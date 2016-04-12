@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -26,8 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.activity.ViewProjectActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
@@ -37,6 +40,11 @@ import inftel.easyprojectandroid.service.ProjectService;
  */
 public class EditProjectFragment extends Fragment implements ServiceListener, android.widget.CompoundButton.OnCheckedChangeListener{
 
+    private String idProject;
+    private String idUsuario;
+    private int proyectNumUsers;
+    private String proyectName;
+
     private View view;
     private ProjectService projectService;
     private MultiAutoCompleteTextView textAutocomplete;
@@ -45,7 +53,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     private RecyclerView recyclerView;
     private RecyclerViewEditProjectAdapter adapter;
     private Proyecto project;
-    private List<String> emailstoRemove = new ArrayList<>();
 
     EditText projectName;
     EditText projectDescription;
@@ -55,10 +62,17 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        // Recuperamos parámetros
+        idProject = getArguments().getString("idProject");
+        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+        proyectNumUsers = getArguments().getInt("proyectNumUsers");
+        proyectName = getArguments().getString("proyectName");
+
+
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailNonProject("948");
-        projectService.getUsersProject("948");
-        projectService.getProject("948");
+        projectService.getUsersEmailNonProject(idProject);
+        projectService.getUsersProject(idProject);
+        projectService.getProjectDetails(idProject);
 
 
     }
@@ -94,9 +108,9 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
     @Override
     public void onObjectResponse(Pair<String, ?> response) {
 
-        if (response.first.equals("getProject")) {
+        if (response.first.equals("getProjectDetails")) {
             project = (Proyecto) response.second;
-            System.out.println("getProject");
+            System.out.println("getProjectDetails");
             loadContentProject();
         }
 
@@ -135,9 +149,9 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
             //Sería el usuario almacenado en appEasyProject
             Usuario director = new Usuario();
-            director.setNombreU("Fernando Galán");
-            director.setIdUsuario(3L);
-            director.setEmail("fernandogalanperez883@gmail.com");
+            director.setNombreU("Ana Herrera García");
+            director.setIdUsuario(10L);
+            director.setEmail("ana.93.hg@gmail.com");
             project.setDirector(director);
 
 
@@ -145,13 +159,16 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
 
             JSONObject jsonObject = new JSONObject(trad.toJson(project));
 
+            String editString = adapter.getRemoveUserList().toString();
+            String emailsRemove = editString.substring(1, editString.lastIndexOf(']'));
             jsonObject.put("listAddEmails", textAutocomplete.getText().toString());
-            emailstoRemove = adapter.getRemoveUserList();
-            jsonObject.put("listRemoveEmails", emailstoRemove);
+            jsonObject.put("listRemoveEmails", emailsRemove);
 
             System.out.println("Enviando ... " + jsonObject);
 
-            //projectService.setNewProject(jsonObject);
+            projectService.putProject("948",jsonObject);
+            Intent toViewProject = new Intent (getActivity(), ViewProjectActivity.class);
+            startActivity(toViewProject);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -163,7 +180,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
         //projectName
         android.support.design.widget.TextInputLayout projectName = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editNameProject);
         projectName.setHintAnimationEnabled(true);
-        projectName.setHint(project.getNombreP());
+        projectName.setHint(proyectName);
 
         //projectDescripcion
         android.support.design.widget.TextInputLayout projectDescription = (android.support.design.widget.TextInputLayout) view.findViewById(R.id.input_layout_editprojectDescription);

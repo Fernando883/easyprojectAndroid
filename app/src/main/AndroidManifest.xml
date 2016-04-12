@@ -17,7 +17,9 @@
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+            </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
@@ -28,12 +30,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.ViewProjectActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/title_activity_view_project"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activity.ViewProjectActivity">>
+        </activity>
+
         <activity
             android:name=".activity.NewProjectActivity"
             android:label="@string/titleNewProject"
@@ -42,16 +46,17 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="inftel.easyprojectandroid.activity.MainActivity" />
+
         </activity>
+
         <activity
             android:name=".activity.NewTaskActivity"
             android:label="@string/title_activity_new_task"
             android:parentActivityName=".activity.ViewProjectActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.EditProjectActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activity.ChatActivity"
             android:label="@string/title_activity_chat"
@@ -66,7 +71,9 @@
 
         <activity
             android:name=".activity.InfoProjectActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize"
+            android:parentActivityName=".activity.ViewProjectActivity">
 
         </activity>
     </application>
