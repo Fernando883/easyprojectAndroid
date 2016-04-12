@@ -17,13 +17,23 @@
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+
+            </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar">
 
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
+
         <activity
             android:name=".activity.ViewProjectActivity"
             android:configChanges="orientation|screenSize"
@@ -31,8 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.NewProjectActivity"
             android:label="@string/titleNewProject"
@@ -43,6 +52,7 @@
                 android:value="inftel.easyprojectandroid.activity.MainActivity" />
 
         </activity>
+
         <activity
             android:name=".activity.NewTaskActivity"
             android:label="@string/title_activity_new_task"
@@ -66,13 +76,6 @@
         <activity
             android:name=".activity.InfoProjectActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
