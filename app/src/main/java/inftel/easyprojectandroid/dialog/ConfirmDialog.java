@@ -44,6 +44,7 @@ public class ConfirmDialog extends DialogFragment implements ServiceListener {
         itemDelete = arguments.getString("itemDelete");
         type = arguments.getInt("type");
         nameItem = arguments.getString("nameItem");
+        taskService = new TaskService(getActivity(),this);
 
 
         AlertDialog.Builder builder =
@@ -81,7 +82,6 @@ public class ConfirmDialog extends DialogFragment implements ServiceListener {
 
     public void deleteTask (String id) {
         taskService.deleteTask(id);
-
     }
 
 

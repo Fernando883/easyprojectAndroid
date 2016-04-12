@@ -54,7 +54,10 @@ public class infoTaskActivity extends AppCompatActivity {
             case R.id.action_delete:
 
                 Bundle task = new Bundle();
-                task.putString("itemDelete", "esta Tarea");
+                task.putString("itemDelete", "1044");
+                task.putInt("type", ConfirmDialog.task);
+                task.putString("nameItem", "Prueba borrar");
+
 
                 FragmentManager fragmentManager = getFragmentManager();
                 ConfirmDialog deleteProject = new ConfirmDialog();
