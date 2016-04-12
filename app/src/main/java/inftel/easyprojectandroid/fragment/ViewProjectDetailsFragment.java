@@ -33,7 +33,7 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
 
         setHasOptionsMenu(true);
         projectService = new ProjectService(getActivity(), this);
-        projectService.getProjectDetails("948");
+        projectService.getProjectDetails("1426");
 
     }
 
