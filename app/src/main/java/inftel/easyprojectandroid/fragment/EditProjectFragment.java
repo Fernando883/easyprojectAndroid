@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.activity.ViewProjectActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.Proyecto;
@@ -152,6 +154,8 @@ public class EditProjectFragment extends Fragment implements ServiceListener, an
             System.out.println("Enviando ... " + jsonObject);
 
             projectService.putProject("948",jsonObject);
+            Intent toViewProject = new Intent (getActivity(), ViewProjectActivity.class);
+            startActivity(toViewProject);
 
         } catch (JSONException e) {
             e.printStackTrace();

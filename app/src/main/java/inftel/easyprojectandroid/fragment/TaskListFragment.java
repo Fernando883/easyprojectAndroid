@@ -45,6 +45,7 @@ public class TaskListFragment extends Fragment {
         //int tab = arguments.getInt("Tab");
 
         loadTasks();
+        setRetainInstance(true);
         return view;
     }
 

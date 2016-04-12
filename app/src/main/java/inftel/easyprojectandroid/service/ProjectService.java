@@ -110,7 +110,7 @@ public class ProjectService implements ResponseListener {
             parseEmails(response.second, "getUsersEmailNonProject");
         } else if (response.first.equals("getUsersEmailProject")) {
             parseEmails(response.second, "getUsersEmailProject");
-        } else if (response.first.equals("getProject")) {
+        } else if (response.first.equals("getProjectDetails")) {
             parseProject(response.second);
         } else if (response.first.equals("getUsersProject")) {
             parseUsers(response.second);
@@ -139,7 +139,7 @@ public class ProjectService implements ResponseListener {
     private void parseProject (String response) {
         Gson converter = new Gson();
         Proyecto p = converter.fromJson(response, Proyecto.class);
-        listener.onObjectResponse(new Pair("getProject", p));
+        listener.onObjectResponse(new Pair("getProjectDetails", p));
 
     }
 
