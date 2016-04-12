@@ -27,6 +27,7 @@ import java.util.List;
 
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
@@ -62,6 +63,7 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
 
 
         text1.setAdapter(adapter);
+
         text1.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
@@ -75,10 +77,8 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
 
         try {
 
-            Usuario director = new Usuario();
-            director.setNombreU("Fernando Galán");
-            director.setIdUsuario(3L);
-            director.setEmail("fernandogalanperez883@gmail.com");
+            Usuario director = EasyProjectApp.getInstance().getUser();
+
 
             Proyecto newProject = new Proyecto();
             newProject.setNombreP(projectName.getText().toString());

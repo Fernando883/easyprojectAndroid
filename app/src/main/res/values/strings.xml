@@ -88,11 +88,10 @@
     <string name="task_status">Task status</string>
     <string name="newmemberstask">Add new task members</string>
 
-
-
     <!-- ChatActivity -->
     <string name="title_activity_chat">ChatActivity</string>
     <string name="write_message">Write a message...</string>
+
 
 
 </resources>
