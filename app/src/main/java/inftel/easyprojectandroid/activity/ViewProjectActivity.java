@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,10 +40,17 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         setContentView(R.layout.activity_view_project);
 
         // Recuperamos parámetros
-        idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
-        proyectName = getIntent().getStringExtra("proyectName");
+        if (savedInstanceState == null) {
+            idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
+            proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
+            proyectName = getIntent().getStringExtra("proyectName");
+        } else {
+            idProject = savedInstanceState.getString("idProject");
+            proyectNumUsers = savedInstanceState.getInt("proyectNumUsers", 0);
+            proyectName = savedInstanceState.getString("proyectName");
+
+        }
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -86,6 +94,13 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         });
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("idProject", idProject);
+        savedInstanceState.putString("proyectName", proyectName);
+        savedInstanceState.putInt("proyectNumUsers", proyectNumUsers);
+    }
+
     public void goToNewTaskActivity () {
         Intent intent = new Intent(this, NewTaskActivity.class);
         startActivity(intent);
@@ -124,6 +139,7 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
                 intent.putExtra("idProject", idProject);
                 intent.putExtra("proyectName", proyectName);
                 intent.putExtra("proyectNumUsers", proyectNumUsers);
+                Log.e("idProject", idProject);
                 startActivity(intent);
                 break;
             case R.id.action_chat:
