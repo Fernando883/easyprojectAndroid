@@ -45,6 +45,7 @@
     <string name="to_do">to do</string>
     <string name="doing">doing</string>
     <string name="done">done</string>
+    <string name="ic_action_chat">Chat</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -86,6 +87,10 @@
     <string name="task_members">Task members</string>
     <string name="task_status">Task status</string>
     <string name="newmemberstask">Add new task members</string>
+
+    <!-- ChatActivity -->
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="write_message">Write a message...</string>
 
 
 
