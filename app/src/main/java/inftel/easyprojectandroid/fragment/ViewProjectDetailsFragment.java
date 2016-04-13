@@ -22,15 +22,10 @@ import inftel.easyprojectandroid.service.ProjectService;
 /**
  * Created by anotauntanto on 9/4/16.
  */
-public class ViewProjectDetailsFragment extends Fragment implements ServiceListener {
+public class ViewProjectDetailsFragment extends Fragment {
 
-    private String idProject;
-    private String idUsuario;
-    private int proyectNumUsers;
-    private String proyectName;
 
     private View view;
-    private ProjectService projectService;
     private Proyecto project;
 
     @Override
@@ -39,15 +34,6 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
 
         setHasOptionsMenu(true);
 
-        // Recuperamos parámetros
-        idProject = getArguments().getString("idProject");
-        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        proyectNumUsers = getArguments().getInt("proyectNumUsers");
-        proyectName = getArguments().getString("proyectName");
-
-        projectService = new ProjectService(getActivity(), this);
-        projectService.getProjectDetails(idProject);
-
     }
 
     @Override
@@ -55,33 +41,22 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_viewprojectdetails, container, false);
+        loadContent();
 
         return view;
     }
 
 
-    @Override
-    public void onObjectResponse(Pair<String, ?> response) {
-
-        if (response.first.equals("getProjectDetails")){
-            System.out.println("Ei ana");
-            project = (Proyecto) response.second;
-            loadContent();
-        }
-
-
+    public void setProject(Proyecto project) {
+        this.project = project;
     }
 
-    @Override
-    public void onListResponse(Pair<String, List<?>> response) {
-
-    }
 
     public void loadContent () {
 
         //projectName
         TextView projectName = (TextView) view.findViewById(R.id.projectNameInfo);
-        projectName.setText(proyectName);
+        projectName.setText(project.getNombreP());
 
         //projectDescripcion
         TextView projectDescription = (TextView) view.findViewById(R.id.projectDescriptionInfo);

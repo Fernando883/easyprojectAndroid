@@ -1,5 +1,7 @@
 package inftel.easyprojectandroid.model;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +14,7 @@ public class Comentario {
 
     private Long idComent;
     private String texto;
-    private Date fecha;
+    private String fecha;
     private Tarea idTarea;
     private Usuario idUsuario;
 
@@ -36,11 +38,11 @@ public class Comentario {
         this.texto = texto;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -61,9 +63,9 @@ public class Comentario {
     }
 
     public static Comentario fromJSON(String response) throws JSONException {
-        Comentario comment = new Comentario();
-        JSONObject jsonObject = new JSONObject(response);
+        Gson converter = new Gson();
 
+        Comentario comment = converter.fromJson(response, Comentario.class);
         return comment;
     }
 }

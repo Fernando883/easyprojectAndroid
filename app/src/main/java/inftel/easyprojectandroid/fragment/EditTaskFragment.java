@@ -54,6 +54,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     private List<String> emailstoRemove = new ArrayList<>();
     private RadioGroup radioSexGroup;
     private String status;
+    private Tarea task;
     Usuario user = EasyProjectApp.getInstance().getUser();
 
 
@@ -68,10 +69,10 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         setHasOptionsMenu(true);
 
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailProject("1720");
+        //projectService.getUsersEmailProject("1720");
 
-        taskService = new TaskService(getActivity(),this);
-        taskService.getUsersTask("1657");
+        //taskService = new TaskService(getActivity(),this);
+        //taskService.getUsersTask("1657");
 
         //projectService.getUsersProject("1535");
     }
@@ -111,8 +112,23 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             }
         });
 
+        loadContentProject();
+        loadAutoCompleteContent();
         loadCheckBoxContent();
+
         return view;
+    }
+
+    public void setProject(Tarea task) {
+        this.task = task;
+    }
+
+    public void setListUsersProject(ArrayList<Usuario> listUsersProject) {
+        this.listUsersProject = listUsersProject;
+    }
+
+    public void setEmails(ArrayList<String> emails) {
+        this.emails = emails;
     }
 
     public void edit(View view){
@@ -178,21 +194,9 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
 
-        if (response.first.equals("getUsersEmailProject")){
-            for(Object email: response.second){
-                emails.add((String) email);
-                loadAutoCompleteContent();
-            }
-        } else if (response.first.equals("getUsersEmailByTask")) {
+    }
 
-            for(Object user: response.second){
-                Usuario u = (Usuario) user;
-                System.out.println(u.getNombreU());
-                listUsersProject.add((Usuario) user);
-            }
-            loadCheckBoxContent();
-
-        }
+    public void loadContentProject() {
 
     }
 
