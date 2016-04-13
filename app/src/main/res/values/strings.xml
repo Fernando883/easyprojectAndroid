@@ -57,7 +57,7 @@
 
     <!-- Server DATA -->
     <string name="server_ip">http://192.168.1.114:8080</string>
-    <string name="server_path">/EasyProject_RestFul/webresources/</string>
+    <string name="server_path">/EasyProject_RestFull/webresources/</string>
     <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
 
     <!--edit project-->
