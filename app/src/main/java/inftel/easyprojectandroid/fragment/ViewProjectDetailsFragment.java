@@ -69,7 +69,7 @@ public class ViewProjectDetailsFragment extends Fragment {
 
         //projectDirector
         TextView projectDirector = (TextView) view.findViewById(R.id.projectDirectorInfo);
-        projectDirector.setText(project.getDirector().getNombreU());
+        //projectDirector.setText(project.getDirector().getNombreU());
 
     }
 

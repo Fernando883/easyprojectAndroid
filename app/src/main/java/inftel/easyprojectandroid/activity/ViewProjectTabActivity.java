@@ -31,7 +31,7 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private TaskPageAdapter pageAdapter;
-    private String idUsuario;
+    private String idUsuario, idDirector;
     private String idProject;
     private int proyectNumUsers;
     private String proyectName;
@@ -46,6 +46,7 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
 
         // Recuperamos parámetros
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+        idDirector = String.valueOf(getIntent().getLongExtra("idDirector", 0L));
         idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
         proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
         proyectName = getIntent().getStringExtra("proyectName");
@@ -78,6 +79,8 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
 
             }
         });
+        if (!idUsuario.equals(idDirector))
+            fab.hide();
 
         //get task by user and project
         taskService = new TaskService(this, this);
@@ -110,6 +113,7 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
                 intent.putExtra("idProject", idProject);
                 intent.putExtra("proyectName", proyectName);
                 intent.putExtra("proyectNumUsers", proyectNumUsers);
+                intent.putExtra("idDirector", idDirector);
                 startActivity(intent);
                 break;
             case R.id.action_chat:
