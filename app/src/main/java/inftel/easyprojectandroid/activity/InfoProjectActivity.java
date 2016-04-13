@@ -27,7 +27,7 @@ import inftel.easyprojectandroid.service.ProjectService;
 public class InfoProjectActivity extends AppCompatActivity implements ServiceListener {
 
     private String idProject;
-    private String idUsuario;
+    private String idUsuario, idDirector;
     private int proyectNumUsers;
     private String proyectName;
 
@@ -50,6 +50,7 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
 
         // Recuperamos parámetros
         idProject = getIntent().getStringExtra("idProject");
+        idDirector = getIntent().getStringExtra("idDirector");
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
         proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
         proyectName = getIntent().getStringExtra("proyectName");
@@ -79,6 +80,8 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.info_menu, menu);
         menu.findItem(R.id.action_visualize).setVisible(false);
+        if (!idDirector.equals(idUsuario))
+            menu.findItem(R.id.action_delete).setVisible(false);
         this.menu = menu;
 
         return true;

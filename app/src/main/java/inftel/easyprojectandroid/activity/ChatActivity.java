@@ -46,16 +46,15 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(getIntent().getStringExtra("proyectName"));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         textMessage = (EditText) findViewById(R.id.textMessage);
         textMessage.setOnEditorActionListener(manageMessage());
-
-        /*currentUser = new Usuario();
-        currentUser.setIdUsuario(1354l);
-        currentUser.setNombreU("Carlos Salas");
-        currentUser.setEmail("carlos.salas@gmail.com");
-        currentUser.setImgUrl("");*/
 
         currentUser = EasyProjectApp.getInstance().getUser();
         projectID = getIntent().getStringExtra("idProject");
@@ -129,16 +128,15 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
                 Log.e("Websocket", "OnMessage");
                 Gson gson = new Gson();
                 Message message = gson.fromJson(m, Message.class);
-                if (bdRequestFinished) {
-                    messageList.add(message);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+
+                messageList.add(message);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (bdRequestFinished)
                             chatFragment.update();
                         }
-                    });
-
-                }
+                });
 
             }
 
@@ -166,7 +164,8 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
     }
 
     private void showChatFragment(ArrayList<Message> messageList) {
-        this.messageList = messageList;
+        if (this.messageList == null)
+            this.messageList = messageList;
         chatFragment = new ChatFragment();
         chatFragment.setMessageList(this.messageList);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_chat, chatFragment).commit();

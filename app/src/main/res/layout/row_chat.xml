@@ -13,10 +13,10 @@
         android:orientation="horizontal"
         android:background="@drawable/shape_chat_user_msg">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iconChatUser"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/woman"
             android:layout_marginRight="5dp"/>
 

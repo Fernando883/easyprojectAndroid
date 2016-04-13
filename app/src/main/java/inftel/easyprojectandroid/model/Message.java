@@ -33,10 +33,8 @@ public class Message {
     }
 
     public int getViewType() {
-        if ("carlos.salas@gmail.com".equals(this.email))
+        if (EasyProjectApp.getInstance().getUser().getEmail().equals(this.email))
             return 0;
-        //if (EasyProjectApp.getInstance().getUser().getEmail().equals(this.email))
-        //    return 0;
 
         return 1;
     }
