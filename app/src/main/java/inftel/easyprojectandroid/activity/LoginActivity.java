@@ -41,8 +41,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setSupportActionBar(toolbar);
         userService = new UserService(this, this);
 
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         sharedPref =  getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String email = sharedPref.getString("email", "");
         String username = sharedPref.getString("nombreU", "");
@@ -53,8 +51,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .requestEmail()
                 .build();
 
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
         EasyProjectApp.getInstance().setGoogleApiClient(new GoogleApiClient.Builder(this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build());
