@@ -40,7 +40,7 @@
             android:name=".activity.ViewTaskActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activity.ViewTaskActivity"
+            android:parentActivityName=".activity.ViewProjectActivity"
             android:launchMode="singleTop">
         </activity>
 
@@ -48,7 +48,7 @@
             android:name=".activity.ViewProjectActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activity.ViewProjectActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:launchMode="singleTop">
         </activity>
 

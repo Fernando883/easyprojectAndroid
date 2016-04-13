@@ -57,6 +57,7 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
         setContentView(R.layout.activity_view_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         idTask =  getIntent().getLongExtra("idTask", 0L);
         taskDescription = getIntent().getStringExtra("taskDescription");
