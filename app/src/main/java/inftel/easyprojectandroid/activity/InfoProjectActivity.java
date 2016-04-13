@@ -30,7 +30,6 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
     private String idUsuario;
     private int proyectNumUsers;
     private String proyectName;
-    private Bundle infoProject;
 
     //Peticiones
     private ProjectService projectService;
@@ -39,6 +38,9 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
     private Proyecto project;
     private ArrayList<String> emails = new ArrayList<String>();
     private ArrayList<Usuario> listUsersProject = new ArrayList<>();
+
+    //Menu
+    private Menu menu;
 
 
     @Override
@@ -76,6 +78,9 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.info_menu, menu);
+        menu.findItem(R.id.action_visualize).setVisible(false);
+        this.menu = menu;
+
         return true;
     }
 

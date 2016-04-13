@@ -1,5 +1,7 @@
 package inftel.easyprojectandroid.model;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,12 +91,9 @@ public class Proyecto {
     }
 
     public static Proyecto fromJSON(String response) throws JSONException {
-        Proyecto project = new Proyecto();
-        JSONObject jsonObject = new JSONObject(response);
-        project.setNombreP(jsonObject.getString("nombreP"));
-        project.setDescripcion(jsonObject.getString("descripcion"));
-        project.setIdProyect(jsonObject.getLong("idProyect"));
-        project.setNumUsers(jsonObject.getInt("numUsers"));
+
+        Gson gson = new Gson();
+        Proyecto project = gson.fromJson(response, Proyecto.class);
         return project;
     }
 
