@@ -33,6 +33,7 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
     private String idUsuario;
     private String proyectName;
     private int proyectNumUsers;
+    private TaskListFragment taskListFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         mTabHost.setCurrentTab(1);
         mTabHost.setOnTabChangedListener(this);
 
+
         //FloatingActionButton
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,8 +86,10 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
 
             }
         });
-    }
 
+        //LoadingFragment loadingFragment = new LoadingFragment();
+        //getSupportFragmentManager().beginTransaction().add(R.id.tabcontent, loadingFragment).commit();
+    }
 
     public void goToNewTaskActivity () {
         Intent intent = new Intent(this, NewTaskActivity.class);
@@ -160,10 +164,16 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
     }
 
     private void updateTab(List<Tarea> filteredTask) {
+        if (taskListFragment == null) {
+            taskListFragment = new TaskListFragment();
 
-        TaskListFragment taskListFragment = new TaskListFragment();
-        taskListFragment.setTaskList((ArrayList<Tarea>) filteredTask);
-        getSupportFragmentManager().beginTransaction().replace(R.id.tabcontent, taskListFragment).commit();
+            taskListFragment.setTaskList((ArrayList<Tarea>) filteredTask);
+            getSupportFragmentManager().beginTransaction().replace(R.id.tabcontent, taskListFragment).commit();
+        }
+        else {
+            taskListFragment.setTaskList((ArrayList<Tarea>) filteredTask);
+            taskListFragment.loadTasks();
+        }
 
     }
 

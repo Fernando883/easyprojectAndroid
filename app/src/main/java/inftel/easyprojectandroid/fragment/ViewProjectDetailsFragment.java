@@ -47,7 +47,6 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
 
         projectService = new ProjectService(getActivity(), this);
         projectService.getProjectDetails(idProject);
-
     }
 
     @Override

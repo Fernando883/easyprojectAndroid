@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
-import inftel.easyprojectandroid.activity.ViewProjectActivity;
+import inftel.easyprojectandroid.activity.ViewProjectTabActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewProjectAdapter;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.util.RecyclerItemClickListener;
@@ -52,7 +52,7 @@ public class ProjectListFragment extends Fragment implements RecyclerItemClickLi
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(getContext(), ViewProjectActivity.class);
+        Intent intent = new Intent(getContext(), ViewProjectTabActivity.class);
         intent.putExtra("idProject", projectList.get(position).getIdProyect());
         intent.putExtra("proyectName", projectList.get(position).getNombreP());
         intent.putExtra("proyectNumUsers", projectList.get(position).getNumUsers());
