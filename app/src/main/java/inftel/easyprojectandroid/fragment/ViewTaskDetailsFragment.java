@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.math.BigInteger;
+
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Tarea;
@@ -41,7 +43,7 @@ public class ViewTaskDetailsFragment extends Fragment {
         tasktMemberInfo = (TextView) view.findViewById(R.id.tasktMemberInfo);
 
         taskNameInfo.setText(task.getNombre());
-        hourTasks.setText(task.getTiempo().toString());
+        hourTasks.setText(String.valueOf(task.getTiempo().divide(new BigInteger("60"))));
         estado.setText(task.getEstado());
         taskDescriptionInfo.setText(task.getDescripcion());
         for(Usuario user: task.getUsuarioCollection()){

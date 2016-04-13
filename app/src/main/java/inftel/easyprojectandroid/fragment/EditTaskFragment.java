@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.activity.ViewProjectTabActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
@@ -88,7 +90,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         view = inflater.inflate(R.layout.fragment_edit_task,container,false);
 
         taskDuration = (EditText) view.findViewById(R.id.input_nameTask);
-        taskDuration.setText(task.getTiempo().toString());
+        taskDuration.setText(String.valueOf(task.getTiempo().divide(new BigInteger("60"))));
         radioSexGroup = (RadioGroup) view.findViewById(R.id.radioSex);
 
 
@@ -180,6 +182,10 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             System.out.println("Enviando ... " + jsonObject);
             System.out.println("EL ID DE USUARIO ES " + task.getIdTarea() + task.getNombre() + task.getEstado());
             taskService.setEditTask(task.getIdTarea().toString(), jsonObject);
+
+            Intent intent = new Intent(getActivity(), ViewProjectTabActivity.class);
+            startActivity(intent);
+
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -44,7 +44,7 @@ public class TaskViewPagerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        pageAdapter = new TaskPageAdapter(getChildFragmentManager(), tabLayout.getTabCount());
+        pageAdapter = new TaskPageAdapter(getChildFragmentManager(), tabLayout.getTabCount(), null);
         pageAdapter.setTaskList(listTask);
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

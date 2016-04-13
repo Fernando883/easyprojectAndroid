@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
@@ -48,6 +50,8 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
     private String taskStatus;
     private String taskName;
     private BigInteger taskTime;
+    private String idProject;
+    private String colectionUser;
     Usuario user = EasyProjectApp.getInstance().getUser();
 
     @Override
@@ -56,11 +60,14 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
         setContentView(R.layout.activity_view_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         idTask =  getIntent().getLongExtra("idTask", 0L);
         taskDescription = getIntent().getStringExtra("taskDescription");
         taskStatus = getIntent().getStringExtra("taskStatus");
         taskName = getIntent().getStringExtra("taskName");
+        setTitle(taskName);
+        System.out.println("idProject = " + idProject);
         idProject = getIntent().getStringExtra("idProject");
         colectionUser = getIntent().getStringExtra("taskUser");
         setTitle(taskName);
@@ -100,6 +107,15 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.info) {
+            Intent intent = new Intent(this, infoTaskActivity.class);
+            intent.putExtra("idTask", idTask);
+            intent.putExtra("taskDescription", taskDescription);
+            intent.putExtra("taskStatus", taskStatus);
+            intent.putExtra("taskName", taskName);
+            intent.putExtra("taskTime", taskTime);
+            intent.putExtra("idProject", idProject);
+            intent.putExtra("colectionUser", colectionUser);
+            startActivity(intent);
             return true;
         }
 
@@ -117,68 +133,32 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
                 @Override
                 public void onClick(View v) {
 
-                    Comentario c=new Comentario();
-                    //Tarea tarea=new Tarea();
-                    //textView= (TextView) findViewById(R.id.nameUser);
+                    Comentario comentario = new Comentario();
 
+                    Tarea tarea = new Tarea();
+                    tarea.setIdTarea(idTask);
 
-                    // usuario.setIdUsuario(commentList.get(0).getIdUsuario().getIdUsuario());
-//                    usuario.setEmail(commentList.get(0).getIdUsuario().getEmail());
+                    //Construimos el comentario
+                    comentario.setIdTarea(tarea);
+                    comentario.setFecha(Calendar.getInstance().getTime());
+                    comentario.setIdUsuario(EasyProjectApp.getInstance().getUser());
+                    comentario.setTexto(String.valueOf(editText.getText()));
 
                     //  usuario.setNombreU(commentList.get(0).getIdUsuario().getNombreU());
 
                     Gson converter = new Gson();
-                    JSONObject comment = null;
+                    String jsonComment = converter.toJson(comentario, Comentario.class);
+                    JSONObject json = null;
                     try {
-
-
-                        if (commentList.size() != 0) {
-                            c.setIdUsuario(user);
-
-                            c.setTexto(String.valueOf(editText.getText()));
-                            c.setFecha(" ");
-
-                            c.setIdTarea(commentList.get(0).getIdTarea());
-
-                            comment = new JSONObject(converter.toJson(c));
-                            commentService.setComments(comment);
-
-                            commentService.getComments(idTask.toString());
-
-
-                            //commentListFragment.addMessage(c);
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frameComment, loadingFragment).commit();
-
-                            Log.e("COmentario", String.valueOf(comment));
-                        }
-                        else{
-                            Comentario comentario = new Comentario();
-                            comentario.setIdUsuario(user);
-                            comentario.setTexto(String.valueOf(editText.getText()));
-                            comentario.setFecha(" ");
-
-                            Tarea tarea = new Tarea();
-                            tarea.setIdTarea(idTask);
-                            comentario.setIdTarea(tarea);
-
-                            comment = new JSONObject(converter.toJson(c));
-                            commentService.setComments(comment);
-
-                            commentService.getComments(idTask.toString());
-                            //commentListFragment.addMessage(c);
-                            getSupportFragmentManager().beginTransaction().replace(R.id.frameComment, loadingFragment).commit();
-
-                        }
-
-                    }catch(JSONException e){
+                        json = new JSONObject(jsonComment);
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    commentService.setComments(json);
+                    System.out.println("El id de vistor es " + idTask.toString());
+                    commentService.getComments(idTask.toString());
 
-
-
-
-                    //commentList.add(c);
-
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameComment, loadingFragment).commit();
                     editText.setText("");
 
 
