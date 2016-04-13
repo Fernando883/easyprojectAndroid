@@ -92,6 +92,9 @@
     <string name="title_activity_chat">ChatActivity</string>
     <string name="write_message">Write a message...</string>
 
+    <!--search-->
+    <string name="search">Search</string>
+
 
 
 </resources>

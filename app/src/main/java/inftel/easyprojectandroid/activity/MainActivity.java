@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,9 +40,11 @@ import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ServiceListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ServiceListener, SearchView.OnQueryTextListener {
 
     private ProjectService projectService;
+    private boolean search;
+    private ArrayList<Proyecto> projectList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +96,21 @@ public class MainActivity extends AppCompatActivity
         LoadingFragment loadingFragment = new LoadingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
 
+        //búsqueda
+        /*search = false;
+        handleIntent(getIntent());*/
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent){
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent){
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+
+        }
     }
 
     @Override
@@ -105,9 +125,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        final MenuItem item = menu.findItem(R.id.search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -118,9 +143,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -167,6 +192,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
         if (response.first.equals("getProjects"))
+            projectList = (ArrayList<Proyecto>) response.second;
             showProjectListFragment((ArrayList<Proyecto>) response.second);
 
     }
@@ -187,5 +213,33 @@ public class MainActivity extends AppCompatActivity
         ProjectListFragment projectListFragment = new ProjectListFragment();
         projectListFragment.setProjectList(projectList);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, projectListFragment).commit();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        System.out.println("onQueryTextSubmit Anitaaaaaaaaa");
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        ArrayList<Proyecto> filteredList = filter (projectList, query);
+        showProjectListFragment(filteredList);
+        return false;
+    }
+
+    private ArrayList<Proyecto> filter(List<Proyecto> models, String query) {
+
+        query = query.toLowerCase();
+
+        final ArrayList<Proyecto> filteredModelList = new ArrayList<>();
+
+        for (Proyecto model : models) {
+            final String text = model.getNombreP().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
     }
 }
