@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -47,8 +48,10 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
     private String taskDescription;
     private String taskStatus;
     private String taskName;
+    private String idProject;
     private BigInteger taskTime;
     Usuario user = EasyProjectApp.getInstance().getUser();
+    String colectionUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
         taskDescription = getIntent().getStringExtra("taskDescription");
         taskStatus = getIntent().getStringExtra("taskStatus");
         taskName = getIntent().getStringExtra("taskName");
+        idProject = getIntent().getStringExtra("idProject");
+        colectionUser = getIntent().getStringExtra("taskUser");
 
         Bundle bundle = getIntent().getExtras();
         taskTime= (BigInteger) bundle.get("taskTime");
@@ -97,6 +102,17 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.info) {
+            System.out.println("ESTOY EN INFO TAREA");
+            Intent intent = new Intent(this, infoTaskActivity.class);
+            intent.putExtra("idTask", idTask);
+            intent.putExtra("taskDescription", taskDescription);
+            intent.putExtra("taskStatus", taskStatus);
+            intent.putExtra("taskName", taskName);
+            intent.putExtra("taskTime", taskTime);
+            intent.putExtra("idProject",idProject);
+            intent.putExtra("colectionUser",colectionUser);
+
+            startActivity(intent);
             return true;
         }
 

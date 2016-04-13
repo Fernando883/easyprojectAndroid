@@ -89,7 +89,7 @@
             android:layout_marginTop="5dp"/>
 
         <MultiAutoCompleteTextView
-            android:id="@+id/editMultiAutoComplete"
+            android:id="@+id/editMultiAutoComplete2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

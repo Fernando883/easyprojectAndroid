@@ -43,24 +43,27 @@ import inftel.easyprojectandroid.service.TaskService;
  */
 public class EditTaskFragment extends Fragment implements ServiceListener {
 
+    //Elementos de las vistas
     private View view;
-    private ProjectService projectService;
-    private TaskService taskService;
     private MultiAutoCompleteTextView textAutocomplete;
-    private ArrayList<Usuario> listUsersProject = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerViewEditProjectAdapter adapter;
     private EditText taskDuration;
-    private List<String> emailstoRemove = new ArrayList<>();
     private RadioGroup radioSexGroup;
     private String status;
-    private Tarea task;
+
     Usuario user = EasyProjectApp.getInstance().getUser();
 
+    //Envío de datos al servidor
+    private ProjectService projectService;
+    private TaskService taskService;
 
 
-
+    //Variables de almacenamiento de datos
     ArrayList<String> emails = new ArrayList<String>();
+    private ArrayList<Usuario> listUsersTask = new ArrayList<>();
+    private String idProject;
+    private Tarea task;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,10 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        projectService = new ProjectService(getActivity(), this);
+        //projectService = new ProjectService(getActivity(), this);
+        taskService = new TaskService(getActivity(), this);
+
+
         //projectService.getUsersEmailProject("1720");
 
         //taskService = new TaskService(getActivity(),this);
@@ -82,20 +88,22 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         view = inflater.inflate(R.layout.fragment_edit_task,container,false);
 
         taskDuration = (EditText) view.findViewById(R.id.input_nameTask);
+        taskDuration.setText(task.getTiempo().toString());
         radioSexGroup = (RadioGroup) view.findViewById(R.id.radioSex);
 
-        radioSexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+
+        radioSexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // TODO Auto-generated method stub
-                if (checkedId == R.id.to_do){
+                if (checkedId == R.id.to_do) {
                     status = "to do";
                     System.out.println("Ha pulsado el botón " + status);
-                }else if (checkedId == R.id.doing){
+                } else if (checkedId == R.id.doing) {
                     status = "doing";
                     System.out.println("Ha pulsado el botón 2");
-                }else if (checkedId == R.id.done){
+                } else if (checkedId == R.id.done) {
                     status = "done";
                     System.out.println("Ha pulsado el botón 3");
                 }
@@ -112,6 +120,9 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             }
         });
 
+        for(String email: emails){
+            System.out.println("El email es " + email);
+        }
         loadContentProject();
         loadAutoCompleteContent();
         loadCheckBoxContent();
@@ -119,12 +130,16 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         return view;
     }
 
-    public void setProject(Tarea task) {
+    public void setTask(Tarea task) {
         this.task = task;
     }
 
-    public void setListUsersProject(ArrayList<Usuario> listUsersProject) {
-        this.listUsersProject = listUsersProject;
+    public void setIdProject(String idProject) {
+        this.idProject = idProject;
+    }
+
+    public void setListUsersTask(ArrayList<Usuario> listUsersTask) {
+        this.listUsersTask = listUsersTask;
     }
 
     public void setEmails(ArrayList<String> emails) {
@@ -133,29 +148,22 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
 
     public void edit(View view){
 
-        Tarea task = new Tarea();
-
         BigInteger tiempo = new BigInteger(taskDuration.getText().toString());
         tiempo = tiempo.multiply(new BigInteger("60"));
-        System.out.println("EL TIEMPO ES " + tiempo);
 
         task.setTiempo(tiempo);
-        task.setDescripcion("Prueba Editar Tareas Martes");
-        task.setEstado(status);
+        task.setDescripcion(task.getDescripcion());
+        if(status != null){
+            task.setEstado(status);
+        }else{
+            task.setEstado(task.getEstado());
+        }
+
 
         Proyecto pro = new Proyecto();
-        pro.setDescripcion("Prueba Editar Tareas Martes");
-        pro.setIdProyect(1720L);
-        pro.setNombreP("Prueba Editar Tareas Martes");
+        pro.setIdProyect(Long.parseLong(idProject));
 
-        Usuario director = new Usuario();
-        director.setNombreU("Fernando Galán");
-        director.setEmail("fernandogalanperez883@gmail.com");
-        director.setIdUsuario(2L);
-
-        pro.setDirector(director);
-
-        task.setIdTarea(1657L);
+        task.setIdTarea(task.getIdTarea());
         task.setIdProyecto(pro);
 
         task.setIdUsuario(user);
@@ -170,8 +178,8 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             jsonObject.put("listRemoveEmails", emails);
 
             System.out.println("Enviando ... " + jsonObject);
-
-            taskService.setEditTask("1657", jsonObject);
+            System.out.println("EL ID DE USUARIO ES " + task.getIdTarea() + task.getNombre() + task.getEstado());
+            taskService.setEditTask(task.getIdTarea().toString(), jsonObject);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -201,8 +209,8 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     }
 
     public void loadAutoCompleteContent () {
-        textAutocomplete=(MultiAutoCompleteTextView)getActivity().findViewById(R.id.editMultiAutoComplete);
-        ArrayAdapter adapter = new ArrayAdapter(view.getContext(), android.R.layout.simple_list_item_1, emails);
+        textAutocomplete=(MultiAutoCompleteTextView)view.findViewById(R.id.editMultiAutoComplete2);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, emails);
         textAutocomplete.setAdapter(adapter);
         textAutocomplete.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
@@ -211,13 +219,11 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     public void loadCheckBoxContent(){
 
         recyclerView = (RecyclerView) view.findViewById(R.id.taskEditRecyclerView);
-        adapter = new RecyclerViewEditProjectAdapter(listUsersProject);
+        adapter = new RecyclerViewEditProjectAdapter(listUsersTask);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
-        //adapter.notifyDataSetChanged();
 
     }
 }

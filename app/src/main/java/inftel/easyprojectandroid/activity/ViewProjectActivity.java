@@ -164,12 +164,14 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
             updateTab(doneTasks);
 
         }
+
     }
 
     private void updateTab(List<Tarea> filteredTask) {
 
         TaskListFragment taskListFragment = new TaskListFragment();
         taskListFragment.setTaskList((ArrayList<Tarea>) filteredTask);
+        taskListFragment.setIdProject(idProject);
         getSupportFragmentManager().beginTransaction().replace(R.id.tabcontent, taskListFragment).commit();
 
     }

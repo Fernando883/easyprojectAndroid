@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
@@ -22,6 +24,7 @@ import inftel.easyprojectandroid.util.RecyclerItemClickListener;
 public class TaskListFragment extends Fragment implements RecyclerItemClickListener.OnItemClickListener{
 
     private View view;
+    private String idProject;
     private ArrayList<Tarea> taskList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerViewTaskAdapter adapter;
@@ -45,6 +48,10 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
         this.taskList = taskList;
     }
 
+    public void setIdProject(String idProject) {
+        this.idProject = idProject;
+    }
+
     public void loadTasks () {
         recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
         adapter = new RecyclerViewTaskAdapter(taskList);
@@ -66,6 +73,9 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
         intent.putExtra("taskStatus", taskList.get(position).getEstado());
         intent.putExtra("taskName", taskList.get(position).getNombre());
         intent.putExtra("taskTime", taskList.get(position).getTiempo());
+        Gson gson = new Gson();
+        intent.putExtra("taskUser",gson.toJson(taskList.get(position).getUsuarioCollection()));
+        intent.putExtra("idProject",idProject);
 
 
         startActivity(intent);
