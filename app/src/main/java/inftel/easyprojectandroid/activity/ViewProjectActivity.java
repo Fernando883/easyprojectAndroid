@@ -55,6 +55,7 @@ public class ViewProjectActivity extends AppCompatActivity implements ServiceLis
         //get task by user and project
         taskService = new TaskService(this, this);
         //taskService.getTasks("10", "948");
+        taskService.getTasks(idUsuario, idProject);
 
         //TabHost
         mTabHost = (FragmentTabHost) findViewById(R.id.tabhost);

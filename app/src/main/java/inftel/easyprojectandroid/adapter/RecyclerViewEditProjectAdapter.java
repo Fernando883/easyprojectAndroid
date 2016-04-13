@@ -22,6 +22,7 @@ public class RecyclerViewEditProjectAdapter extends RecyclerView.Adapter<Recycle
 
     private ArrayList<Usuario> userList;
     private ArrayList<String> removeUserList = new ArrayList<String>();
+
     public RecyclerViewEditProjectAdapter(ArrayList<Usuario> userList) { this.userList = userList; }
 
     @Override

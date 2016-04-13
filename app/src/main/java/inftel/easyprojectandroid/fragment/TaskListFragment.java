@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +38,18 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_task_list, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
 
-        loadTasks();
+        adapter = new RecyclerViewTaskAdapter(taskList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), this));
+
+        Log.e("TaskListFragment", String.valueOf(taskList.size()));
+
         return view;
     }
 
@@ -53,21 +62,15 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
     }
 
     public void loadTasks () {
-        recyclerView = (RecyclerView) view.findViewById(R.id.taskRecyclerView);
-        adapter = new RecyclerViewTaskAdapter(taskList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), this));
+
     }
 
     @Override
     public void onItemClick(View view, int position) {
         System.out.println("ESTOY EN EL ONITMECLICK");
         Intent intent = new Intent(getContext(), ViewTaskActivity.class);
-        System.out.println("EL id de tarea es:" + taskList.get(position).getIdTarea());
+        System.out.println("EL id de tarea es:" + taskList.get(position).toString());
         intent.putExtra("idTask", taskList.get(position).getIdTarea());
         intent.putExtra("taskDescription", taskList.get(position).getDescripcion());
         intent.putExtra("taskStatus", taskList.get(position).getEstado());

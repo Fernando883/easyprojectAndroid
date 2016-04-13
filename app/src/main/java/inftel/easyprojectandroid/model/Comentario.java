@@ -14,7 +14,7 @@ public class Comentario {
 
     private Long idComent;
     private String texto;
-    private String fecha;
+    private Date fecha;
     private Tarea idTarea;
     private Usuario idUsuario;
 
@@ -38,11 +38,11 @@ public class Comentario {
         this.texto = texto;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
@@ -61,6 +61,8 @@ public class Comentario {
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
     }
+
+
 
     public static Comentario fromJSON(String response) throws JSONException {
         Gson converter = new Gson();

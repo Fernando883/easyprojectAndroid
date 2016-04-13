@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.model.Message;
 
@@ -45,8 +48,11 @@ public class RecyclerViewChatAdapter extends RecyclerView.Adapter<RecyclerViewCh
 
         holder.msg.setText(msg.message);
         holder.dateTime.setText(msg.timestamp);
-        if (holder.user != null) // Solo si es un layout de usuario
+        if (holder.user != null) { // Solo si es un layout de usuario
             holder.user.setText(msg.name);
+            if (msg.photoURL != null && !msg.photoURL.equals(""))
+            Picasso.with(context).load(msg.photoURL).into(holder.userIcon);
+        }
     }
 
     @Override
@@ -63,6 +69,7 @@ public class RecyclerViewChatAdapter extends RecyclerView.Adapter<RecyclerViewCh
         TextView user;
         TextView msg;
         TextView dateTime;
+        CircleImageView userIcon;
 
         public ListItemViewHolder (View itemView) {
             super(itemView);
@@ -70,6 +77,7 @@ public class RecyclerViewChatAdapter extends RecyclerView.Adapter<RecyclerViewCh
                 user = (TextView) itemView.findViewById(R.id.msgUser);
             msg = (TextView) itemView.findViewById(R.id.msgChat);
             dateTime = (TextView) itemView.findViewById(R.id.msgTime);
+            userIcon = (CircleImageView) itemView.findViewById(R.id.iconChatUser);
         }
     }
 }
