@@ -42,21 +42,12 @@ public class CommentListFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
-
-
-
-
-
-
-
-
         recyclerView = (RecyclerView) view.findViewById(R.id.commentRecyclerView);
         adapter = new RecyclerViewCommentAdapter(commentList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-
         recyclerView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
