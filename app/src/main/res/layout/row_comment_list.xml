@@ -28,7 +28,7 @@
 
     </LinearLayout>
 
-    <TextView
+    <WebView
         android:layout_marginTop="@dimen/info_margin"
         android:layout_marginBottom="@dimen/info_margin"
         android:id="@+id/commentUser"

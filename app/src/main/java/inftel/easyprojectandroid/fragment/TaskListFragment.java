@@ -43,6 +43,7 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), this));
 
         Log.e("TaskListFragment", String.valueOf(taskList.size()));
 
@@ -55,14 +56,14 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
 
     public void loadTasks () {
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), this));
+
     }
 
     @Override
     public void onItemClick(View view, int position) {
         System.out.println("ESTOY EN EL ONITMECLICK");
         Intent intent = new Intent(getContext(), ViewTaskActivity.class);
-        System.out.println("EL id de tarea es:" + taskList.get(position).getIdTarea());
+        System.out.println("EL id de tarea es:" + taskList.get(position).toString());
         intent.putExtra("idTask", taskList.get(position).getIdTarea());
         intent.putExtra("taskDescription", taskList.get(position).getDescripcion());
         intent.putExtra("taskStatus", taskList.get(position).getEstado());
