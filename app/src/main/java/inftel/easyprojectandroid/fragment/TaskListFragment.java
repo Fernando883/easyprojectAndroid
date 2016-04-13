@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,11 +14,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import inftel.easyprojectandroid.R;
+import inftel.easyprojectandroid.activity.ViewTaskActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewTaskAdapter;
 import inftel.easyprojectandroid.model.Tarea;
+import inftel.easyprojectandroid.util.RecyclerItemClickListener;
 
 
-public class TaskListFragment extends Fragment {
+public class TaskListFragment extends Fragment implements RecyclerItemClickListener.OnItemClickListener{
 
     private View view;
     private ArrayList<Tarea> taskList = new ArrayList<>();
@@ -52,7 +55,21 @@ public class TaskListFragment extends Fragment {
 
     public void loadTasks () {
 
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), this));
     }
 
+    @Override
+    public void onItemClick(View view, int position) {
+        System.out.println("ESTOY EN EL ONITMECLICK");
+        Intent intent = new Intent(getContext(), ViewTaskActivity.class);
+        System.out.println("EL id de tarea es:" + taskList.get(position).getIdTarea());
+        intent.putExtra("idTask", taskList.get(position).getIdTarea());
+        intent.putExtra("taskDescription", taskList.get(position).getDescripcion());
+        intent.putExtra("taskStatus", taskList.get(position).getEstado());
+        intent.putExtra("taskName", taskList.get(position).getNombre());
+        intent.putExtra("taskTime", taskList.get(position).getTiempo());
 
+
+        startActivity(intent);
+    }
 }

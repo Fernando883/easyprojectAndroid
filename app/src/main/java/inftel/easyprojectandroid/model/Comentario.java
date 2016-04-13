@@ -1,5 +1,7 @@
 package inftel.easyprojectandroid.model;
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,10 +62,12 @@ public class Comentario {
         this.idUsuario = idUsuario;
     }
 
-    public static Comentario fromJSON(String response) throws JSONException {
-        Comentario comment = new Comentario();
-        JSONObject jsonObject = new JSONObject(response);
 
+
+    public static Comentario fromJSON(String response) throws JSONException {
+        Gson converter = new Gson();
+
+        Comentario comment = converter.fromJson(response, Comentario.class);
         return comment;
     }
 }

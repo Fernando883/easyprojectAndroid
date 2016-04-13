@@ -6,6 +6,7 @@ import android.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,11 @@ public class CommentService implements ResponseListener {
         Log.e("URL", url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getComments").execute(httpRequest);
+    }
+    public void setComments(JSONObject comment){
+        String url = SERVER_IP+SERVER_PATH+"entity.comentario/";
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, comment);
+        new HttpTask(this,"setComments").execute(httpRequest);
     }
 
     @Override

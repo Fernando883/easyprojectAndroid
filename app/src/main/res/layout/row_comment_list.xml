@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nameUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/title"
+            android:layout_weight="5"
+            android:text="anotauntanto"
+            />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/date"
+            android:layout_weight="3"
+            android:text="13/04/2016 11:45"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/info_margin"
+        android:layout_marginBottom="@dimen/info_margin"
+        android:id="@+id/commentUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="singleTop only applies if the activity (in your case the ListActivity) is on top - instead of creating a new instance, it would reuse the existing one. However, if you are only searching from MainActivity (hitting back on ListActivity after a search), then you are destroying the ListActivity instance and then creating a new instance - leading to onCreate() being called, but not onNewIntent()."
+        />
+
+</LinearLayout>

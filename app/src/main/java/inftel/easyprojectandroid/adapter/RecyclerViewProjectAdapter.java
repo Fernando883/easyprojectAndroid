@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.model.Proyecto;
@@ -39,6 +40,58 @@ public class RecyclerViewProjectAdapter extends RecyclerView.Adapter<RecyclerVie
     public int getItemCount() {
         return projectList.size();
     }
+
+      /*
+    public Proyecto removeItem (int position) {
+        Proyecto project = projectList.remove(position);
+        notifyItemRemoved(position);
+        return project;
+    }
+
+    public void addItem (int position, Proyecto project) {
+        projectList.add(position, project);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem (int fromPosition, int toPosition) {
+        Proyecto project = projectList.remove(fromPosition);
+        projectList.add(toPosition, project);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    public void animateTo (List<Proyecto> listProjects) {
+        applyAndAnimateRemovals(listProjects);
+        applyAndAnimateAdditions(listProjects);
+        applyAndAnimateMovedItems(listProjects);
+    }
+
+    private void applyAndAnimateRemovals(List<Proyecto> newProjects) {
+        for (int i = newProjects.size() - 1; i >= 0; i--) {
+            final Proyecto project = newProjects.get(i);
+            if (!newProjects.contains(project)) {
+                removeItem(i);
+            }
+        }
+    }
+
+    private void applyAndAnimateAdditions(List<Proyecto> newProjects) {
+        for (int i = 0, count = newProjects.size(); i < count; i++) {
+            final Proyecto project = newProjects.get(i);
+            if (!newProjects.contains(project)) {
+                addItem(i, project);
+            }
+        }
+    }
+
+    private void applyAndAnimateMovedItems(List<Proyecto> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final Proyecto project = newModels.get(toPosition);
+            final int fromPosition = newModels.indexOf(project);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }*/
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 

@@ -31,6 +31,7 @@ import java.util.List;
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
+import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Tarea;
 import inftel.easyprojectandroid.model.Usuario;
@@ -53,6 +54,9 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     private List<String> emailstoRemove = new ArrayList<>();
     private RadioGroup radioSexGroup;
     private String status;
+    private Tarea task;
+    Usuario user = EasyProjectApp.getInstance().getUser();
+
 
 
 
@@ -65,10 +69,10 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         setHasOptionsMenu(true);
 
         projectService = new ProjectService(getActivity(), this);
-        projectService.getUsersEmailProject("1535");
+        //projectService.getUsersEmailProject("1720");
 
-        taskService = new TaskService(getActivity(),this);
-        taskService.getUsersTask("1499");
+        //taskService = new TaskService(getActivity(),this);
+        //taskService.getUsersTask("1657");
 
         //projectService.getUsersProject("1535");
     }
@@ -108,8 +112,23 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             }
         });
 
+        loadContentProject();
+        loadAutoCompleteContent();
         loadCheckBoxContent();
+
         return view;
+    }
+
+    public void setProject(Tarea task) {
+        this.task = task;
+    }
+
+    public void setListUsersProject(ArrayList<Usuario> listUsersProject) {
+        this.listUsersProject = listUsersProject;
+    }
+
+    public void setEmails(ArrayList<String> emails) {
+        this.emails = emails;
     }
 
     public void edit(View view){
@@ -117,28 +136,29 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         Tarea task = new Tarea();
 
         BigInteger tiempo = new BigInteger(taskDuration.getText().toString());
-
+        tiempo = tiempo.multiply(new BigInteger("60"));
+        System.out.println("EL TIEMPO ES " + tiempo);
 
         task.setTiempo(tiempo);
-        task.setDescripcion("Prueba definitiva");
+        task.setDescripcion("Prueba Editar Tareas Martes");
         task.setEstado(status);
 
         Proyecto pro = new Proyecto();
-        pro.setDescripcion("Prueba definitiva");
-        pro.setIdProyect(1535L);
-        pro.setNombreP("Proyecto Prueba Editar Tareas Definitivo");
+        pro.setDescripcion("Prueba Editar Tareas Martes");
+        pro.setIdProyect(1720L);
+        pro.setNombreP("Prueba Editar Tareas Martes");
 
-        //Sería el usuario almacenado en appEasyProject
         Usuario director = new Usuario();
         director.setNombreU("Fernando Galán");
-        director.setIdUsuario(2L);
         director.setEmail("fernandogalanperez883@gmail.com");
+        director.setIdUsuario(2L);
+
         pro.setDirector(director);
 
-        task.setIdTarea(1489L);
+        task.setIdTarea(1657L);
         task.setIdProyecto(pro);
 
-        task.setIdUsuario(director);
+        task.setIdUsuario(user);
 
         Gson trad = new Gson();
 
@@ -151,7 +171,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
 
             System.out.println("Enviando ... " + jsonObject);
 
-            taskService.setEditTask("1380", jsonObject);
+            taskService.setEditTask("1657", jsonObject);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -174,21 +194,9 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
 
-        if (response.first.equals("getUsersEmailProject")){
-            for(Object email: response.second){
-                emails.add((String) email);
-                loadAutoCompleteContent();
-            }
-        } else if (response.first.equals("getUsersEmailByTask")) {
+    }
 
-            for(Object user: response.second){
-                Usuario u = (Usuario) user;
-                System.out.println(u.getNombreU());
-                listUsersProject.add((Usuario) user);
-            }
-            loadCheckBoxContent();
-
-        }
+    public void loadContentProject() {
 
     }
 

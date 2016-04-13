@@ -92,17 +92,6 @@ public class Tarea {
         Gson gson = new Gson();
         Tarea task = gson.fromJson(response, Tarea.class);
 
-        System.out.println("LLEGA AQUI");
-        System.out.println("TAREITA:" + task);
-
-        /*JSONObject jsonObject = new JSONObject(response);
-
-        task.setTiempo(new BigInteger(jsonObject.getString("tiempo")));
-        task.setNombre(jsonObject.getString("nombre"));
-        task.setEstado(jsonObject.getString("estado"));
-        task.setDescripcion(jsonObject.getString("descripcion"));
-        task.setIdTarea(jsonObject.getLong("idTarea"));*/
-
         return task;
     }
 

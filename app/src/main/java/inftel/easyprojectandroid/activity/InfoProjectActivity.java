@@ -4,23 +4,44 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import inftel.easyprojectandroid.R;
 import inftel.easyprojectandroid.dialog.ConfirmDialog;
 import inftel.easyprojectandroid.fragment.EditProjectFragment;
+import inftel.easyprojectandroid.fragment.LoadingFragment;
 import inftel.easyprojectandroid.fragment.ViewProjectDetailsFragment;
+import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
+import inftel.easyprojectandroid.model.Proyecto;
+import inftel.easyprojectandroid.model.Usuario;
+import inftel.easyprojectandroid.service.ProjectService;
 
 
-public class InfoProjectActivity extends AppCompatActivity {
+public class InfoProjectActivity extends AppCompatActivity implements ServiceListener {
 
     private String idProject;
     private String idUsuario;
     private int proyectNumUsers;
     private String proyectName;
-    private Bundle infoProject;
+
+    //Peticiones
+    private ProjectService projectService;
+
+    //Variables de paso a los fragmentos
+    private Proyecto project;
+    private ArrayList<String> emails = new ArrayList<String>();
+    private ArrayList<Usuario> listUsersProject = new ArrayList<>();
+
+    //Menu
+    private Menu menu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +54,10 @@ public class InfoProjectActivity extends AppCompatActivity {
         proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
         proyectName = getIntent().getStringExtra("proyectName");
 
-        //Construimos los datos para los fragmentos
-        infoProject = new Bundle();
-        infoProject.putString("idProject", idProject);
-        infoProject.putString("idUsuario", idUsuario);
-        infoProject.putInt("proyectNumUsers", proyectNumUsers);
-        infoProject.putString("proyectName", proyectName);
+        //peticiones e inicializaciones
+        projectService = new ProjectService(this, this);
+        project = new Proyecto();
+        project.setNombreP(proyectName);
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarEdit);
@@ -47,23 +66,21 @@ public class InfoProjectActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //Se lanza la primera petición para visualización
+        projectService.getProjectDetails(idProject);
 
-        //LoadingFragment loadingFragment = new LoadingFragment();
-        /*EditProjectFragment editProjectFragment = new EditProjectFragment();
-        editProjectFragment.setArguments(infoProject);
+        //Se lanza el fragmento de carga
+        showLoadFragment();
 
-
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_infoProject, editProjectFragment).commit();*/
-
-        ViewProjectDetailsFragment viewProjectDetailsFragment = new ViewProjectDetailsFragment();
-        viewProjectDetailsFragment.setArguments(infoProject);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, viewProjectDetailsFragment).commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.info_menu, menu);
+        menu.findItem(R.id.action_visualize).setVisible(false);
+        this.menu = menu;
+
         return true;
     }
 
@@ -74,23 +91,24 @@ public class InfoProjectActivity extends AppCompatActivity {
 
             case R.id.action_visualize:
                 //delete
-                ViewProjectDetailsFragment viewProjectDetailsFragment = new ViewProjectDetailsFragment();
-                viewProjectDetailsFragment.setArguments(infoProject);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, viewProjectDetailsFragment).commit();
+                projectService.getProjectDetails(idProject);
+                showLoadFragment();
 
                 break;
 
             case R.id.action_edit:
 
-                EditProjectFragment editProjectFragment = new EditProjectFragment();
-                editProjectFragment.setArguments(infoProject);
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, editProjectFragment).commit();
+                projectService.getUsersEmailNonProject(idProject);
+                showLoadFragment();
+
                 break;
 
             case R.id.action_delete:
 
                 Bundle project = new Bundle();
-                project.putString("itemDelete", "este proyecto");
+                project.putString("itemDelete", idProject);
+                project.putInt("type", ConfirmDialog.project);
+                project.putString("nameItem", proyectName);
 
                 FragmentManager fragmentManager = getFragmentManager();
                 ConfirmDialog deleteProject = new ConfirmDialog();
@@ -101,6 +119,54 @@ public class InfoProjectActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onObjectResponse(Pair<String, ?> response) {
+        if (response.first.equals("getProjectDetails")){
+            project = (Proyecto) response.second;
+            showViewProjectDetailsFragment();
+        }
+
+    }
+
+    @Override
+    public void onListResponse(Pair<String, List<?>> response) {
+
+        if (response.first.equals("getUsersEmailNonProject")){
+            emails = (ArrayList<String>) response.second;
+            projectService.getUsersProject(idProject);
+
+        } else if (response.first.equals("getUsersProject")) {
+            listUsersProject = (ArrayList<Usuario>) response.second;
+            showEditProjectFragment();
+        }
+
+    }
+
+    private void showLoadFragment (){
+        LoadingFragment loadingFragment = new LoadingFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.frame_infoProject, loadingFragment).commit();
+    }
+
+    private void showEditProjectFragment() {
+        EditProjectFragment editProjectFragment = new EditProjectFragment();
+        project.setNombreP(proyectName);
+        editProjectFragment.setProject(project);
+        editProjectFragment.setEmails(emails);
+        editProjectFragment.setListUsersProject(listUsersProject);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, editProjectFragment).commit();
+
+    }
+
+    private void showViewProjectDetailsFragment () {
+        ViewProjectDetailsFragment viewProjectDetailsFragment = new ViewProjectDetailsFragment();
+        project.setNombreP(proyectName);
+        viewProjectDetailsFragment.setProject(project);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_infoProject, viewProjectDetailsFragment).commit();
+
+
     }
 
 

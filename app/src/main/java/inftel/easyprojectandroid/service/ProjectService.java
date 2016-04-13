@@ -62,6 +62,13 @@ public class ProjectService implements ResponseListener {
         new HttpTask(this,"setNewProject").execute(httpRequest);
     }
 
+    public void sendEmailNewProject(JSONObject jsonObject){
+        System.out.println("Realizar Post proyecto");
+        String url = SERVER_IP + SERVER_PATH + "entity.usuario/sendEmailCreate";
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.POST,url, jsonObject);
+        new HttpTask(this,"sendEmailNewProject").execute(httpRequest);
+    }
+
     public void getUsersEmailNonProject(String idProjet){
         String url = SERVER_IP + SERVER_PATH + "entity.proyecto/getUsersEmailNonProject/"+idProjet;
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
@@ -94,8 +101,8 @@ public class ProjectService implements ResponseListener {
     }
 
     public void deleteProject (String idProject) {
-        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/"+idProject;
-        HttpRequest httpRequest = new HttpRequest(HttpRequest.DELETE,url, null);
+        String url = SERVER_IP + SERVER_PATH + "entity.proyecto/deleteProject/"+idProject;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"deleteProject").execute(httpRequest);
 
     }

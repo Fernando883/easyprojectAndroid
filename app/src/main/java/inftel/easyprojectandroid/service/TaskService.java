@@ -66,8 +66,8 @@ public class TaskService implements ResponseListener {
     }
 
     public void deleteTask (String idTask) {
-        String url = SERVER_IP + SERVER_PATH + "entity.task/"+idTask;
-        HttpRequest httpRequest = new HttpRequest(HttpRequest.DELETE,url, null);
+        String url = SERVER_IP + SERVER_PATH + "entity.tarea/removeTask/"+idTask;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"deleteTask").execute(httpRequest);
 
     }

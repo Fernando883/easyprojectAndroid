@@ -39,14 +39,6 @@ public class ViewProjectDetailsFragment extends Fragment implements ServiceListe
 
         setHasOptionsMenu(true);
 
-        // Recuperamos parámetros
-        idProject = getArguments().getString("idProject");
-        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        proyectNumUsers = getArguments().getInt("proyectNumUsers");
-        proyectName = getArguments().getString("proyectName");
-
-        projectService = new ProjectService(getActivity(), this);
-        projectService.getProjectDetails(idProject);
     }
 
     @Override
