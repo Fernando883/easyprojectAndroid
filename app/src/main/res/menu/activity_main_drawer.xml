@@ -12,10 +12,6 @@
             android:id="@+id/my_projects"
             android:icon="@drawable/ic_project"
             android:title="@string/my_projects" />
-        <item
-            android:id="@+id/my_tasks"
-            android:icon="@drawable/ic_task"
-            android:title="@string/my_tasks" />
 
     </group>
 

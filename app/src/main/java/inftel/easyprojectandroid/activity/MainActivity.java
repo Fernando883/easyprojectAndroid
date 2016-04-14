@@ -160,9 +160,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, NewProjectActivity.class);
             startActivity(intent);
         } else if (id == R.id.my_projects) {
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
             Toast.makeText(this, getString(R.string.my_projects), Toast.LENGTH_LONG).show();
-        } else if (id == R.id.my_tasks) {
-            Toast.makeText(this, getString(R.string.my_tasks), Toast.LENGTH_LONG).show();
         } else if (id == R.id.logout) {
 
             SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);

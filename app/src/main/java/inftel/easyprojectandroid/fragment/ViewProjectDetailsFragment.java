@@ -58,8 +58,9 @@ public class ViewProjectDetailsFragment extends Fragment {
 
         //projectMembers
         TextView projectMembers = (TextView) view.findViewById(R.id.projectMemberInfo);
+        projectMembers.append("- ");
         for (Usuario u: project.getUsuarioCollection()) {
-            projectMembers.append(u.getNombreU() + " ");
+            projectMembers.append(u.getNombreU() + " - ");
 
         }
 
