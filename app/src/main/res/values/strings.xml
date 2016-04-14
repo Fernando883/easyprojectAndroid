@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">EasyProject</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_info">Info</string>
 
     <!--  Res->menu-> Left menu-->
     <string name="new_project">New project</string>
@@ -8,8 +8,9 @@
     <string name="my_tasks">My tasks</string>
     <string name="logout">Log out</string>
     <string name="options">Options</string>
+
+    <!-- SharedPreferences -->
     <string name="preference_file_key">SharedPreferences</string>
-    <string name="info">info</string>
 
     <!--  menu info task-->
     <string name="action_visualizeTask">View</string>
@@ -19,16 +20,12 @@
     <!-- drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_new_project">NewProjectActivity</string>
-    <string name="titleNewProject">New project</string>
-    <string name="save">Save</string>
 
     <!-- content_new_project -->
+    <string name="save">Save</string>
     <string name="project_name">Project name</string>
     <string name="project_description">Project description</string>
     <string name="project_members">Project members</string>
-    <string name="title_activity_view_project">ViewProjectActivity</string>
 
     <!-- content_new_task -->
     <string name="task_name">Task name</string>
@@ -41,30 +38,23 @@
         <item>@string/done</item>
     </string-array>
 
-
     <!--ViewprojectActivity-->
     <string name="to_do">to do</string>
     <string name="doing">doing</string>
     <string name="done">done</string>
+
+    <!--Chat-->
     <string name="ic_action_chat">Chat</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <!--Login-->
-    <string name="title_activity_login">Login</string>
-    <string name="title_activity_new_task">New Task</string>
-    <string name="about">Manage your projects easily</string>
-
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.1.139:8080</string>
+    <string name="server_ip">http://192.168.1.114:8080</string>
     <string name="server_path">/EasyProject_RestFull/webresources/</string>
     <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
 
     <!--edit project-->
     <string name="edit">Edit</string>
-    <string name="newmembers">Add new project members</string>
-    <string name="deletemembers">Remove project members</string>
+    <string name="newmembers">Add new project members: </string>
+    <string name="deletemembers">Remove project members: </string>
 
     <!--menu info project -->
     <string name="action_editProject">Edit project</string>
@@ -74,17 +64,17 @@
     <!-- info project details -->
     <string name="numTasks">Tasks number: </string>
 
+    <!-- info task details -->
+    <string name="status">Status: </string>
+    <string name="members">Members: </string>
 
+    <!--ConfirmDialog-->
     <string name="confirmation">Confirmation</string>
     <string name="accept">Yes</string>
     <string name="cancel">No</string>
-
-    <!-- com/example/inftel07/myapplication(JAVA) -> ViewProduct -->
-    <string name="emailClient">Choose an application to send the e-mail</string>
     <string name="questionDelete">Do you really want to delete</string>
 
     <!--edit task-->
-    <string name="title_activity_info_task">infoTask</string>
     <string name="task_members">Task members</string>
     <string name="task_status">Task status</string>
     <string name="newmemberstask">Add new task members</string>
@@ -94,6 +84,10 @@
     <string name="write_message">Write a message...</string>
 
     <string name="search">Search</string>
+
+    <!--titles-->
+    <string name="newProject">New project</string>
+    <string name="newTask">New task</string>
 
 
 

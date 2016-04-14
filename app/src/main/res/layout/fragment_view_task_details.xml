@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:id="@+id/statusTaskInfo"
-                android:text="Estado: "
+                android:text="@string/status"
                 android:textStyle="bold"/>
 
             <TextView
@@ -104,7 +104,7 @@
             android:layout_marginTop="10dp"
             android:textSize="14sp"
             android:id="@+id/taskParticipants"
-            android:text="Participantes"
+            android:text="@string/members"
             android:textStyle="bold"/>
 
         <TextView

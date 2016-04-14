@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">EasyProject</string>
+    <string name="action_info">Info</string>
+
+    <!--  Res->menu-> Left menu-->
+    <string name="new_project">Nuevo proyecto</string>
+    <string name="my_projects">Mis proyectos</string>
+    <string name="my_tasks">Mis tareas</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="options">Opciones</string>
+
+    <!-- SharedPreferences -->
+    <string name="preference_file_key">SharedPreferences</string>
+
+    <!--  menu info task-->
+    <string name="action_visualizeTask">Ver</string>
+    <string name="action_editTask">Editar</string>
+    <string name="action_deleteTask">Borrar</string>
+
+    <!-- drawer -->
+    <string name="navigation_drawer_open">Abrir navegación lateral</string>
+    <string name="navigation_drawer_close">Cerrar navegación lateral</string>
+
+    <!-- content_new_project -->
+    <string name="save">Guardar</string>
+    <string name="project_name">Nombre del proyecto</string>
+    <string name="project_description">Descripción del proyecto</string>
+    <string name="project_members">Miembros del proyecto</string>
+
+    <!-- content_new_task -->
+    <string name="task_name">Nombre de la tarea</string>
+    <string name="task_description">Descripción de la tarea</string>
+    <string name="task_duration">Duración de la tarea</string>
+    <string name="Taskmembers">Miembros de la tarea</string>
+    <string-array name="status_arrays">
+        <item>@string/to_do</item>
+        <item>@string/doing</item>
+        <item>@string/done</item>
+    </string-array>
+
+    <!--ViewprojectActivity-->
+    <string name="to_do">to do</string>
+    <string name="doing">doing</string>
+    <string name="done">done</string>
+
+    <!--Chat-->
+    <string name="ic_action_chat">Chat</string>
+
+    <!-- Server DATA -->
+    <string name="server_ip">http://192.168.1.114:8080</string>
+    <string name="server_path">/EasyProject_RestFull/webresources/</string>
+    <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
+
+    <!--edit project-->
+    <string name="edit">Editar</string>
+    <string name="newmembers">Nuevos usuarios: </string>
+    <string name="deletemembers">Eliminar usuarios: </string>
+
+    <!--menu info project -->
+    <string name="action_editProject">Editar proyecto</string>
+    <string name="action_deleteProject">Borrar proyecto</string>
+    <string name="action_visualizeProject">Detalles del proyecto</string>
+
+    <!-- info project details -->
+    <string name="numTasks">Número de tareas: </string>
+
+    <!-- info task details -->
+    <string name="status">Estado: </string>
+    <string name="members">Miembros: </string>
+
+    <!-- ConfirmDialog -->
+    <string name="confirmation">Confirmación</string>
+    <string name="accept">Si</string>
+    <string name="cancel">No</string>
+    <string name="questionDelete">¿Realmente desea borrar </string>
+
+    <!--edit task-->
+    <string name="task_members">Task members</string>
+    <string name="task_status">Task status</string>
+    <string name="newmemberstask">Add new task members</string>
+
+    <!-- ChatActivity -->
+    <string name="write_message">Escribe un mensaje...</string>
+
+    <string name="search">Búsqueda</string>
+    <string name="newProject">Nuevo proyecto</string>
+    <string name="newTask">Nueva tarea</string>
+
+
+
+</resources>
