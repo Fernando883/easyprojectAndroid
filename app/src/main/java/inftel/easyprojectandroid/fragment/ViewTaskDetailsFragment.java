@@ -46,8 +46,9 @@ public class ViewTaskDetailsFragment extends Fragment {
         hourTasks.setText(String.valueOf(task.getTiempo().divide(new BigInteger("60"))));
         estado.setText(task.getEstado());
         taskDescriptionInfo.setText(task.getDescripcion());
+        tasktMemberInfo.append("- ");
         for(Usuario user: task.getUsuarioCollection()){
-            tasktMemberInfo.append(user.getNombreU());
+            tasktMemberInfo.append(user.getNombreU()+" - ");
         }
 
         return view;

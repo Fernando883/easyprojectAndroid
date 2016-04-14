@@ -58,8 +58,9 @@ public class ViewProjectDetailsFragment extends Fragment {
 
         //projectMembers
         TextView projectMembers = (TextView) view.findViewById(R.id.projectMemberInfo);
+        projectMembers.append("- ");
         for (Usuario u: project.getUsuarioCollection()) {
-            projectMembers.append(u.getNombreU() + " ");
+            projectMembers.append(u.getNombreU() + " - ");
 
         }
 
@@ -69,13 +70,13 @@ public class ViewProjectDetailsFragment extends Fragment {
 
         //projectDirector
         TextView projectDirector = (TextView) view.findViewById(R.id.projectDirectorInfo);
-        //projectDirector.setText(project.getDirector().getNombreU());
+        projectDirector.setText(project.getDirector().getNombreU());
 
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.findItem(R.id.action_edit).setVisible(true);
+        //menu.findItem(R.id.action_edit).setVisible(true);
         menu.findItem(R.id.action_visualize).setVisible(false);
     }
 }

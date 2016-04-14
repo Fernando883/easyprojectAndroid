@@ -9,7 +9,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -17,6 +16,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">
             <intent-filter>
@@ -40,7 +40,9 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".activity.ViewProjectTabActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
 
         <activity
             android:name=".activity.NewProjectActivity"
@@ -48,6 +50,8 @@
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop"/>
+
+        </activity>
 
         <activity
             android:name=".activity.NewTaskActivity"
@@ -57,26 +61,35 @@
             android:launchMode="singleTop"/>
 
         <activity
+            android:name=".activity.EditProjectActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"></activity>
+        <activity
             android:name=".activity.ChatActivity"
             android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_chat"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".activity.ViewProjectTabActivity"
-            android:launchMode="singleTop"/>
-
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            ></activity>
         <activity
-            android:name=".activity.infoTaskActivity"
+            android:name=".activity.InfoTaskActivity"
             android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_info_task"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".activity.ViewTaskActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop">
 
+        </activity>
 
         <activity
             android:name=".activity.InfoProjectActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.ViewProjectTabActivity"/>
+            android:parentActivityName=".activity.ViewProjectTabActivity">
 
 
         <activity
@@ -86,6 +99,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity"/>
 
+        </activity>
     </application>
 
 </manifest>

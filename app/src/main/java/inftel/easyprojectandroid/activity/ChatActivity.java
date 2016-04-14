@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
 
         projectService = new ProjectService(this, this);
         projectService.getChatFromProject(projectID);
+        messageList = new ArrayList<>();
         manageWebSocket();
 
     }
@@ -135,7 +136,7 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
                     public void run() {
                         if (bdRequestFinished)
                             chatFragment.update();
-                        }
+                    }
                 });
 
             }

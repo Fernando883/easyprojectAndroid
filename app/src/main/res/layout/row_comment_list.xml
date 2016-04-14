@@ -34,7 +34,6 @@
         android:id="@+id/commentUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="singleTop only applies if the activity (in your case the ListActivity) is on top - instead of creating a new instance, it would reuse the existing one. However, if you are only searching from MainActivity (hitting back on ListActivity after a search), then you are destroying the ListActivity instance and then creating a new instance - leading to onCreate() being called, but not onNewIntent()."
         />
 
 </LinearLayout>
