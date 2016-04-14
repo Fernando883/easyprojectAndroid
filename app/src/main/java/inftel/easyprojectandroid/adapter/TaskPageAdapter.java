@@ -17,10 +17,12 @@ import inftel.easyprojectandroid.model.Tarea;
 public class TaskPageAdapter extends FragmentPagerAdapter {
     int numTabs;
     private List<Tarea> taskList;
+    private String idProject;
 
-    public TaskPageAdapter(FragmentManager fm, int numTabs) {
+    public TaskPageAdapter(FragmentManager fm, int numTabs, String idProject) {
         super(fm);
         this.numTabs = numTabs;
+        this.idProject = idProject;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class TaskPageAdapter extends FragmentPagerAdapter {
             filterTask = filterTask("done");
 
         taskListFragment.setTaskList((ArrayList<Tarea>)filterTask);
+        taskListFragment.setIdProject(idProject);
         return taskListFragment;
 
     }

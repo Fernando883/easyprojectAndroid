@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,8 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
     private String taskStatus;
     private String taskName;
     private BigInteger taskTime;
+    private String idProject;
+    private String colectionUser;
     Usuario user = EasyProjectApp.getInstance().getUser();
 
     @Override
@@ -64,15 +67,27 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
         taskStatus = getIntent().getStringExtra("taskStatus");
         taskName = getIntent().getStringExtra("taskName");
         setTitle(taskName);
+        System.out.println("idProject = " + idProject);
+        idProject = getIntent().getStringExtra("idProject");
+        colectionUser = getIntent().getStringExtra("taskUser");
+        setTitle(taskName);
 
         Bundle bundle = getIntent().getExtras();
         taskTime= (BigInteger) bundle.get("taskTime");
+
+        System.out.println(" VICTOR ESTA TAREA ES " +"idTask "+ idTask + " taskDescription " +taskDescription + " taskStatus " + taskStatus + "taskName" +
+                " " + taskName + " taskTime " + taskTime);
         commentService = new CommentService(this, this);
         commentService.getComments(idTask.toString());
 
+
         editText = (EditText) findViewById(R.id.insertComment);
+
         getSupportFragmentManager().beginTransaction().add(R.id.frameComment, loadingFragment).commit();
+
         addListenerOnButton();
+
+
 
     }
 
@@ -92,6 +107,15 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.info) {
+            Intent intent = new Intent(this, infoTaskActivity.class);
+            intent.putExtra("idTask", idTask);
+            intent.putExtra("taskDescription", taskDescription);
+            intent.putExtra("taskStatus", taskStatus);
+            intent.putExtra("taskName", taskName);
+            intent.putExtra("taskTime", taskTime);
+            intent.putExtra("idProject", idProject);
+            intent.putExtra("colectionUser", colectionUser);
+            startActivity(intent);
             return true;
         }
 
@@ -120,6 +144,8 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
                     comentario.setIdUsuario(EasyProjectApp.getInstance().getUser());
                     comentario.setTexto(String.valueOf(editText.getText()));
 
+                    //  usuario.setNombreU(commentList.get(0).getIdUsuario().getNombreU());
+
                     Gson converter = new Gson();
                     String jsonComment = converter.toJson(comentario, Comentario.class);
                     JSONObject json = null;
@@ -129,13 +155,21 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
                         e.printStackTrace();
                     }
                     commentService.setComments(json);
+                    System.out.println("El id de vistor es " + idTask.toString());
                     commentService.getComments(idTask.toString());
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameComment, loadingFragment).commit();
                     editText.setText("");
+
+
+
+
+
+
                 }
             });
         }
+
 
     }
 
@@ -148,11 +182,16 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
 
+
         System.out.println(response.second);
         if (response.first.equals("getComments")) {
+            System.out.println("Holaaaa2");
 
             commentList = (ArrayList<Comentario>) response.second;
             showCommentListFragment(commentList);
+
+
+
 
         }
 
@@ -161,7 +200,11 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
     private void showCommentListFragment(ArrayList<Comentario> commentList) {
 
         commentListFragment=new CommentListFragment();
+
+
         commentListFragment.setCommentList(commentList);
+
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frameComment,commentListFragment).commit();
 
     }

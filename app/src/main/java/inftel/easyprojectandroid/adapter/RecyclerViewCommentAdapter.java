@@ -5,10 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,12 +44,34 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
         Log.e("ERROR", String.valueOf(commentList.get(position).getIdUsuario()));
 
         holder.nameUser.setText(commentList.get(position).getIdUsuario().getNombreU());
-        holder.commentUsers.setText(commentList.get(position).getTexto());
+        //holder.commentUsers.setText(commentList.get(position).getTexto());
 
 
         Date date= (Date) commentList.get(position).getFecha();
         String dateString = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
         holder.date.setText(dateString);
+
+        if(commentList.get(position).getTexto().contains("Ha subido el fichero:"))
+        {
+            String file=commentList.get(position).getTexto();
+            Log.e("Comentario",file);
+            String fileSplited[]=file.split("'");
+            Log.e("Comentario/Parte1", fileSplited[0]);
+            String definitivo[]=fileSplited[1].split("'");
+
+
+
+            holder.commentUsers.loadData(file.replace("localhost","192.168.183.76"), "text/html", "utf-8");
+
+
+
+        }
+        else {
+            // holder.commentUsers.loadUrl();
+            holder.commentUsers.loadData(commentList.get(position).getTexto(), "text/plain", "utf-8");
+            holder.commentUsers.getSettings();
+            //holder.commentUsers.setBackgroundColor(Color.);
+        }
 
     }
 
@@ -66,7 +88,7 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
 
-        public TextView commentUsers;
+        public WebView commentUsers;
         public TextView nameUser;
         public TextView date;
         public EditText insertComment;
@@ -75,7 +97,7 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
             super(v);
 
             nameUser = (TextView) v.findViewById(R.id.nameUser);
-            commentUsers = (TextView) v.findViewById(R.id.commentUser);
+            commentUsers = (WebView) v.findViewById(R.id.commentUser);
             date=(TextView) v.findViewById(R.id.date);
             insertComment=(EditText) v.findViewById(R.id.insertComment);
 

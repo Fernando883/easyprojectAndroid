@@ -85,6 +85,7 @@
             android:name=".activity.infoTaskActivity"
             android:label="@string/title_activity_info_task"
             android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activity.ViewTaskActivity"
             android:launchMode="singleTop">
 
         </activity>

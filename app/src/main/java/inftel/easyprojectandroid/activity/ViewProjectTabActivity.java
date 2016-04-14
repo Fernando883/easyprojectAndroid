@@ -167,7 +167,7 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
     private void config() {
         frame.removeAllViews();
         viewPager = (ViewPager) findViewById(R.id.container);
-        pageAdapter = new TaskPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pageAdapter = new TaskPageAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), idProject);
         pageAdapter.setTaskList(listTask);
         viewPager.setAdapter(pageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
