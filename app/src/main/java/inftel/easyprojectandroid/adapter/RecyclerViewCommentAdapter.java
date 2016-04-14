@@ -41,7 +41,7 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.e("ERROR", String.valueOf(commentList.get(position).getIdUsuario()));
+        Log.e("Comentario", commentList.get(position).getTexto());
 
         holder.nameUser.setText(commentList.get(position).getIdUsuario().getNombreU());
 
@@ -52,10 +52,10 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
         if(commentList.get(position).getTexto().contains("Ha subido el fichero:"))
         {
             String file=commentList.get(position).getTexto();
-            holder.commentUsers.loadData(file.replace("localhost","192.168.183.76"), "text/html", "utf-8");
+            holder.commentUsers.loadData(file.replace("localhost","192.168.183.76"), "text/html; charset=UTF-8", null);
         }
         else {
-            holder.commentUsers.loadData(commentList.get(position).getTexto(), "text/plain", "utf-8");
+            holder.commentUsers.loadData(commentList.get(position).getTexto(), "text/plain; charset=UTF-8", null);
         }
 
     }
