@@ -31,7 +31,7 @@ import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
 import inftel.easyprojectandroid.service.TaskService;
 
-public class InfoTaskActivity extends AppCompatActivity implements ServiceListener {
+public class infoTaskActivity extends AppCompatActivity implements ServiceListener {
 
     private Long idTask;
     private String taskDescription;
@@ -68,13 +68,10 @@ public class InfoTaskActivity extends AppCompatActivity implements ServiceListen
         taskTime = (BigInteger) getIntent().getExtras().get("taskTime");
         idProject = getIntent().getStringExtra("idProject");
         colectionUser = getIntent().getStringExtra("colectionUser");
-        System.out.println("NOS LLEGA " + idTask + taskDescription+ taskStatus +taskName +taskTime +idProject + colectionUser);
 
         Gson gson = new Gson();
         Type listType = new TypeToken<ArrayList<Usuario>>(){}.getType();
         arraycolectionUser = gson.fromJson(colectionUser,listType);
-
-
 
         task = new Tarea();
         task.setIdTarea(idTask);
@@ -121,10 +118,9 @@ public class InfoTaskActivity extends AppCompatActivity implements ServiceListen
 
             case R.id.action_edit:
 
-                projectService.getUsersEmailProject(idProject.toString());
+                taskService.getUsersEmailByNonTask(String.valueOf(idTask));
                 showLoadFragment();
                 break;
-            //delete
 
             case R.id.action_delete:
 
@@ -133,13 +129,10 @@ public class InfoTaskActivity extends AppCompatActivity implements ServiceListen
                 task.putInt("type", ConfirmDialog.task);
                 task.putString("nameItem", taskName);
 
-
                 FragmentManager fragmentManager = getFragmentManager();
                 ConfirmDialog deleteProject = new ConfirmDialog();
                 deleteProject.setArguments(task);
                 deleteProject.show(fragmentManager, "fragmentManager");
-
-
 
                 break;
         }
@@ -153,7 +146,7 @@ public class InfoTaskActivity extends AppCompatActivity implements ServiceListen
 
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
-        if (response.first.equals("getUsersEmailProject")){
+        if (response.first.equals("getUsersEmailByNonTask")){
             emails = (ArrayList<String>) response.second;
             taskService.getUsersEmailByTask(idTask.toString());
 
@@ -177,7 +170,6 @@ public class InfoTaskActivity extends AppCompatActivity implements ServiceListen
         task.setNombre(taskName);
         task.setTiempo(taskTime);
         task.setUsuarioCollection(arraycolectionUser);
-        System.out.println("CARLOS " + task.toString());
         editTaskFragment.setTask(task);
         editTaskFragment.setIdProject(idProject);
         editTaskFragment.setEmails(emails);

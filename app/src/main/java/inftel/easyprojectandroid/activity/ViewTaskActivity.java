@@ -106,7 +106,7 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.info) {
-            Intent intent = new Intent(this, InfoTaskActivity.class);
+            Intent intent = new Intent(this, infoTaskActivity.class);
             intent.putExtra("idTask", idTask);
             intent.putExtra("taskDescription", taskDescription);
             intent.putExtra("taskStatus", taskStatus);

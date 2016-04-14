@@ -77,7 +77,7 @@
 
 
         <activity
-            android:name=".activity.InfoTaskActivity"
+            android:name=".activity.infoTaskActivity"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".activity.ViewTaskActivity"
