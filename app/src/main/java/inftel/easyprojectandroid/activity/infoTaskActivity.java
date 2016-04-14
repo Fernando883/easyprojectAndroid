@@ -31,9 +31,7 @@ import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
 import inftel.easyprojectandroid.service.TaskService;
 
-public class infoTaskActivity extends AppCompatActivity implements ServiceListener {
-
-    private boolean isEdit = false;
+public class InfoTaskActivity extends AppCompatActivity implements ServiceListener {
 
     private Long idTask;
     private String taskDescription;
@@ -126,7 +124,7 @@ public class infoTaskActivity extends AppCompatActivity implements ServiceListen
                 projectService.getUsersEmailProject(idProject.toString());
                 showLoadFragment();
                 break;
-                //delete
+            //delete
 
             case R.id.action_delete:
 
