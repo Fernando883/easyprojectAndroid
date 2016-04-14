@@ -3,9 +3,11 @@ package inftel.easyprojectandroid.http;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -64,9 +66,9 @@ public class HttpRequest {
 
         try {
 
+            connection.setRequestMethod("GET");
             connection.setRequestProperty("USER-AGENT", "Mozilla/5.0");
             connection.setRequestProperty("ACCEPT-LANGUAGE", "en-US,en;0.5");
-            connection.setRequestMethod("GET");
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
             while ((line = br.readLine()) != null) {
@@ -91,8 +93,10 @@ public class HttpRequest {
             connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-            dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
-            dStream.flush(); // Flushes the data output stream.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(dStream, "UTF-8"));
+
+            writer.write(String.valueOf(json));
+            writer.close();
             dStream.close();
 
             connection.getResponseCode();
@@ -127,8 +131,10 @@ public class HttpRequest {
             connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-            dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
-            dStream.flush(); // Flushes the data output stream.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(dStream, "UTF-8"));
+
+            writer.write(String.valueOf(json));
+            writer.close();
             dStream.close();
 
             connection.getResponseCode();
@@ -160,8 +166,10 @@ public class HttpRequest {
             connection.setRequestProperty("Content-Type","application/json; charset=utf-8");
 
             DataOutputStream dStream = new DataOutputStream(connection.getOutputStream());
-            dStream.writeBytes(String.valueOf(json)); //Writes out the string to the underlying output stream as a sequence of bytes
-            dStream.flush(); // Flushes the data output stream.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(dStream, "UTF-8"));
+
+            writer.write(String.valueOf(json));
+            writer.close();
             dStream.close();
 
             connection.getResponseCode();
