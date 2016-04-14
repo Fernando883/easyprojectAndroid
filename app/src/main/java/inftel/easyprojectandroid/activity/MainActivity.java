@@ -213,7 +213,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        System.out.println("onQueryTextSubmit Anitaaaaaaaaa");
         return false;
     }
 

@@ -48,7 +48,6 @@ public class TaskService implements ResponseListener {
 
     public void getUsersEmailByTask(String idTask) {
         String url = SERVER_IP + SERVER_PATH + "entity.tarea/getUsersEmailByTask/"+idTask;
-        System.out.println("URL " + url);
         HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
         new HttpTask(this,"getUsersEmailByTask").execute(httpRequest);
     }

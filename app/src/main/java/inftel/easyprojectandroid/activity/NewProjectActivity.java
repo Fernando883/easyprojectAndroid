@@ -92,7 +92,6 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
             JSONObject jsonObject = new JSONObject(trad.toJson(newProject));
             String EmailNewProject = text1.getText().toString() + director.getEmail();
             jsonObject.put("listEmails", EmailNewProject);
-            System.out.println("Enviando ... " + jsonObject);
 
             projectService.setNewProject(jsonObject);
 
@@ -129,7 +128,6 @@ public class NewProjectActivity extends AppCompatActivity implements ServiceList
         if (response.first.equals("getUserEmailList")){
             for(Object email: response.second){
                 if(!email.equals(director.getEmail())){
-                    System.out.println("Diferente el email es " + email);
                     emails.add((String) email);
                 }
             }

@@ -112,7 +112,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
 
     public void edit() {
 
-        System.out.println("Proyectooooo: " + project.getNombreP());
         //project = new Proyecto();
         project.setDescripcion(projectDescription.getText().toString());
 
@@ -126,8 +125,6 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
             String emailsRemove = editString.substring(1, editString.lastIndexOf(']'));
             jsonObject.put("listAddEmails", textAutocomplete.getText().toString());
             jsonObject.put("listRemoveEmails", emailsRemove);
-
-            System.out.println("Enviando ... " + jsonObject);
 
             projectService.putProject(String.valueOf(project.getIdProyect()),jsonObject);
 

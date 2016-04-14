@@ -100,7 +100,6 @@ public class HttpRequest {
             dStream.close();
 
             connection.getResponseCode();
-            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
@@ -113,9 +112,7 @@ public class HttpRequest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //return "";
-        System.out.println("RESPONSEPOST:" + response);
-         return response.toString();
+        return response.toString();
     }
 
     private String put() {
@@ -138,7 +135,6 @@ public class HttpRequest {
             dStream.close();
 
             connection.getResponseCode();
-            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
 
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
@@ -173,8 +169,6 @@ public class HttpRequest {
             dStream.close();
 
             connection.getResponseCode();
-            System.out.println("CODERESPONSE" + String.valueOf(connection.getResponseCode()));
-
 
         } catch (IOException e) {
             e.printStackTrace();

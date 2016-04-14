@@ -72,9 +72,7 @@ public class TaskListFragment extends Fragment implements RecyclerItemClickListe
 
     @Override
     public void onItemClick(View view, int position) {
-        System.out.println("ESTOY EN EL ONITMECLICK");
         Intent intent = new Intent(getContext(), ViewTaskActivity.class);
-        System.out.println("EL id de tarea es:" + taskList.get(position).getIdTarea());
         intent.putExtra("idTask", taskList.get(position).getIdTarea());
         intent.putExtra("taskDescription", taskList.get(position).getDescripcion());
         intent.putExtra("taskStatus", taskList.get(position).getEstado());

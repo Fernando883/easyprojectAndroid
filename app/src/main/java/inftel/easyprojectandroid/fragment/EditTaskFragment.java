@@ -126,9 +126,6 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             }
         });
 
-        for(String email: emails){
-            System.out.println("El email es " + email);
-        }
         loadContentProject();
         loadAutoCompleteContent();
         loadCheckBoxContent();
@@ -183,8 +180,6 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             //emailstoRemove = adapter.getRemoveUserList();
             jsonObject.put("listRemoveEmails", emails);
 
-            System.out.println("Enviando ... " + jsonObject);
-            System.out.println("EL ID DE USUARIO ES " + task.getIdTarea() + task.getNombre() + task.getEstado());
             taskService.setEditTask(task.getIdTarea().toString(), jsonObject);
 
             Intent intent = new Intent(getActivity(), ViewProjectTabActivity.class);

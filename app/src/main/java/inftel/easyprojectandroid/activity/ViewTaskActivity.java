@@ -68,7 +68,7 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
         taskStatus = getIntent().getStringExtra("taskStatus");
         taskName = getIntent().getStringExtra("taskName");
         setTitle(taskName);
-        System.out.println("idProject = " + idProject);
+
         idProject = getIntent().getStringExtra("idProject");
         colectionUser = getIntent().getStringExtra("taskUser");
         setTitle(taskName);
@@ -76,8 +76,6 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
         Bundle bundle = getIntent().getExtras();
         taskTime= (BigInteger) bundle.get("taskTime");
 
-        System.out.println(" VICTOR ESTA TAREA ES " +"idTask "+ idTask + " taskDescription " +taskDescription + " taskStatus " + taskStatus + "taskName" +
-                " " + taskName + " taskTime " + taskTime);
         commentService = new CommentService(this, this);
         commentService.getComments(idTask.toString());
 
@@ -191,11 +189,7 @@ public class ViewTaskActivity extends AppCompatActivity implements ServiceListen
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
 
-
-        System.out.println(response.second);
         if (response.first.equals("getComments")) {
-            System.out.println("Holaaaa2");
-
             commentList = (ArrayList<Comentario>) response.second;
             showCommentListFragment(commentList);
 
