@@ -72,6 +72,12 @@ public class TaskService implements ResponseListener {
 
     }
 
+    public void getUsersEmailByNonTask (String idTask) {
+        String url = SERVER_IP + SERVER_PATH + "entity.tarea/getUsersEmailByNonTask/"+idTask;
+        HttpRequest httpRequest = new HttpRequest(HttpRequest.GET,url, null);
+        new HttpTask(this,"getUsersEmailByNonTask").execute(httpRequest);
+    }
+
     @Override
     public void onResponse(Pair<String, String> response) {
         Log.e("RESPONSE", response.second);
@@ -79,6 +85,24 @@ public class TaskService implements ResponseListener {
             parseTaskList(response.second);
         else if(response.first.equals("getUsersEmailByTask"))
             parseUsers(response.second);
+        else if (response.first.equals("getUsersEmailByNonTask"))
+            parseEmails(response.second);
+    }
+
+    private void parseEmails (String response) {
+
+        ArrayList<String> userEmailList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for(int i=0; i<jsonArray.length(); i++) {
+                String email = jsonArray.getString(i);
+                userEmailList.add(email);
+            }
+            listener.onListResponse(new Pair("getUsersEmailByNonTask", userEmailList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

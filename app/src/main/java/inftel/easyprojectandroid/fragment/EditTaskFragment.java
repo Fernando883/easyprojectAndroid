@@ -91,8 +91,15 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
 
         taskDuration = (EditText) view.findViewById(R.id.input_nameTask);
         taskDuration.setText(String.valueOf(task.getTiempo().divide(new BigInteger("60"))));
+        status = task.getEstado();
         radioSexGroup = (RadioGroup) view.findViewById(R.id.radioSex);
-
+        if (task.getEstado().equals("to do")) {
+            radioSexGroup.check(R.id.to_do);
+        } else if (task.getEstado().equals("doing")) {
+            radioSexGroup.check(R.id.doing);
+        } else if (task.getEstado().equals("done")) {
+            radioSexGroup.check(R.id.done);
+        }
 
         radioSexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -101,13 +108,10 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
                 // TODO Auto-generated method stub
                 if (checkedId == R.id.to_do) {
                     status = "to do";
-                    System.out.println("Ha pulsado el botón " + status);
                 } else if (checkedId == R.id.doing) {
                     status = "doing";
-                    System.out.println("Ha pulsado el botón 2");
                 } else if (checkedId == R.id.done) {
                     status = "done";
-                    System.out.println("Ha pulsado el botón 3");
                 }
 
             }
@@ -184,6 +188,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             taskService.setEditTask(task.getIdTarea().toString(), jsonObject);
 
             Intent intent = new Intent(getActivity(), ViewProjectTabActivity.class);
+            intent.putExtra("idProject",Long.parseLong(idProject));
             startActivity(intent);
 
 
