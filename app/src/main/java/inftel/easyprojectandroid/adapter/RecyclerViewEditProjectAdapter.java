@@ -44,7 +44,6 @@ public class RecyclerViewEditProjectAdapter extends RecyclerView.Adapter<Recycle
                     String email = userList.get(pos).getEmail();
                     removeUserList.add(email);
                 }
-                Toast.makeText(v.getContext() , "Clicked on Checkbox:" + userList.get(pos).getNombreU(), Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -181,10 +181,4 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
         tabLayout.setOnTabSelectedListener(tabSelectedListener());
     }
 
-    /*private void showTaskViewPagerFragment() {
-        TaskViewPagerFragment taskViewPagerFragment = new TaskViewPagerFragment();
-        taskViewPagerFragment.setTabLayout(tabLayout);
-        taskViewPagerFragment.setListTask(listTask);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_task, taskViewPagerFragment).commit();
-    }*/
 }

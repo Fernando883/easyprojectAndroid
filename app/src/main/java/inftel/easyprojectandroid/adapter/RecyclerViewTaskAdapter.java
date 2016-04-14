@@ -33,7 +33,7 @@ public class RecyclerViewTaskAdapter extends RecyclerView.Adapter<RecyclerViewTa
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.iconTaskHours.setImageResource(R.drawable.ic_clock);
-        holder.hourTasks.setText(String.valueOf(taskList.get(position).getTiempo().intValue() / 60));
+        holder.hourTasks.setText(String.valueOf(taskList.get(position).getTiempo().intValue() / 60) + " h");
         holder.taskName.setText(taskList.get(position).getNombre());
 
         for (Usuario user: taskList.get(position).getUsuarioCollection()) {

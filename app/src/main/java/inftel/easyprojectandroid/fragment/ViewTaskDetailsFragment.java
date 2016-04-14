@@ -43,7 +43,7 @@ public class ViewTaskDetailsFragment extends Fragment {
         tasktMemberInfo = (TextView) view.findViewById(R.id.tasktMemberInfo);
 
         taskNameInfo.setText(task.getNombre());
-        hourTasks.setText(String.valueOf(task.getTiempo().divide(new BigInteger("60"))));
+        hourTasks.setText(String.valueOf(task.getTiempo().divide(new BigInteger("60"))) + " h");
         estado.setText(task.getEstado());
         taskDescriptionInfo.setText(task.getDescripcion());
         tasktMemberInfo.append("- ");

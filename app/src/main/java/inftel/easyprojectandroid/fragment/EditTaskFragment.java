@@ -73,16 +73,8 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        //projectService = new ProjectService(getActivity(), this);
         taskService = new TaskService(getActivity(), this);
 
-
-        //projectService.getUsersEmailProject("1720");
-
-        //taskService = new TaskService(getActivity(),this);
-        //taskService.getUsersTask("1657");
-
-        //projectService.getUsersProject("1535");
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -177,7 +169,6 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
             JSONObject jsonObject = new JSONObject(trad.toJson(task));
             jsonObject.put("listAddEmails", textAutocomplete.getText().toString());
             String emails = adapter.getRemoveUserList().toString().substring(1, adapter.getRemoveUserList().toString().lastIndexOf(']'));
-            //emailstoRemove = adapter.getRemoveUserList();
             jsonObject.put("listRemoveEmails", emails);
 
             taskService.setEditTask(task.getIdTarea().toString(), jsonObject);
@@ -221,6 +212,7 @@ public class EditTaskFragment extends Fragment implements ServiceListener {
         textAutocomplete.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
     }
+
 
     public void loadCheckBoxContent(){
 
