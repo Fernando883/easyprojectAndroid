@@ -29,6 +29,7 @@ public class CommentListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerViewCommentAdapter adapter;
+    private LinearLayoutManager layoutManager;
 
 
     public CommentListFragment() { }
@@ -44,7 +45,9 @@ public class CommentListFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.commentRecyclerView);
         adapter = new RecyclerViewCommentAdapter(commentList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManager.scrollToPosition(commentList.size() - 1);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -59,6 +62,9 @@ public class CommentListFragment extends Fragment {
 
         commentList.add(comentario);
         adapter.notifyDataSetChanged();
+        layoutManager.scrollToPosition(commentList.size() - 1);
     }
+
+
 
 }

@@ -42,6 +42,7 @@ public class ChatFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnLayoutChangeListener(manageKeyboardScroll());
 
         return view;
     }
@@ -53,6 +54,23 @@ public class ChatFragment extends Fragment {
     public void update() {
         adapter.notifyDataSetChanged();
         layoutManager.scrollToPosition(messageList.size() - 1);
+    }
+
+    // Gestión del scroll cuando se abre el teclado
+    private View.OnLayoutChangeListener manageKeyboardScroll() {
+        return new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if ( bottom < oldBottom) {
+                    recyclerView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            recyclerView.scrollToPosition(messageList.size() - 1);
+                        }
+                    }, 100);
+                }
+            }
+        };
     }
 
 
