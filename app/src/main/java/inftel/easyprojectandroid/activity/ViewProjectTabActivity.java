@@ -63,6 +63,9 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.done)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        //Inicializar service
+        taskService = new TaskService(this, this);
+
         frame = (FrameLayout) findViewById(R.id.frame_task);
         LayoutInflater.from(this).inflate(R.layout.fragment_loading, frame, true);
 
@@ -82,19 +85,23 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
         if (!idUsuario.equals(idDirector))
             fab.hide();
 
-        //get task by user and project
-        taskService = new TaskService(this, this);
-        //taskService.getTasks("10", "948");
-        taskService.getTasks(idUsuario, idProject);
-
     }
 
     public void goToNewTaskActivity () {
         Intent intent = new Intent(this, NewTaskActivity.class);
+        intent.putExtra("idProject", idProject);
         startActivity(intent);
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
+        idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
+        proyectName = getIntent().getStringExtra("proyectName");
+        taskService.getTasks(idUsuario, idProject);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

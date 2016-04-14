@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         projectService = new ProjectService(this, this);
-        projectService.getProjects(String.valueOf(currentUser.getIdUsuario()));
         // Por defecto, agregamos el fragmento de carga
         LoadingFragment loadingFragment = new LoadingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.frame_main, loadingFragment).commit();
@@ -103,14 +102,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onNewIntent(Intent intent){
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent){
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-
-        }
+    protected void onStart() {
+        super.onStart();
+        projectService.getProjects(String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario()));
     }
 
     @Override

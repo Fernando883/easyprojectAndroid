@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
     private MultiAutoCompleteTextView text1;
     private ProjectService projectService;
     private TaskService taskService;
+    private String idProject;
     ArrayList<String> emails = new ArrayList<String>();
     Tarea newTask = new Tarea();
 
@@ -50,7 +52,9 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
 
         projectService = new ProjectService(this, this);
         taskService = new TaskService(this, this);
-        projectService.getUsersEmailProject("948");
+        idProject = getIntent().getStringExtra("idProject");
+
+        projectService.getUsersEmailProject(idProject);
 
         text1=(MultiAutoCompleteTextView)findViewById(R.id.multiAutoCompleteTextView2);
 
@@ -100,18 +104,10 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
         BigInteger duration = new BigInteger(((EditText) findViewById(R.id.input_taskDuration)).getText().toString());
         newTask.setTiempo(new BigInteger(String.valueOf(duration.intValue() * 60)));
 
-        Usuario director = new Usuario();
-        director.setNombreU("Ana Herrera García");
-        director.setIdUsuario(10L);
-        director.setEmail("ana.93.hg@gmail.com");
-
         Proyecto idProyecto = new Proyecto ();
-        idProyecto.setIdProyect(948L);
-        idProyecto.setDirector(director);
-        idProyecto.setNombreP("Sábado tarde");
-        idProyecto.setDescripcion("Sábado tarde");
+        idProyecto.setIdProyect(Long.valueOf(idProject));
         newTask.setIdProyecto(idProyecto);
-        newTask.setIdUsuario(director);
+        newTask.setIdUsuario(EasyProjectApp.getInstance().getUser());
 
         try {
 
@@ -120,7 +116,11 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
             projectService = new ProjectService(this, this);
             JSONObject jsonObject = new JSONObject(converter.toJson(newTask));
             jsonObject.put("listEmails", text1.getText().toString());
-            System.out.println("Enviando ... " + jsonObject);
+
+            Intent toViewProjectTabActivity = new Intent (this, ViewProjectTabActivity.class);
+            toViewProjectTabActivity.putExtra("idProject", Long.valueOf(idProject));
+            startActivity(toViewProjectTabActivity);
+
             taskService.postTask(jsonObject);
 
 
