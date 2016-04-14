@@ -43,13 +43,6 @@
             android:launchMode="singleTop"/>
 
         <activity
-            android:name=".activity.ViewProjectActivity"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activity.MainActivity"
-            android:launchMode="singleTop"/>
-
-        <activity
             android:name=".activity.NewProjectActivity"
             android:parentActivityName=".activity.MainActivity"
             android:configChanges="orientation|screenSize"

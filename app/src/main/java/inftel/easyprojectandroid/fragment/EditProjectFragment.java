@@ -13,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inftel.easyprojectandroid.R;
-import inftel.easyprojectandroid.activity.ViewProjectActivity;
+import inftel.easyprojectandroid.activity.ViewProjectTabActivity;
 import inftel.easyprojectandroid.adapter.RecyclerViewEditProjectAdapter;
 import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
@@ -134,7 +132,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
             projectService.putProject(String.valueOf(project.getIdProyect()),jsonObject);
 
             //vuelta a la vista de tareas
-            Intent toViewProject = new Intent (getActivity(), ViewProjectActivity.class);
+            Intent toViewProject = new Intent (getActivity(), ViewProjectTabActivity.class);
             toViewProject.putExtra("idProject", project.getIdProyect());
             toViewProject.putExtra("proyectName", project.getNombreP());
             startActivity(toViewProject);
