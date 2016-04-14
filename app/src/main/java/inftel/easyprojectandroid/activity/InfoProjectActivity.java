@@ -80,8 +80,10 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.info_menu, menu);
         menu.findItem(R.id.action_visualize).setVisible(false);
-        if (!idDirector.equals(idUsuario))
+        if (!idDirector.equals(idUsuario)) {
             menu.findItem(R.id.action_delete).setVisible(false);
+            menu.findItem(R.id.action_edit).setVisible(false);
+        }
         this.menu = menu;
 
         return true;

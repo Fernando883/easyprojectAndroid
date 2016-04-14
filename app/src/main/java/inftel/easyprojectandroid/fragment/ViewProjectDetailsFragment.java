@@ -70,13 +70,13 @@ public class ViewProjectDetailsFragment extends Fragment {
 
         //projectDirector
         TextView projectDirector = (TextView) view.findViewById(R.id.projectDirectorInfo);
-        //projectDirector.setText(project.getDirector().getNombreU());
+        projectDirector.setText(project.getDirector().getNombreU());
 
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.findItem(R.id.action_edit).setVisible(true);
+        //menu.findItem(R.id.action_edit).setVisible(true);
         menu.findItem(R.id.action_visualize).setVisible(false);
     }
 }
