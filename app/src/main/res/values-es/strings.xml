@@ -82,6 +82,7 @@
 
     <!-- ChatActivity -->
     <string name="write_message">Escribe un mensaje...</string>
+    <string name="write_comment">Escribe un comentario...</string>
 
     <string name="search">Búsqueda</string>
     <string name="newProject">Nuevo proyecto</string>

@@ -65,7 +65,7 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
         getSupportFragmentManager().beginTransaction().add(R.id.frame_chat, loadingFragment).commit();
 
         projectService = new ProjectService(this, this);
-        projectService.getChatFromProject(projectID);
+
         messageList = new ArrayList<>();
         manageWebSocket();
 
@@ -123,6 +123,7 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
             public void onOpen(ServerHandshake handshakedata) {
                 Log.e("Websocket", "Opened ");
                 wsConnected = true;
+                showChatFragment(messageList);
             }
 
             @Override
@@ -144,6 +145,7 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
             @Override
             public void onClose(int code, String reason, boolean remote) {
                 Log.e("Websocket", "Closed " + reason);
+                projectService.getChatFromProject(projectID);
             }
 
             @Override
@@ -173,4 +175,6 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_chat, chatFragment).commit();
         bdRequestFinished = true;
     }
+
+
 }
