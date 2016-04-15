@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,8 +32,8 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
     private TaskPageAdapter pageAdapter;
     private String idUsuario, idDirector;
     private String idProject;
-    private int proyectNumUsers;
-    private String proyectName;
+    private int projectNumUsers;
+    private String projectName;
     private TaskService taskService;
     private ArrayList<Tarea> listTask = null;
     private FrameLayout frame;
@@ -46,14 +45,23 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
 
         // Recuperamos parámetros
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        idDirector = String.valueOf(getIntent().getLongExtra("idDirector", 0L));
-        idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
-        proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
-        proyectName = getIntent().getStringExtra("proyectName");
+        Bundle projectBundle = getIntent().getBundleExtra("projectData");
+        if (projectBundle != null) {
+            idDirector = projectBundle.getString("idDirector");
+            idProject = projectBundle.getString("idProject");
+            projectNumUsers = projectBundle.getInt("projectNumUsers");
+            projectName = projectBundle.getString("projectName");
+        }
+        else {
+            idDirector = String.valueOf(getIntent().getLongExtra("idDirector", 0L));
+            idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
+            projectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
+            projectName = getIntent().getStringExtra("proyectName");
+        }
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(proyectName);
+        toolbar.setTitle(projectName);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -65,6 +73,7 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
 
         //Inicializar service
         taskService = new TaskService(this, this);
+        taskService.getTasks(idUsuario, idProject);
 
         frame = (FrameLayout) findViewById(R.id.frame_task);
         LayoutInflater.from(this).inflate(R.layout.fragment_loading, frame, true);
@@ -89,19 +98,24 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
 
     public void goToNewTaskActivity () {
         Intent intent = new Intent(this, NewTaskActivity.class);
-        intent.putExtra("idProject", idProject);
+        Bundle bundle = new Bundle();
+        bundle.putString("idProject", idProject);
+        bundle.putString("projectName", projectName);
+        bundle.putInt("projectNumUsers", projectNumUsers);
+        bundle.putString("idDirector", idDirector);
+        intent.putExtra("projectData", bundle);
         startActivity(intent);
 
     }
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         idProject = String.valueOf(getIntent().getLongExtra("idProject", 0L));
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        proyectName = getIntent().getStringExtra("proyectName");
-        taskService.getTasks(idUsuario, idProject);
-    }
+        projectName = getIntent().getStringExtra("proyectName");
+
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,16 +131,18 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
         switch (item.getItemId()) {
             case R.id.action_info:
                 intent = new Intent(this, InfoProjectActivity.class);
-                intent.putExtra("idProject", idProject);
-                intent.putExtra("proyectName", proyectName);
-                intent.putExtra("proyectNumUsers", proyectNumUsers);
-                intent.putExtra("idDirector", idDirector);
+                Bundle bundle = new Bundle();
+                bundle.putString("idProject", idProject);
+                bundle.putString("projectName", projectName);
+                bundle.putInt("projectNumUsers", projectNumUsers);
+                bundle.putString("idDirector", idDirector);
+                intent.putExtra("projectData", bundle);
                 startActivity(intent);
                 break;
             case R.id.action_chat:
                 intent = new Intent(this, ChatActivity.class);
                 intent.putExtra("idProject", idProject);
-                intent.putExtra("proyectName", proyectName);
+                intent.putExtra("proyectName", projectName);
                 startActivity(intent);
                 break;
             default:
@@ -139,7 +155,6 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
         return new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tabId) {
-                Log.e("onTabSelected", tabId.getText().toString());
                 viewPager.setCurrentItem(tabId.getPosition());
             }
 
@@ -162,7 +177,6 @@ public class ViewProjectTabActivity extends AppCompatActivity implements Service
 
     @Override
     public void onListResponse(Pair<String, List<?>> response) {
-        Log.e("onListResponse", "onListResponse");
         if (response.first.equals("getTasks"))
             listTask = (ArrayList<Tarea>) response.second;
 

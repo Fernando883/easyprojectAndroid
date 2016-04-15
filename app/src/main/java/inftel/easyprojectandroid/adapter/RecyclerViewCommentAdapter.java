@@ -1,5 +1,6 @@
 package inftel.easyprojectandroid.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,11 +25,13 @@ import inftel.easyprojectandroid.model.ComentarioComparator;
 public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerViewCommentAdapter.ViewHolder>
 {
     private ArrayList<Comentario> commentList;
+    private Context context;
 
-    public RecyclerViewCommentAdapter(ArrayList<Comentario> commentList) {
+    public RecyclerViewCommentAdapter(ArrayList<Comentario> commentList, Context context) {
 
         Collections.sort(commentList, new ComentarioComparator());
         this.commentList = commentList;
+        this.context = context;
 
     }
 
@@ -52,7 +55,8 @@ public class RecyclerViewCommentAdapter extends RecyclerView.Adapter<RecyclerVie
         if(commentList.get(position).getTexto().contains("Ha subido el fichero:"))
         {
             String file=commentList.get(position).getTexto();
-            holder.commentUsers.loadData(file.replace("localhost","192.168.183.76"), "text/html; charset=UTF-8", null);
+            String ip = context.getResources().getString(R.string.download_ip);
+            holder.commentUsers.loadData(file.replace("localhost",ip), "text/html; charset=UTF-8", null);
         }
         else {
             holder.commentUsers.loadData(commentList.get(position).getTexto(), "text/plain; charset=UTF-8", null);

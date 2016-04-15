@@ -41,6 +41,7 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
 
     //Menu
     private Menu menu;
+    private Bundle projectBundle;
 
 
     @Override
@@ -49,11 +50,14 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
         setContentView(R.layout.activity_info_project);
 
         // Recuperamos parámetros
-        idProject = getIntent().getStringExtra("idProject");
-        idDirector = getIntent().getStringExtra("idDirector");
         idUsuario = String.valueOf(EasyProjectApp.getInstance().getUser().getIdUsuario());
-        proyectNumUsers = getIntent().getIntExtra("proyectNumUsers", 0);
-        proyectName = getIntent().getStringExtra("proyectName");
+        projectBundle = getIntent().getBundleExtra("projectData");
+        if (projectBundle != null) {
+            idProject = projectBundle.getString("idProject");
+            idDirector = projectBundle.getString("idDirector");
+            proyectNumUsers = projectBundle.getInt("projectNumUsers", 0);
+            proyectName = projectBundle.getString("projectName");
+        }
 
         //peticiones e inicializaciones
         projectService = new ProjectService(this, this);
@@ -157,6 +161,7 @@ public class InfoProjectActivity extends AppCompatActivity implements ServiceLis
 
     private void showEditProjectFragment() {
         EditProjectFragment editProjectFragment = new EditProjectFragment();
+        editProjectFragment.setArguments(projectBundle);
         project.setNombreP(proyectName);
         editProjectFragment.setProject(project);
         editProjectFragment.setEmails(emails);

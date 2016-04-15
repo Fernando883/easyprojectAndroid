@@ -58,6 +58,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
 
     //Envío de datos al servidor
     private ProjectService projectService;
+    private Bundle projectBundle;
 
 
 
@@ -67,8 +68,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
         setHasOptionsMenu(true);
 
         projectService = new ProjectService(getActivity(), this);
-
-
+        projectBundle = getArguments();
     }
 
 
@@ -130,8 +130,7 @@ public class EditProjectFragment extends Fragment implements ServiceListener{
 
             //vuelta a la vista de tareas
             Intent toViewProject = new Intent (getActivity(), ViewProjectTabActivity.class);
-            toViewProject.putExtra("idProject", project.getIdProyect());
-            toViewProject.putExtra("proyectName", project.getNombreP());
+            toViewProject.putExtra("projectData", projectBundle);
             startActivity(toViewProject);
 
         } catch (JSONException e) {

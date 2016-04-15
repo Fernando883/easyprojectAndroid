@@ -47,9 +47,10 @@
     <string name="ic_action_chat">Chat</string>
 
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.1.114:8080</string>
+    <string name="server_ip">http://192.168.1.2:8080</string>
     <string name="server_path">/EasyProject_RestFull/webresources/</string>
-    <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
+    <string name="websocket">ws://192.168.1.2:8080/EasyProject-war/actions/</string>
+    <string name="download_ip">192.168.1.2</string>
 
     <!--edit project-->
     <string name="edit">Edit</string>

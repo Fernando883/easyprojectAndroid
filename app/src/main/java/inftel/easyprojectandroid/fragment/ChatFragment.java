@@ -52,8 +52,10 @@ public class ChatFragment extends Fragment {
     }
 
     public void update() {
-        adapter.notifyDataSetChanged();
-        layoutManager.scrollToPosition(messageList.size() - 1);
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+            layoutManager.scrollToPosition(messageList.size() - 1);
+        }
     }
 
     // Gestión del scroll cuando se abre el teclado

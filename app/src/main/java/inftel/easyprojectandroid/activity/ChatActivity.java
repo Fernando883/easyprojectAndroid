@@ -41,6 +41,7 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
     private ArrayList<Message> messageList;
     private ProjectService projectService;
     private boolean bdRequestFinished = false;
+    private boolean wsConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,12 +122,11 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
             @Override
             public void onOpen(ServerHandshake handshakedata) {
                 Log.e("Websocket", "Opened ");
-
+                wsConnected = true;
             }
 
             @Override
             public void onMessage(String m) {
-                Log.e("Websocket", "OnMessage");
                 Gson gson = new Gson();
                 Message message = gson.fromJson(m, Message.class);
 
@@ -161,11 +161,12 @@ public class ChatActivity extends AppCompatActivity implements ServiceListener {
         msg.photoURL = currentUser.getImgUrl();
         msg.email = currentUser.getEmail();
         Gson gson = new Gson();
-        socketClient.send(gson.toJson(msg));
+        if (wsConnected)
+            socketClient.send(gson.toJson(msg));
     }
 
     private void showChatFragment(ArrayList<Message> messageList) {
-        if (this.messageList == null)
+        if (this.messageList.size() == 0)
             this.messageList = messageList;
         chatFragment = new ChatFragment();
         chatFragment.setMessageList(this.messageList);

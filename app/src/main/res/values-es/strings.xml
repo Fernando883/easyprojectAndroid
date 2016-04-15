@@ -47,9 +47,10 @@
     <string name="ic_action_chat">Chat</string>
 
     <!-- Server DATA -->
-    <string name="server_ip">http://192.168.1.114:8080</string>
+    <string name="server_ip">http://192.168.1.2:8080</string>
     <string name="server_path">/EasyProject_RestFull/webresources/</string>
-    <string name="websocket">ws://192.168.1.139:8080/EasyProject-war/actions/</string>
+    <string name="websocket">ws://192.168.1.2:8080/EasyProject-war/actions/</string>
+    <string name="download_ip">192.168.1.2</string>
 
     <!--edit project-->
     <string name="edit">Editar</string>
@@ -75,9 +76,9 @@
     <string name="questionDelete">¿Realmente desea borrar </string>
 
     <!--edit task-->
-    <string name="task_members">Task members</string>
-    <string name="task_status">Task status</string>
-    <string name="newmemberstask">Add new task members</string>
+    <string name="task_members">Miembros de la tarea</string>
+    <string name="task_status">Estado de la tarea</string>
+    <string name="newmemberstask">Añadir nuevos miembros</string>
 
     <!-- ChatActivity -->
     <string name="write_message">Escribe un mensaje...</string>

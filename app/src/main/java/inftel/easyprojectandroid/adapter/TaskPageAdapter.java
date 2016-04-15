@@ -3,7 +3,6 @@ package inftel.easyprojectandroid.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +26,6 @@ public class TaskPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.e("getItem", String.valueOf(position));
-
         TaskListFragment taskListFragment = new TaskListFragment();
         List<Tarea> filterTask;
         if (position == 0)

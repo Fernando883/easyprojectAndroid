@@ -8,12 +8,10 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -29,7 +27,6 @@ import inftel.easyprojectandroid.interfaces.ServiceListener;
 import inftel.easyprojectandroid.model.EasyProjectApp;
 import inftel.easyprojectandroid.model.Proyecto;
 import inftel.easyprojectandroid.model.Tarea;
-import inftel.easyprojectandroid.model.Usuario;
 import inftel.easyprojectandroid.service.ProjectService;
 import inftel.easyprojectandroid.service.TaskService;
 
@@ -41,6 +38,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
     private String idProject;
     ArrayList<String> emails = new ArrayList<String>();
     Tarea newTask = new Tarea();
+    private Bundle projectBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +50,8 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
 
         projectService = new ProjectService(this, this);
         taskService = new TaskService(this, this);
-        idProject = getIntent().getStringExtra("idProject");
+        projectBundle = getIntent().getBundleExtra("projectData");
+        idProject = projectBundle.getString("idProject");
 
         projectService.getUsersEmailProject(idProject);
 
@@ -118,7 +117,7 @@ public class NewTaskActivity extends AppCompatActivity implements AdapterView.On
             jsonObject.put("listEmails", text1.getText().toString());
 
             Intent toViewProjectTabActivity = new Intent (this, ViewProjectTabActivity.class);
-            toViewProjectTabActivity.putExtra("idProject", Long.valueOf(idProject));
+            toViewProjectTabActivity.putExtra("projectData", projectBundle);
             startActivity(toViewProjectTabActivity);
 
             taskService.postTask(jsonObject);

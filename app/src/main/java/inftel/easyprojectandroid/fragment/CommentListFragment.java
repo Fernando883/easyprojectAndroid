@@ -44,7 +44,7 @@ public class CommentListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_comment_list, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.commentRecyclerView);
-        adapter = new RecyclerViewCommentAdapter(commentList);
+        adapter = new RecyclerViewCommentAdapter(commentList, getContext());
         layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.scrollToPosition(commentList.size() - 1);
