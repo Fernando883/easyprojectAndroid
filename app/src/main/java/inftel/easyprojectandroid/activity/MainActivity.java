@@ -208,7 +208,12 @@ public class MainActivity extends AppCompatActivity
     private void showProjectListFragment(ArrayList<Proyecto> projectList) {
         ProjectListFragment projectListFragment = new ProjectListFragment();
         projectListFragment.setProjectList(projectList);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, projectListFragment).commit();
+        try {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, projectListFragment).commit();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

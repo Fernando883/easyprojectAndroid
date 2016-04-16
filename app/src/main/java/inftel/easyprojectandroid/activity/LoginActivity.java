@@ -55,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build());
 
+        EasyProjectApp.getInstance().getGoogleApiClient().connect();
+
         if (!email.equals("")){
             Usuario user = new Usuario();
             user.setIdUsuario(idUsuario);
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onStart(){
         super.onStart();
-        EasyProjectApp.getInstance().getGoogleApiClient().connect();
+
     }
 
     @Override
@@ -137,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         Intent loginIntent = new Intent(this, MainActivity.class);
         startActivity(loginIntent);
-        //finish();
+        finish();
 
     }
 
